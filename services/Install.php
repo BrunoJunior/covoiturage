@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace covoiturage\pages;
+namespace covoiturage\services;
 
 use covoiturage\classes\abstraites\Service;
 use covoiturage\classes\metier\User as UserBO;
@@ -28,12 +28,6 @@ class Install extends Service {
         GroupBO::install();
         PassagerBO::install();
         UserGroupBO::install();
-
-        echo 'Installation terminée !';
-    }
-
-    public function getTitre() {
-        return 'Installation';
     }
 
 }

@@ -8,14 +8,14 @@
 
 namespace covoiturage\pages;
 
-use covoiturage\classes\abstraites\Service;
+use covoiturage\classes\abstraites\ServiceVue;
 
 /**
  * Description of 404
  *
  * @author bruno
  */
-class Err404 extends Service {
+class Err404 extends ServiceVue {
     public function executerService() {
         echo '<div id="404" class="bg-danger text-center">';
         echo '<h3>Page inconnue !</h3>';

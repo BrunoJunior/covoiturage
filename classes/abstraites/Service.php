@@ -11,6 +11,7 @@ namespace covoiturage\classes\abstraites;
 use covoiturage\utils\HString;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\Cache;
+use Exception;
 
 /**
  * Description of Service
@@ -19,84 +20,53 @@ use covoiturage\utils\Cache;
  */
 abstract class Service {
 
-    private $jsFiles = [];
-    private $cssFiles = [];
+    private $reponse;
 
-    /**
-     * @return string Titre de la page
-     */
-    public abstract function getTitre();
+    public function __construct() {
+        $this->reponse = new \stdClass();
+    }
+
+    protected function addResponseItem($key, $value) {
+        if (is_object($this->reponse)) {
+            $this->reponse->$key = $value;
+        }
+    }
+
+    protected function setResponse($reponse) {
+        $this->reponse = $reponse;
+    }
 
     public abstract function executerService();
 
     public function executer() {
-        $this->addJs($this->getName());
-        $this->addCss($this->getName());
         ob_start();
-        $err = FALSE;
+        $retour = new \stdClass();
+        $retour->isErr = FALSE;
+        $retour->message = 'OK';
         HDatabase::openTransaction();
         try {
             $this->executerService();
-            echo ob_get_clean();
+            $retour->reponse = $this->reponse;
         } catch (Exception $exc) {
-            $err = TRUE;
-            echo '<div class="alert alert-danger" role="alert">';
-            echo 'Doh! ' . $exc->getTraceAsString();
-            echo '</div>';
+            $retour->message = $exc->getMessage();
+            $retour->trace = $exc->getTraceAsString();
         }
-        HDatabase::closeTransaction($err);
-        $this->insertJs();
-        $this->insertCss();
-    }
-
-    protected function addJs($filename) {
-        $filePath = $this->getDirname() . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $filename . '.js';
-        if (file_exists($filePath)) {
-            $this->jsFiles[] = $filePath;
-        }
-    }
-
-    protected function addCss($filename) {
-        $filePath = $this->getDirname() . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . $filename . '.css';
-        if (file_exists($filePath)) {
-            $this->cssFiles[] = $filePath;
-        }
+        echo json_encode($retour);
+        HDatabase::closeTransaction($retour->isErr);
     }
 
     public function getName() {
         return HString::getClassnameWithoutNamespace($this);
     }
-
-    private function getDirname() {
+    
+    protected function getDirname() {
         $classname = get_called_class();
         $path = HString::getNamespacedClassPath($classname, 'covoiturage\\');
         return dirname($path);
     }
-
-    protected function getJsDirname() {
-        $this->getDirname() . DIRECTORY_SEPARATOR . 'js';
-    }
-
-    protected function getCssDirname() {
-        $this->getDirname() . DIRECTORY_SEPARATOR . 'js';
-    }
-
-    private function insertJs() {
-        foreach ($this->jsFiles as $file) {
-            echo "\n<script type=\"text/javascript\" >\n";
-            echo "$(document).ready(function(){\n";
-            include $file;
-            echo "\n});";
-            echo "\n</script>\n";
-        }
-    }
-
-    private function insertCss() {
-        foreach ($this->cssFiles as $file) {
-            echo "\n<style type='text/css' media='all'>\n";
-            include $file;
-            echo "\n</style>\n";
-        }
+    
+    protected static function getExtension() {
+        return 'serv';
     }
 
     public static function getUrl($id = NULL, $params = []) {
@@ -110,7 +80,7 @@ abstract class Service {
         if (!empty($id)) {
             $url .= $id . '/';
         }
-        $url .= strtolower($className[3]) .'.html';
+        $url .= strtolower($className[3]) . '.' . static::getExtension();
         if (!empty($params)) {
             $url .= '?';
             foreach ($params as $key => $value) {

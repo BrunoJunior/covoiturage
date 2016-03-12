@@ -1,0 +1,10 @@
+ERROR - [2016-03-12 23:59:04]NOTICE [8] Undefined variable: serv
+Notice à la ligne 18du fichier C:\Users\bruno.THALASSA\Documents\Perso\git\covoiturage\index.php
+
+ERROR - [2016-03-12 23:59:04][Error] trapée dans handleShutdown file:C:\Users\bruno.THALASSA\Documents\Perso\git\covoiturage\classes\abstraites\ServiceVue.php | ln:31 | msg:Class 'covoiturage\classes\abstraites\HDatabase' not found
+
+ERROR - [2016-03-12 23:59:36]NOTICE [8] Undefined variable: serv
+Notice à la ligne 18du fichier C:\Users\bruno.THALASSA\Documents\Perso\git\covoiturage\index.php
+
+ERROR - [2016-03-12 23:59:45][Error] trapée dans handleShutdown file:C:\Users\bruno.THALASSA\Documents\Perso\git\covoiturage\classes\abstraites\ServiceVue.php | ln:31 | msg:Class 'covoiturage\classes\abstraites\HDatabase' not found
+

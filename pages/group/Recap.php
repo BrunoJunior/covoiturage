@@ -8,7 +8,7 @@
 
 namespace covoiturage\pages\group;
 
-use covoiturage\classes\abstraites\Service;
+use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\classes\presentation\Group;
 use covoiturage\utils\HRequete;
 
@@ -17,7 +17,7 @@ use covoiturage\utils\HRequete;
  *
  * @author bruno
  */
-class Recap extends Service {
+class Recap extends ServiceVue {
 
     public function executerService() {
         echo "<div id='cov-group-recap'>

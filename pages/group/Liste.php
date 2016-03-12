@@ -8,7 +8,7 @@
 
 namespace covoiturage\pages\group;
 
-use covoiturage\classes\abstraites\Service;
+use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\classes\presentation\Group;
 
 /**
@@ -16,7 +16,7 @@ use covoiturage\classes\presentation\Group;
  *
  * @author bruno
  */
-class Liste extends Service {
+class Liste extends ServiceVue {
 
     public function executerService() {
         $groups = Group::getListe();

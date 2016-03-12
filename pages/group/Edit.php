@@ -8,7 +8,7 @@
 
 namespace covoiturage\pages\group;
 
-use covoiturage\classes\abstraites\Service;
+use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\utils\HRequete;
 use covoiturage\classes\presentation\Group as GroupBP;
 use covoiturage\classes\metier\User as UserBO;
@@ -19,7 +19,7 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
  *
  * @author bruno
  */
-class Edit extends Service {
+class Edit extends ServiceVue {
 
     /**
      * Groupe lié
