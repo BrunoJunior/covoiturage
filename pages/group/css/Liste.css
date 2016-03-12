@@ -1,0 +1,36 @@
+#cov-group-list .cov-group{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #31b0d5;
+    padding: 5px;
+    margin: 5px;
+    min-height: 200px;
+    text-align: center;
+}
+
+#cov-group-list .cov-group h3{
+    margin: 0px;
+    text-align: center;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+#cov-group-list .cov-group hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#cov-group-list .add-group{
+    text-align: center;
+    color: whitesmoke;
+}
+#cov-group-list .add-group span.glyphicon{
+    padding-top: 45px;
+    font-size:  42px;
+}
+#cov-group-list .add-group a{
+    color: white;
+}
+#cov-group-list .add-group a:hover{
+    color: #204d74;
+}

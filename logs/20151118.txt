@@ -1,0 +1,34 @@
+DEBUG - [2015-11-18 08:39:35]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-11-18 08:39:35]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-11-18 08:39:35]Array
+(
+)
+
+DEBUG - [2015-11-18 08:39:35]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-11-18 08:39:35]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-11-18 08:39:35]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-11-18 08:39:35]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-11-18 08:39:35]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-11-18 08:39:35]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-11-18 08:39:35]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]
+DEBUG - [2015-11-18 22:10:00]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-11-18 22:10:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-11-18 22:10:00]Array
+(
+)
+
+DEBUG - [2015-11-18 22:10:00]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-11-18 22:10:00]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-11-18 22:10:00]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-11-18 22:10:00]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-11-18 22:10:00]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-11-18 22:10:00]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-11-18 22:10:00]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]

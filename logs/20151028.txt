@@ -1,0 +1,17 @@
+DEBUG - [2015-10-28 10:47:53]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-10-28 10:47:53]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-10-28 10:47:53]Array
+(
+)
+
+DEBUG - [2015-10-28 10:47:53]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-10-28 10:47:53]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-10-28 10:47:53]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-10-28 10:47:53]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-28 10:47:53]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-10-28 10:47:53]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-10-28 10:47:53]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]

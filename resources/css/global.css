@@ -1,0 +1,31 @@
+html, body {
+    height: 100%;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eddede+1,b2b2b2+22,b2b2b2+76,eddede+100 */
+    background: #eddede; /* Old browsers */
+    background: -moz-linear-gradient(left,  #eddede 1%, #b2b2b2 22%, #b2b2b2 76%, #eddede 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(1%,#eddede), color-stop(22%,#b2b2b2), color-stop(76%,#b2b2b2), color-stop(100%,#eddede)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #eddede 1%,#b2b2b2 22%,#b2b2b2 76%,#eddede 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #eddede 1%,#b2b2b2 22%,#b2b2b2 76%,#eddede 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #eddede 1%,#b2b2b2 22%,#b2b2b2 76%,#eddede 100%); /* IE10+ */
+    background: linear-gradient(to right,  #eddede 1%,#b2b2b2 22%,#b2b2b2 76%,#eddede 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eddede', endColorstr='#eddede',GradientType=1 ); /* IE6-9 */
+}
+
+.container {
+    box-shadow: 1px 1px 12px #555;
+    min-height: 100%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+}
+
+.bs-docs-nav {
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+
+#main-page {
+    padding-top: 20px;
+}

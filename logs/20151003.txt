@@ -1,0 +1,168 @@
+DEBUG - [2015-10-03 16:12:35]Debut chargerPar id. Params : "5"
+DEBUG - [2015-10-03 16:12:35]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group` WHERE id = ?
+)
+
+DEBUG - [2015-10-03 16:12:35]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2015-10-03 16:12:35]Requete chargerPar SELECT * FROM `group` WHERE id = ?
+DEBUG - [2015-10-03 16:12:35]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-10-03 16:12:35]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-03 16:12:35]Fin chargerPar id. Resultat : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-03 16:12:35]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2015-10-03 16:12:35]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2015-10-03 16:12:35]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2015-10-03 16:12:35]Debut chargerFromLigne {"id":"1","0":"1","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2015-10-03 16:12:35]Fin chargerFromLigne : {"user_id":"5","group_id":"5","id":"1"}
+DEBUG - [2015-10-03 16:12:35]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","id":"1"}]
+DEBUG - [2015-10-03 16:12:35]Debut chargerPar id. Params : "5"
+DEBUG - [2015-10-03 16:12:35]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2015-10-03 16:12:35]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2015-10-03 16:12:35]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2015-10-03 16:12:35]Fin chargerPar id. Resultat : {"nom":null,"prenom":null,"tel":null,"email":null,"id":null}
+DEBUG - [2015-10-03 18:01:08]Debut chargerPar id. Params : ""
+DEBUG - [2015-10-03 18:01:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group` WHERE id = ?
+)
+
+DEBUG - [2015-10-03 18:01:08]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:01:08]Requete chargerPar SELECT * FROM `group` WHERE id = ?
+DEBUG - [2015-10-03 18:01:08]Fin chargerPar id. Resultat : {"nom":null,"id":null}
+DEBUG - [2015-10-03 18:01:08]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : [null]
+DEBUG - [2015-10-03 18:01:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2015-10-03 18:01:08]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:01:08]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : []
+DEBUG - [2015-10-03 18:02:03]Debut chargerPar id. Params : ""
+DEBUG - [2015-10-03 18:02:03]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group` WHERE id = ?
+)
+
+DEBUG - [2015-10-03 18:02:03]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:02:03]Requete chargerPar SELECT * FROM `group` WHERE id = ?
+DEBUG - [2015-10-03 18:02:03]Fin chargerPar id. Resultat : {"nom":null,"id":null}
+DEBUG - [2015-10-03 18:02:03]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : [null]
+DEBUG - [2015-10-03 18:02:03]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2015-10-03 18:02:03]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:02:03]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : []
+DEBUG - [2015-10-03 18:32:30]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-10-03 18:32:30]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-10-03 18:32:30]Array
+(
+)
+
+DEBUG - [2015-10-03 18:32:30]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-10-03 18:32:30]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-10-03 18:32:30]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-10-03 18:32:30]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-03 18:32:30]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-10-03 18:32:30]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-10-03 18:32:30]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]
+DEBUG - [2015-10-03 18:34:29]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-10-03 18:34:29]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-10-03 18:34:29]Array
+(
+)
+
+DEBUG - [2015-10-03 18:34:29]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-10-03 18:34:29]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-10-03 18:34:29]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-10-03 18:34:29]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-03 18:34:29]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-10-03 18:34:29]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-10-03 18:34:29]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]
+DEBUG - [2015-10-03 18:37:17]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2015-10-03 18:37:17]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2015-10-03 18:37:17]Array
+(
+)
+
+DEBUG - [2015-10-03 18:37:17]Debut chargerFromLigne {"id":"4","0":"4","nom":"Test","1":"Test"}
+DEBUG - [2015-10-03 18:37:17]Fin chargerFromLigne : {"nom":"Test","id":"4"}
+DEBUG - [2015-10-03 18:37:17]Debut chargerFromLigne {"id":"5","0":"5","nom":"Test2","1":"Test2"}
+DEBUG - [2015-10-03 18:37:17]Fin chargerFromLigne : {"nom":"Test2","id":"5"}
+DEBUG - [2015-10-03 18:37:17]Debut chargerFromLigne {"id":"6","0":"6","nom":"Test 3","1":"Test 3"}
+DEBUG - [2015-10-03 18:37:17]Fin chargerFromLigne : {"nom":"Test 3","id":"6"}
+DEBUG - [2015-10-03 18:37:17]Fin getListe SELECT * FROM `group`. Result : [{"nom":"Test","id":"4"},{"nom":"Test2","id":"5"},{"nom":"Test 3","id":"6"}]
+DEBUG - [2015-10-03 18:49:58]Debut chargerPar id. Params : ""
+DEBUG - [2015-10-03 18:49:58]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group` WHERE id = ?
+)
+
+DEBUG - [2015-10-03 18:49:58]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:49:58]Requete chargerPar SELECT * FROM `group` WHERE id = ?
+DEBUG - [2015-10-03 18:49:58]Fin chargerPar id. Resultat : {"nom":null,"id":null}
+DEBUG - [2015-10-03 18:49:58]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : [null]
+DEBUG - [2015-10-03 18:49:58]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2015-10-03 18:49:58]Array
+(
+    [0] => 
+)
+
+DEBUG - [2015-10-03 18:49:58]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : []
