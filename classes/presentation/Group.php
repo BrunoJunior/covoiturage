@@ -35,7 +35,7 @@ class Group extends GroupBO {
             if ($conUser->admin) {
                 $html .= '<a href="'. EditUser::getUrl($user->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
             }
-            $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur() . '</span>';
+            $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
         }
         $html .= '</div>';

@@ -20,6 +20,7 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
 use covoiturage\classes\metier\User as UserBO;
+use covoiturage\classes\metier\Group as GroupBO;
 
 /**
  * Description of User
@@ -80,10 +81,15 @@ class User extends ClasseTable {
      * Liste des covoiturage dont le conducteur est l'utilisateur
      * @return CovoiturageBO[]
      */
-    public function getListeCovoiturage() {
+    public function getListeCovoiturage($group = NULL) {
         $sql = Covoiturage::getSqlSelect();
         $sql .= ' WHERE conducteur_id = ?';
-        return Covoiturage::getListe($sql, [$this->id]);
+        $params = [$this->id];
+        if ($group instanceof GroupBO && $group->existe()) {
+            $sql .= ' AND group_id = ?';
+            $params[] = $group->id;
+        }
+        return Covoiturage::getListe($sql, $params);
     }
 
     /**

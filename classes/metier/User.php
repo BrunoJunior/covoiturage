@@ -17,8 +17,13 @@ use covoiturage\classes\dao\User as UserDAO;
  */
 class User extends UserDAO {
 
-    public function getNbVoyageConducteur() {
-        return count($this->getListeCovoiturage());
+    /**
+     * Nb de fois conducteur
+     * @param Group $group
+     * @return int
+     */
+    public function getNbVoyageConducteur($group = NULL) {
+        return count($this->getListeCovoiturage($group));
     }
     
     public function checkPassword($password) {
