@@ -28,6 +28,10 @@ class UserGroup extends ClasseTable {
      * @var integer
      */
     public $group_id;
+    /**
+     * @var boolean
+     */
+    public $group_admin;
 
     /**
      * Table user_group
@@ -36,6 +40,7 @@ class UserGroup extends ClasseTable {
         $champs[] = ChampTable::getPrimaire('id');
         $champs[] = ChampTable::getPersiste('user_id', 'int', true, true, 10);
         $champs[] = ChampTable::getPersiste('group_id', 'int', true, true, 10);
+        $champs[] = ChampTable::getPersiste('group_admin', 'tinyint', false, false, 1);
         return new Table('user_group', $champs);
     }
 
@@ -65,5 +70,19 @@ class UserGroup extends ClasseTable {
         } else {
             return $liste[0];
         }
+    }
+
+    protected function transformerValeurFromBdd($attribut, $value) {
+        if ($attribut == 'group_admin') {
+            return ($value == 1);
+        }
+        return parent::transformerValeurFromBdd($attribut, $value);
+    }
+
+    protected function transformerValeurPourBdd($attribut) {
+        if ($attribut == 'group_admin') {
+            return $this->$attribut ? 1 : 0;
+        }
+        return parent::transformerValeurPourBdd($attribut);
     }
 }

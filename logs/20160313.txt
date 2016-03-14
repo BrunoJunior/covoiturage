@@ -1816,3 +1816,1429 @@ DEBUG - [2016-03-13 00:36:55]Requete chargerPar SELECT * FROM `user` WHERE id = 
 DEBUG - [2016-03-13 00:36:55]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
 DEBUG - [2016-03-13 00:36:55]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"id":"10"}
 DEBUG - [2016-03-13 00:36:55]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"id":"10"}
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+)
+
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"user_id":"5","group_id":"5","id":"5"}
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"user_id":"6","group_id":"5","id":"6"}
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"user_id":"7","group_id":"5","id":"7"}
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"user_id":"10","group_id":"5","id":"10"}
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","id":"5"},{"user_id":"6","group_id":"5","id":"6"},{"user_id":"7","group_id":"5","id":"7"},{"user_id":"10","group_id":"5","id":"10"}]
+DEBUG - [2016-03-13 00:51:59]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 00:51:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"id":"5"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"id":"5"}
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 00:51:59]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 00:51:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"id":"6"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"id":"6"}
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 00:51:59]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 00:51:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"id":"7"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"id":"7"}
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 00:51:59]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 00:51:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 00:51:59]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 00:51:59]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"id":"10"}
+DEBUG - [2016-03-13 00:51:59]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"id":"10"}
+DEBUG - [2016-03-13 00:51:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 00:51:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 00:51:59]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 00:51:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:04]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 23:19:04]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 23:19:04]Array
+(
+)
+
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 23:19:04]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:04]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:04]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"user_id":"5","group_id":"5","group_admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"user_id":"6","group_id":"5","group_admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"user_id":"7","group_id":"5","group_admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"user_id":"10","group_id":"5","group_admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:04]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","group_admin":null,"id":"5"},{"user_id":"6","group_id":"5","group_admin":null,"id":"6"},{"user_id":"7","group_id":"5","group_admin":null,"id":"7"},{"user_id":"10","group_id":"5","group_admin":null,"id":"10"}]
+DEBUG - [2016-03-13 23:19:04]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 23:19:04]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:04]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:04]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:04]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:04]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:04]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:04]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:04]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:04]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 23:19:04]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:04]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:04]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:04]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:04]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+)
+
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"user_id":"5","group_id":"5","group_admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"user_id":"6","group_id":"5","group_admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"user_id":"7","group_id":"5","group_admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"user_id":"10","group_id":"5","group_admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","group_admin":null,"id":"5"},{"user_id":"6","group_id":"5","group_admin":null,"id":"6"},{"user_id":"7","group_id":"5","group_admin":null,"id":"7"},{"user_id":"10","group_id":"5","group_admin":null,"id":"10"}]
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:05]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:05]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:05]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:05]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:05]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:05]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 23:19:05]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:05]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:05]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+)
+
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"user_id":"5","group_id":"5","group_admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"user_id":"6","group_id":"5","group_admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"user_id":"7","group_id":"5","group_admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"user_id":"10","group_id":"5","group_admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","group_admin":null,"id":"5"},{"user_id":"6","group_id":"5","group_admin":null,"id":"6"},{"user_id":"7","group_id":"5","group_admin":null,"id":"7"},{"user_id":"10","group_id":"5","group_admin":null,"id":"10"}]
+DEBUG - [2016-03-13 23:19:08]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:08]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:08]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:08]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:08]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:08]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:08]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:08]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:08]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:08]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:08]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:08]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 23:19:08]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:08]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:08]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+)
+
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"user_id":"5","group_id":"5","group_admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"user_id":"6","group_id":"5","group_admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"user_id":"7","group_id":"5","group_admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"user_id":"10","group_id":"5","group_admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","group_admin":null,"id":"5"},{"user_id":"6","group_id":"5","group_admin":null,"id":"6"},{"user_id":"7","group_id":"5","group_admin":null,"id":"7"},{"user_id":"10","group_id":"5","group_admin":null,"id":"10"}]
+DEBUG - [2016-03-13 23:19:59]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:59]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:59]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:19:59]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:59]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:19:59]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null}
+DEBUG - [2016-03-13 23:19:59]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:59]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:19:59]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 23:19:59]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:19:59]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:19:59]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => user
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => nom
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `nom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => prenom
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `prenom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => tel
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `tel` varchar(16)
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => email
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `email` varchar(128)
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => password
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` ADD `password` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => admin
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` ADD `admin` tinyint(1)
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => covoiturage
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => group_id
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `group_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => conducteur_id
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `conducteur_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => date
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `date` datetime NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => group
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => nom
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `group` MODIFY `nom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => passager
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `passager` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => user_id
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `passager` MODIFY `user_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `passager` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => covoiturage_id
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `passager` MODIFY `covoiturage_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => user_group
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:42]Array
+(
+    [0] => user_id
+)
+
+DEBUG - [2016-03-13 23:20:42]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` MODIFY `user_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:42]
+DEBUG - [2016-03-13 23:20:43]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:43]Array
+(
+    [0] => group_id
+)
+
+DEBUG - [2016-03-13 23:20:43]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` MODIFY `group_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:20:43]
+DEBUG - [2016-03-13 23:20:43]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:20:43]Array
+(
+    [0] => group_id
+)
+
+DEBUG - [2016-03-13 23:20:43]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` MODIFY `group_id` tinyint(1)
+)
+
+DEBUG - [2016-03-13 23:20:43]
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `group`. Params : []
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `group`
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+)
+
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"5","0":"5","nom":"H\u00e9ric - St Herblain","1":"H\u00e9ric - St Herblain"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"nom":"H\u00e9ric - St Herblain","id":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `group`. Result : [{"nom":"H\u00e9ric - St Herblain","id":"5"}]
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `user_group` WHERE group_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user_group` WHERE group_id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"5","0":"5","user_id":"5","1":"5","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"user_id":"5","group_id":"5","group_admin":null,"id":"5"}
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"6","0":"6","user_id":"6","1":"6","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"user_id":"6","group_id":"5","group_admin":null,"id":"6"}
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"7","0":"7","user_id":"7","1":"7","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"user_id":"7","group_id":"5","group_admin":null,"id":"7"}
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"10","0":"10","user_id":"10","1":"10","group_id":"5","2":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"user_id":"10","group_id":"5","group_admin":null,"id":"10"}
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `user_group` WHERE group_id = ?. Result : [{"user_id":"5","group_id":"5","group_admin":null,"id":"5"},{"user_id":"6","group_id":"5","group_admin":null,"id":"6"},{"user_id":"7","group_id":"5","group_admin":null,"id":"7"},{"user_id":"10","group_id":"5","group_admin":null,"id":"10"}]
+DEBUG - [2016-03-13 23:21:00]Debut chargerPar id. Params : "5"
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:21:00]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"5","0":"5","nom":"Desprez","1":"Desprez","prenom":"Bruno","2":"Bruno","tel":null,"3":null,"email":null,"4":null,"password":"","5":"","admin":null,"6":null}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":false,"id":"5"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerPar id. Resultat : {"nom":"Desprez","prenom":"Bruno","tel":null,"email":null,"admin":false,"id":"5"}
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["5"]
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 5
+)
+
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:21:00]Debut chargerPar id. Params : "6"
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:21:00]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"6","0":"6","nom":"Br\u00e9heret","1":"Br\u00e9heret","prenom":"Thomas","2":"Thomas","tel":null,"3":null,"email":null,"4":null,"password":"","5":"","admin":null,"6":null}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":false,"id":"6"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerPar id. Resultat : {"nom":"Br\u00e9heret","prenom":"Thomas","tel":null,"email":null,"admin":false,"id":"6"}
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["6"]
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 6
+)
+
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:21:00]Debut chargerPar id. Params : "7"
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:21:00]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"7","0":"7","nom":"Rabu-Bihan","1":"Rabu-Bihan","prenom":"Sophie","2":"Sophie","tel":null,"3":null,"email":null,"4":null,"password":"","5":"","admin":null,"6":null}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":false,"id":"7"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerPar id. Resultat : {"nom":"Rabu-Bihan","prenom":"Sophie","tel":null,"email":null,"admin":false,"id":"7"}
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["7"]
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 7
+)
+
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:21:00]Debut chargerPar id. Params : "10"
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `user` WHERE id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:21:00]Requete chargerPar SELECT * FROM `user` WHERE id = ?
+DEBUG - [2016-03-13 23:21:00]Debut chargerFromLigne {"id":"10","0":"10","nom":"Sellier","1":"Sellier","prenom":"Jean-Philippe","2":"Jean-Philippe","tel":null,"3":null,"email":null,"4":null,"password":"","5":"","admin":null,"6":null}
+DEBUG - [2016-03-13 23:21:00]Fin chargerFromLigne : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":false,"id":"10"}
+DEBUG - [2016-03-13 23:21:00]Fin chargerPar id. Resultat : {"nom":"Sellier","prenom":"Jean-Philippe","tel":null,"email":null,"admin":false,"id":"10"}
+DEBUG - [2016-03-13 23:21:00]Debut getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Params : ["10"]
+DEBUG - [2016-03-13 23:21:00]PDOStatement Object
+(
+    [queryString] => SELECT * FROM `covoiturage` WHERE conducteur_id = ?
+)
+
+DEBUG - [2016-03-13 23:21:00]Array
+(
+    [0] => 10
+)
+
+DEBUG - [2016-03-13 23:21:00]Fin getListe SELECT * FROM `covoiturage` WHERE conducteur_id = ?. Result : []
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => user
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => nom
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `nom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => prenom
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `prenom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => tel
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `tel` varchar(16)
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => email
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `email` varchar(128)
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => password
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `password` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => admin
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user` MODIFY `admin` tinyint(1)
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => covoiturage
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => group_id
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `group_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => conducteur_id
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `conducteur_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `covoiturage` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => date
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `covoiturage` MODIFY `date` datetime NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => group
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => nom
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `group` MODIFY `nom` varchar(128) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => passager
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `passager` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => user_id
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `passager` MODIFY `user_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `passager` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => covoiturage_id
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `passager` MODIFY `covoiturage_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW TABLES LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => user_group
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:48]Array
+(
+    [0] => user_id
+)
+
+DEBUG - [2016-03-13 23:22:48]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` MODIFY `user_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:48]
+DEBUG - [2016-03-13 23:22:49]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:49]Array
+(
+    [0] => group_id
+)
+
+DEBUG - [2016-03-13 23:22:49]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` MODIFY `group_id` int(10) NOT NULL
+)
+
+DEBUG - [2016-03-13 23:22:49]
+DEBUG - [2016-03-13 23:22:49]PDOStatement Object
+(
+    [queryString] => SHOW COLUMNS FROM `user_group` LIKE ?
+)
+
+DEBUG - [2016-03-13 23:22:49]Array
+(
+    [0] => group_admin
+)
+
+DEBUG - [2016-03-13 23:22:49]PDOStatement Object
+(
+    [queryString] => ALTER TABLE `user_group` ADD `group_admin` tinyint(1)
+)
+
+DEBUG - [2016-03-13 23:22:49]

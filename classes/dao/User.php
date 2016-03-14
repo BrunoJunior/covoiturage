@@ -41,6 +41,14 @@ class User extends ClasseTable {
      * @var string
      */
     public $email;
+    /**
+     * @var string
+     */
+    protected $password;
+    /**
+     * @var boolean
+     */
+    public $admin;
 
     /**
      * Table user
@@ -51,6 +59,8 @@ class User extends ClasseTable {
         $champs[] = ChampTable::getPersiste('prenom', 'varchar', true, true, 128);
         $champs[] = ChampTable::getPersiste('tel', 'varchar', false, false, 16);
         $champs[] = ChampTable::getPersiste('email', 'varchar', false, false, 128);
+        $champs[] = ChampTable::getPersiste('password', 'varchar', true, true, 128);
+        $champs[] = ChampTable::getPersiste('admin', 'tinyint', false, false, 1);
         return new Table('user', $champs);
     }
 
@@ -95,6 +105,39 @@ class User extends ClasseTable {
             return $user;
         } else {
             return $liste[0];
+        }
+    }
+
+    public static function connecter($email, $password) {
+        $sql = static::getSqlSelect();
+        $sql .= ' WHERE email = :email';
+        $liste = static::getListe($sql, [':email' => $email]);
+        if (!empty($liste)) {
+            foreach ($liste as $user) {
+                if (password_verify($password, $user->password)) {
+                    $_SESSION['user_email'] = $email;
+                    $_SESSION['user_password'] = $password;
+                    $_SESSION['user_id'] = $user->id;
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    protected function transformerValeurFromBdd($attribut, $value) {
+        if ($attribut == 'admin') {
+            return ($value == 1);
+        }
+        return parent::transformerValeurFromBdd($attribut, $value);
+    }
+
+    protected function transformerValeurPourBdd($attribut) {
+        switch ($attribut) {
+            case 'admin':
+                return $this->$attribut ? 1 : 0;
+            default:
+                return parent::transformerValeurPourBdd($attribut);
         }
     }
 }

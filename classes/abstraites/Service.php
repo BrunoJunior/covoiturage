@@ -90,4 +90,8 @@ abstract class Service {
         return $url;
     }
 
+    public function isSecurised() {
+        return TRUE;
+    }
+
 }

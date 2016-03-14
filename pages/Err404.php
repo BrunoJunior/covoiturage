@@ -26,4 +26,7 @@ class Err404 extends ServiceVue {
         return 'Erreur 404';
     }
 
+    public function isSecurised() {
+        return FALSE;
+    }
 }

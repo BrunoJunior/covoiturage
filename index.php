@@ -1,11 +1,14 @@
 <?php
 require __DIR__ . '/autoload.php';
+require __DIR__ . '/lib/password.php';
 $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
 covoiturage\utils\Cache::add('', 'root', $root);
 $service = covoiturage\utils\HRequete::getGET('service');
 $serviceName = "\\covoiturage\\";
+$page = '';
 if (empty($service)) {
-    $service = covoiturage\utils\HRequete::getGET('page', 'liste');
+    $page = covoiturage\utils\HRequete::getGET('page', 'liste');
+    $service = $page;
     $group = covoiturage\utils\HRequete::getGET('pagegroup', 'group');
     $serviceName .= "pages\\";
 } else {
@@ -20,7 +23,20 @@ $serviceName .= ucfirst($service);
 if (!class_exists($serviceName)) {
     $serviceName = "\\covoiturage\\pages\\Err404";
 }
+
 $serviceInstance = new $serviceName();
+
+// Toutes les pages, exceptée celle de login sont soumisent à connexion
+if ($serviceInstance->isSecurised()) {
+    session_start();
+    if (!isset($_SESSION['user_email']) ||
+            !isset($_SESSION['user_password']) ||
+            !\covoiturage\classes\metier\User::connecter($_SESSION['user_email'], $_SESSION['user_password'])) {
+        $serviceInstance = new covoiturage\pages\user\Login();
+    }
+}
+
+
 covoiturage\utils\HRequete::setGetToPost();
 
 if (!($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue)) {
@@ -48,7 +64,7 @@ if (!($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue)) {
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container">
                     <img src="<?php echo $root; ?>resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
-                    <h1 class="text-center"><span class="label label-default">Appli de gestion de co-voiturage</span></h1>
+                    <h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>
                     <hr />
                     <h3 class="text-center"><span class="label label-info"><?php echo $serviceInstance->getTitre(); ?></span></h3>
                 </div>
