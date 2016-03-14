@@ -15,6 +15,7 @@ use covoiturage\pages\group\Recap;
 use covoiturage\pages\group\Trajet;
 use covoiturage\utils\HSession;
 use covoiturage\pages\user\Edit as EditUser;
+use covoiturage\classes\metier\User;
 
 /**
  * Description of Group
@@ -91,10 +92,17 @@ class Group extends GroupBO {
         }
 
         $html .= '<div class="form-group">
-                      <label for="select-user1" class="col-sm-2 control-label">Co-voitureur existant</label>
+                      <label for="select_user1" class="col-sm-2 control-label">Co-voitureur existant</label>
                       <div class="col-sm-8">
-                        <select id="select-user1" name="select-user1" class="form-control">
-                        </select>
+                        <select id="select_user1" name="select_user1" class="form-control">
+                            <option value="" selected>Choisir un covoitureur</option>';
+
+        $userList = User::getListe();
+        foreach ($userList as $user) {
+            $html .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
+        }
+
+        $html .='       </select>
                       </div>
                       <div class="col-sm-2">
                         <span class="glyphicon glyphicon-plus-sign"></span>

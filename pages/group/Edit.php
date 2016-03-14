@@ -57,6 +57,21 @@ class Edit extends ServiceVue {
         if (HRequete::isParamPostPresent('submit')) {
             $this->group->nom = HRequete::getPOST('group_name');
             $this->group->merger();
+
+            $clesSelect = HRequete::getListeClePostCommencant('select_user');
+            foreach ($clesSelect as $cle) {
+                $id = HRequete::getPOST($cle);
+                if (empty($id)) {
+                    continue;
+                }
+                $user = new UserBO($id);
+                $userGroup = UserGroupBO::chargerParGroupeEtUser($this->group, $user);
+                if ($userGroup->existe()) {
+                    throw new Exception('L\'utilisateur ' . $prenom . ' ' . $nom . ' est déjà présent dans le groupe !');
+                }
+                $userGroup->merger();
+            }
+
             $clesNom = HRequete::getListeClePostCommencant('user_nom');
             foreach ($clesNom as $cle) {
                 $nom = HRequete::getPOST($cle);
