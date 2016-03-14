@@ -109,14 +109,14 @@ class User extends ClasseTable {
             return $liste[0];
         }
     }
-
+    
     public static function connecter($email, $password) {
         $sql = static::getSqlSelect();
         $sql .= ' WHERE email = :email';
         $liste = static::getListe($sql, [':email' => $email]);
         if (!empty($liste)) {
             foreach ($liste as $user) {
-                if (password_verify($password, $user->password)) {
+                if ($user->checkPassword($password)) {
                     HSession::setUser($user);
                     return TRUE;
                 }

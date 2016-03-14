@@ -52,22 +52,26 @@ class Edit extends ServiceVue {
      */
     private function traiterSubmit() {
         if (HRequete::isParamPostPresent('submit')) {
-            $this->group->nom = HRequete::getPOST('group_name');
-            $this->group->merger();
-            $clesNom = HRequete::getListeClePostCommencant('user_nom');
-            foreach ($clesNom as $cle) {
-                $nom = HRequete::getPOST($cle);
-                $prenom = HRequete::getPOST('user_prenom' . substr($cle, 8));
-                $user = UserBO::chargerParNomEtPrenom($nom, $prenom);
-                if (!$user->existe()) {
-                    $user->merger();
+            $this->user->email = HRequete::getPOSTObligatoire('email');
+            $this->user->prenom = HRequete::getPOSTObligatoire('prenom');
+            $this->user->nom = HRequete::getPOSTObligatoire('nom');
+            $this->user->tel = HRequete::getPOST('tel');
+            $this->user->admin = HRequete::getPOST('admin');
+
+            $newMdp = HRequete::getPOST('password', FALSE);
+            if ($newMdp) {
+                $oldPass = HRequete::getPOSTObligatoire('old_password');
+                $checkPass = HRequete::getPOSTObligatoire('password_check');
+                if (!$this->user->checkPassword($oldPass)) {
+                    throw new Exception('Ancien mot de passe incorrect !');
                 }
-                $userGroup = UserGroupBO::chargerParGroupeEtUser($this->group, $user);
-                if ($userGroup->existe()) {
-                    throw new Exception('L\'utilisateur ' . $prenom . ' ' . $nom . ' est déjà présent dans le groupe !');
+                if ($newMdp != $checkPass) {
+                    throw new Exception('Vous n\'avez pas re-saisi le même mot de passe !');
                 }
-                $userGroup->merger();
+                $this->user->setPassword($newMdp);
             }
+
+            $this->user->merger();
         }
     }
 

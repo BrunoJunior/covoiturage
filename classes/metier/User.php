@@ -20,4 +20,12 @@ class User extends UserDAO {
     public function getNbVoyageConducteur() {
         return count($this->getListeCovoiturage());
     }
+    
+    public function checkPassword($password) {
+        return password_verify($password, $this->password);
+    }
+
+    public function setPassword($password) {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
 }
