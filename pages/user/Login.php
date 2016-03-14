@@ -10,6 +10,7 @@ namespace covoiturage\pages\user;
 
 use covoiturage\classes\presentation\User as UserBP;
 use covoiturage\utils\HRequete;
+use covoiturage\pages\group\Liste as GroupList;
 
 /**
  * Description of Login
@@ -18,27 +19,22 @@ use covoiturage\utils\HRequete;
  */
 class Login extends \covoiturage\classes\abstraites\ServiceVue {
     public function executerService() {
-        $this->traiterSubmit();
-        echo UserBP::getConnexionForm();
-    }
-
-    public function getTitre() {
-        return 'Connexion';
-    }
-
-    /**
-     * Traitement du formulaire
-     */
-    private function traiterSubmit() {
         if (HRequete::isParamPostPresent('submit')) {
             $email = HRequete::getPOST('user_email');
             $password = HRequete::getPOST('user_password');
             if (UserBP::connecter($email, $password)) {
-                header ('location: /index.php');
+                $service = new GroupList();
+                $service->executer();
             } else {
                 throw new Exception('Identification incorrecte !');
             }
+        } else {
+            echo UserBP::getConnexionForm();
         }
+    }
+
+    public function getTitre() {
+        return 'Connexion';
     }
 
     public function isSecurised() {
