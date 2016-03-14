@@ -36,6 +36,10 @@ class Covoiturage extends ClasseTable {
      * @var string
      */
     public $date;
+    /**
+     * @var int
+     */
+    public $type;
 
     /**
      * Table covoiturages
@@ -45,6 +49,7 @@ class Covoiturage extends ClasseTable {
         $champs[] = ChampTable::getPersiste('group_id', 'int', true, true, 10);
         $champs[] = ChampTable::getPersiste('conducteur_id', 'int', true, true, 10);
         $champs[] = ChampTable::getPersiste('date', 'datetime', true, true);
+        $champs[] = ChampTable::getPersiste('type', 'tinyint', true, true, 1);
         return new Table('covoiturage', $champs);
     }
 
