@@ -13,6 +13,7 @@ use covoiturage\pages\group\Edit;
 use covoiturage\services\group\Remove;
 use covoiturage\pages\group\Recap;
 use covoiturage\pages\group\Trajet;
+use covoiturage\utils\HSession;
 
 /**
  * Description of Group
@@ -24,9 +25,12 @@ class Group extends GroupBO {
     public function getTuile() {
         $usergroups = $this->getListeUserGroup();
         $html = '<div class="cov-group col-md-3 col-sm-6 col-xs-12">';
-        $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> '
-                . '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'"><span class="glyphicon glyphicon-pencil"></span></a> '
-                . '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'"><span class="glyphicon glyphicon-remove"></span></a>';
+        $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
+        $user = HSession::getUser();
+        if ($user->admin || $this->isUserAdminGroup($user)) {
+            $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
+            $html .= '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'"><span class="glyphicon glyphicon-remove"></span></a>';
+        }
         $html .= '<hr />';
         foreach ($usergroups as $usergroup) {
             $user = $usergroup->getUser();

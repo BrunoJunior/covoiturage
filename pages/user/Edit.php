@@ -6,13 +6,11 @@
  * and open the template in the editor.
  */
 
-namespace covoiturage\pages\group;
+namespace covoiturage\pages\user;
 
 use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\utils\HRequete;
-use covoiturage\classes\presentation\Group as GroupBP;
-use covoiturage\classes\metier\User as UserBO;
-use covoiturage\classes\metier\UserGroup as UserGroupBO;
+use covoiturage\classes\presentation\User as UserBP;
 
 /**
  * Description of Add
@@ -22,23 +20,23 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
 class Edit extends ServiceVue {
 
     /**
-     * Groupe lié
-     * @var GroupBP
+     * Utilisateur lié
+     * @var UserBP
      */
-    private $group;
+    private $user;
 
     /**
      * Execution du service
      */
     public function executerService() {
         $id = HRequete::getPOST('id');
-        $this->group = new GroupBP($id);
+        $this->user = new UserBP($id);
         $user = $this->getUser();
-        if (!$this->group->isUserAdminGroup($user)) {
-            throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');
+        if (!$user->admin && !$this->user->id !== $user->id) {
+            throw new Exception('Vous n\'êtes pas autorisé à modifier cet utilisateur !');
         }
         $this->traiterSubmit();
-        echo $this->group->getForm();
+        echo $this->user->getForm();
     }
 
     /**
@@ -46,7 +44,7 @@ class Edit extends ServiceVue {
      * @return string
      */
     public function getTitre() {
-        return 'Création d\'un nouveau groupe';
+        return 'Gestion des utilisateurs';
     }
 
     /**

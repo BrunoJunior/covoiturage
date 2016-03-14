@@ -29,3 +29,10 @@ html, body {
 #main-page {
     padding-top: 20px;
 }
+
+a.btn.deconnexion,
+a.btn.account {
+    margin-left: 10px;
+    margin-top: 20px;
+    float: right;
+}

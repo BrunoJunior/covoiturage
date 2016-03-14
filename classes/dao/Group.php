@@ -15,6 +15,7 @@ use covoiturage\classes\abstraites\ClasseTable;
 
 // BO
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
+use covoiturage\classes\metier\User as UserBO;
 
 /**
  * Description of Group
@@ -44,5 +45,13 @@ class Group extends ClasseTable {
         $sql = UserGroup::getSqlSelect();
         $sql .= ' WHERE group_id = ?';
         return UserGroup::getListe($sql, [$this->id]);
+    }
+    
+    /**
+     * Liste des user d'un groupe
+     * @return UserGroupBO[]
+     */
+    public function getUserGroup(UserBO $user) {
+        return UserGroup::chargerParGroupeEtUser($this, $user);
     }
 }

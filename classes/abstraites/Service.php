@@ -12,6 +12,7 @@ use covoiturage\utils\HString;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\Cache;
 use Exception;
+use covoiturage\utils\HSession;
 
 /**
  * Description of Service
@@ -21,6 +22,8 @@ use Exception;
 abstract class Service {
 
     private $reponse;
+
+    private $user;
 
     public function __construct() {
         $this->reponse = new \stdClass();
@@ -92,6 +95,20 @@ abstract class Service {
 
     public function isSecurised() {
         return TRUE;
+    }
+
+    /**
+     * Utilisateur connecté
+     * @return \covoiturage\classes\metier\User
+     */
+    protected function getUser() {
+        if (!$this->isSecurised()) {
+            return NULL;
+        }
+        if ($this->user == NULL) {
+            $this->user = HSession::getUser();
+        }
+        return $this->user;
     }
 
 }

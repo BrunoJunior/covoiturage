@@ -20,14 +20,19 @@ class Liste extends ServiceVue {
 
     public function executerService() {
         $groups = Group::getListe();
+        $user = $this->getUser();
 
         echo "<div id='cov-group-list'>
                 <div class='row'> ";
 
         foreach ($groups as $group) {
-            echo $group->getTuile();
+            if ($group->isUserPresent($user)) {
+                echo $group->getTuile();
+            }
         }
-        echo Group::getTuileAdd();
+        if ($user->admin) {
+            echo Group::getTuileAdd();
+        }
 
         echo "  </div>
               </div>";

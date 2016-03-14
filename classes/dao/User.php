@@ -13,6 +13,8 @@ use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
 use covoiturage\classes\abstraites\ClasseTable;
 
+use covoiturage\utils\HSession;
+
 //DO
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
@@ -115,9 +117,7 @@ class User extends ClasseTable {
         if (!empty($liste)) {
             foreach ($liste as $user) {
                 if (password_verify($password, $user->password)) {
-                    $_SESSION['user_email'] = $email;
-                    $_SESSION['user_password'] = $password;
-                    $_SESSION['user_id'] = $user->id;
+                    HSession::setUser($user);
                     return TRUE;
                 }
             }

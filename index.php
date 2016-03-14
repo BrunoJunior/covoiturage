@@ -26,12 +26,10 @@ if (!class_exists($serviceName)) {
 
 $serviceInstance = new $serviceName();
 
-// Toutes les pages, exceptée celle de login sont soumisent à connexion
+// Accès sécurisé ?
 if ($serviceInstance->isSecurised()) {
     session_start();
-    if (!isset($_SESSION['user_email']) ||
-            !isset($_SESSION['user_password']) ||
-            !\covoiturage\classes\metier\User::connecter($_SESSION['user_email'], $_SESSION['user_password'])) {
+    if (!\covoiturage\utils\HSession::getUser()->existe()) {
         $serviceInstance = new covoiturage\pages\user\Login();
     }
 }
@@ -64,6 +62,12 @@ if (!($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue)) {
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container">
                     <img src="<?php echo $root; ?>resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
+                    <?php
+                        if (\covoiturage\utils\HSession::getUser()->existe()) {
+                            echo '<a class="btn btn-danger deconnexion" href="'.\covoiturage\services\user\Logout::getUrl().'" role="button"><span class="glyphicon glyphicon-log-out"></span></a>';
+                            echo '<a class="btn btn-primary account" href="" role="button"><span class="glyphicon glyphicon-user"></span></a>';
+                        }
+                    ?>
                     <h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>
                     <hr />
                     <h3 class="text-center"><span class="label label-info"><?php echo $serviceInstance->getTitre(); ?></span></h3>

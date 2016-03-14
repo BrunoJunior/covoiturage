@@ -9,6 +9,7 @@
 namespace covoiturage\classes\metier;
 
 use covoiturage\classes\dao\Group as GroupDAO;
+use covoiturage\classes\metier\User;
 
 /**
  * Description of Group
@@ -16,5 +17,15 @@ use covoiturage\classes\dao\Group as GroupDAO;
  * @author bruno
  */
 class Group extends GroupDAO {
-    
+
+    public function isUserPresent(User $user) {
+        $userGroup = $this->getUserGroup($user);
+        return $userGroup->existe();
+    }
+
+    public function isUserAdminGroup(User $user) {
+        $userGroup = $this->getUserGroup($user);
+        return $userGroup->group_admin;
+    }
+
 }
