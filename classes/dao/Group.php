@@ -18,6 +18,8 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 
+use covoiturage\utils\HDatabase;
+
 /**
  * Description of Group
  *
@@ -56,6 +58,17 @@ class Group extends ClasseTable {
         $sql = CovoiturageBO::getSqlSelect();
         $sql .= ' WHERE group_id = ?';
         return CovoiturageBO::getListe($sql, [$this->id]);
+    }
+
+    /**
+     * Nb covoiturage dans groupe
+     * @return int
+     */
+    public function countCovoiturages() {
+        $sql = CovoiturageBO::getSqlSelect(TRUE);
+        $sql .= ' WHERE group_id = ?';
+        $resultat = HDatabase::rechercher($sql, [$this->id]);
+        return $resultat[0][0];
     }
     
     /**

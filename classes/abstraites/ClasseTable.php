@@ -93,8 +93,8 @@ abstract class ClasseTable extends ClasseSimple {
      * Select par défaut pour toutes les colonnes d'une table
      * @return string
      */
-    protected static function getSqlSelect() {
-        return 'SELECT * FROM `' . static::getTable()->nom . '`';
+    protected static function getSqlSelect($count = FALSE) {
+        return 'SELECT ' . ($count ? 'COUNT(*)' : '*') . ' FROM `' . static::getTable()->nom . '`';
     }
 
     /**

@@ -54,6 +54,35 @@ class User extends UserBO {
         $html = '<form action="'.Edit::getUrl().'" class="form-horizontal" method="POST">
                     <input type="hidden" name="id" value="' . $this->id . '" />';
 
+        $html .=   '<div class="panel panel-primary">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Informations personnelles</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                              <label for="prenom" class="col-sm-2 control-label">Prénom</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="' . $this->prenom . '">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="nom" class="col-sm-2 control-label">Nom</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="' . $this->nom . '">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="email" class="col-sm-2 control-label">Email</label>
+                              <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="' . $this->email . '">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="tel" class="col-sm-2 control-label">N° de téléphone</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="tel" name="tel" placeholder="0601020304" value="' . $this->tel . '">
+                              </div>
+                            </div>';
         if (HSession::getUser()->admin) {
             $html .= '<div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -65,32 +94,9 @@ class User extends UserBO {
                         </div>
                     </div>';
         }
-                    
-        $html .=   '<div class="form-group">
-                      <label for="prenom" class="col-sm-2 control-label">Prénom</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="' . $this->prenom . '">
-                      </div>
+            $html .= '  </div>
                     </div>
-                    <div class="form-group">
-                      <label for="nom" class="col-sm-2 control-label">Nom</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="' . $this->nom . '">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="email" class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="' . $this->email . '">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="tel" class="col-sm-2 control-label">N° de téléphone</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="tel" name="tel" placeholder="0601020304" value="' . $this->tel . '">
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
+                    <div class="panel panel-danger">
                         <div class="panel-heading">
                           <h3 class="panel-title">Modification de mot de passe</h3>
                         </div>

@@ -26,15 +26,16 @@ class Trajet extends ServiceVue {
         if (!$group->isUserPresent($this->getUser()) && !$this->getUser()->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
         }
+        $nbTrajets = $group->countCovoiturages();
         echo "<div id='cov-group-trajet'>";
         echo '<div class="panel panel-primary">
-                <div class="panel-heading"><h4>Nouveau trajet</h4></div>
+                <div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div>
                 <div class="panel-body">
                   FORMULAIRE TODO
                 </div>
               </div>';
         echo '<div class="panel panel-info">
-                <div class="panel-heading"><h4>Liste des trajets</h4></div>
+                <div class="panel-heading"><h3 class="panel-title">Liste des trajets <span class="badge">'.$nbTrajets.'</span></h3></div>
                 <div class="panel-body">
                   '.CovoiturageBP::getHtmlTable($group).'
                 </div>
