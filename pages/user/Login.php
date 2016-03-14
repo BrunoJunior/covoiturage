@@ -24,7 +24,7 @@ class Login extends \covoiturage\classes\abstraites\ServiceVue {
             $password = HRequete::getPOST('user_password');
             if (UserBP::connecter($email, $password)) {
                 $service = new GroupList();
-                $service->executer(FALSE);
+                $service->executer();
             } else {
                 throw new Exception('Identification incorrecte !');
             }
@@ -39,5 +39,9 @@ class Login extends \covoiturage\classes\abstraites\ServiceVue {
 
     public function isSecurised() {
         return HRequete::isParamPostPresent('submit');
+    }
+
+    public function isComplete() {
+        return !HRequete::isParamPostPresent('submit');
     }
 }
