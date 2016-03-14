@@ -26,14 +26,10 @@ class Group extends GroupBO {
 
     public function getTuile() {
         $usergroups = $this->getListeUserGroup();
-        $html = '<div class="cov-group col-md-3 col-sm-6 col-xs-12">';
+        $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
         $conUser = HSession::getUser();
-        if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
-            $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
-            $html .= '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'"><span class="glyphicon glyphicon-remove"></span></a>';
-        }
-        $html .= '<hr />';
+        $html .= '<hr /><div class="cov-group-users">';
         foreach ($usergroups as $usergroup) {
             $user = $usergroup->getUser();
             if ($conUser->admin) {
@@ -42,10 +38,15 @@ class Group extends GroupBO {
             $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur() . '</span>';
             $html .= '<br />';
         }
-        $html .= '<hr />';
-        $html .= '<a class="btn btn-success" href="'.Recap::getUrl($this->id).'" role="button"><span class="glyphicon glyphicon-list"></span> Récapitulatif</a> ';
-        $html .= '<a class="btn btn-primary" href="'. Trajet::getUrl($this->id).'" role="button"><span class="glyphicon glyphicon-road"></span> Gérer les trajets</a>';
         $html .= '</div>';
+        $html .= '<div class="cov-group-actions"><hr />';
+        $html .= '<a class="btn btn-success" href="'.Recap::getUrl($this->id).'" role="button" data-toggle="tooltip" title="Récapitulatif"><span class="glyphicon glyphicon-list"></span></a>';
+        $html .= '<a class="btn btn-primary" href="'. Trajet::getUrl($this->id).'" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
+        if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
+            $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $html .= '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>';
+        }
+        $html .= '</div></div></div>';
         return $html;
     }
 
@@ -54,11 +55,11 @@ class Group extends GroupBO {
         if (!$user->admin) {
             return '';
         }
-        $html = '<div class="cov-group add-group col-md-3 col-sm-6 col-xs-12">';
+        $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group add-group">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
         $html .= '<a href="'.Edit::getUrl().'"><span class="glyphicon glyphicon-plus-sign"></span></a>';
-        $html .= '</div>';
+        $html .= '</div></div>';
         return $html;
     }
 

@@ -11,6 +11,7 @@ namespace covoiturage\pages\group;
 use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\classes\presentation\Group;
 use covoiturage\utils\HRequete;
+use Exception;
 
 /**
  * Description of Liste
@@ -20,6 +21,10 @@ use covoiturage\utils\HRequete;
 class Trajet extends ServiceVue {
 
     public function executerService() {
+        $group = new Group(HRequete::getPOST('id'));
+        if (!$group->isUserPresent($this->getUser()) && !$this->getUser()->admin) {
+            throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
+        }
         echo "<div id='cov-group-trajet'>
                 <div class='row'> ";
 
