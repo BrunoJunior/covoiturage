@@ -36,3 +36,7 @@ a.btn.account {
     margin-top: 20px;
     float: right;
 }
+
+.center {
+    text-align: center;
+}

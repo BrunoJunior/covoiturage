@@ -1,0 +1,13 @@
+#cov-group-trajet .cov-type.glyphicon-arrow-right{
+    color: green;
+}
+#cov-group-trajet .cov-type.glyphicon-arrow-left{
+    color: red;
+}
+#cov-group-trajet .cov-date,
+#cov-group-trajet .cov-type{
+    width: 100px;
+}
+#cov-group-trajet .cov-conducteur{
+    width: 200px;
+}
