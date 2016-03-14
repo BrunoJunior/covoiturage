@@ -31,4 +31,8 @@ class User extends UserDAO {
     public function setPassword($password) {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
+
+    public function toHtml() {
+        return $this->prenom . ' ' . $this->nom;
+    }
 }

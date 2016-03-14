@@ -16,6 +16,7 @@ use covoiturage\classes\abstraites\ClasseTable;
 // BO
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\User as UserBO;
+use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 
 /**
  * Description of Group
@@ -42,9 +43,19 @@ class Group extends ClasseTable {
      * @return UserGroupBO[]
      */
     public function getListeUserGroup() {
-        $sql = UserGroup::getSqlSelect();
+        $sql = UserGroupBO::getSqlSelect();
         $sql .= ' WHERE group_id = ?';
-        return UserGroup::getListe($sql, [$this->id]);
+        return UserGroupBO::getListe($sql, [$this->id]);
+    }
+
+    /**
+     * Liste des user d'un groupe
+     * @return CovoiturageBO[]
+     */
+    public function getListeCovoiturage() {
+        $sql = CovoiturageBO::getSqlSelect();
+        $sql .= ' WHERE group_id = ?';
+        return CovoiturageBO::getListe($sql, [$this->id]);
     }
     
     /**
@@ -52,6 +63,6 @@ class Group extends ClasseTable {
      * @return UserGroupBO[]
      */
     public function getUserGroup(UserBO $user) {
-        return UserGroup::chargerParGroupeEtUser($this, $user);
+        return UserGroupBO::chargerParGroupeEtUser($this, $user);
     }
 }
