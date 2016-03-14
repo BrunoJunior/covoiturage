@@ -24,7 +24,7 @@ class Login extends \covoiturage\classes\abstraites\ServiceVue {
             $password = HRequete::getPOST('user_password');
             if (UserBP::connecter($email, $password)) {
                 $service = new GroupList();
-                $service->executer();
+                $service->executer(FALSE);
             } else {
                 throw new Exception('Identification incorrecte !');
             }
