@@ -56,11 +56,11 @@ class Edit extends ServiceVue {
             $this->user->prenom = HRequete::getPOSTObligatoire('prenom');
             $this->user->nom = HRequete::getPOSTObligatoire('nom');
             $this->user->tel = HRequete::getPOST('tel');
-            $this->user->admin = HRequete::getPOST('admin');
+            $this->user->admin = (HRequete::getPOST('admin') == 'on');
 
             $newMdp = HRequete::getPOST('password', FALSE);
             if ($newMdp) {
-                $oldPass = HRequete::getPOSTObligatoire('old_password');
+                $oldPass = HRequete::getPOST('old_password');
                 $checkPass = HRequete::getPOSTObligatoire('password_check');
                 if (!$this->user->checkPassword($oldPass)) {
                     throw new Exception('Ancien mot de passe incorrect !');

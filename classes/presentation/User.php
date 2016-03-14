@@ -59,7 +59,7 @@ class User extends UserBO {
                         <div class="col-sm-offset-2 col-sm-10">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="admin" id="admin" ' . $this->admin ? 'checked' : '' . '> Administrateur
+                              <input type="checkbox" name="admin" id="admin" ' . ($this->admin ? 'checked' : '') . '> Administrateur
                             </label>
                           </div>
                         </div>
@@ -90,24 +90,31 @@ class User extends UserBO {
                         <input type="text" class="form-control" id="tel" name="tel" placeholder="0601020304" value="' . $this->tel . '">
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label for="old_password" class="col-sm-2 control-label">Ancien mot de passe</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="old_password" name="old_password">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Modification de mot de passe</h3>
+                        </div>
+                        <div class="panel-body">
+                          <div class="form-group">
+                            <label for="old_password" class="col-sm-2 control-label">Ancien</label>
+                            <div class="col-sm-10">
+                              <input type="password" class="form-control" id="old_password" name="old_password">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">Nouveau</label>
+                            <div class="col-sm-10">
+                              <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="password_check" class="col-sm-2 control-label">Saisir à nouveau</label>
+                            <div class="col-sm-10">
+                              <input type="password" class="form-control" id="password_check" name="password_check">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password" class="col-sm-2 control-label">Nouveau mot de passe</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password" name="password">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password_check" class="col-sm-2 control-label">Retapez</label>
-                      <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password_check" name="password_check">
-                      </div>
-                    </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">'.($this->existe() ? 'Modifier' : 'Créer').'</button>

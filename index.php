@@ -61,11 +61,12 @@ if (!($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue)) {
             <script type="text/javascript" src="<?php echo $root; ?>lib/jquery/jquery-2.1.4.min.js"></script>
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container">
-                    <img src="<?php echo $root; ?>resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
+                    <a href="/"><img src="<?php echo $root; ?>resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" /></a>
                     <?php
-                        if (\covoiturage\utils\HSession::getUser()->existe()) {
+                        $user = \covoiturage\utils\HSession::getUser();
+                        if ($user->existe()) {
                             echo '<a class="btn btn-danger deconnexion" href="'.\covoiturage\services\user\Logout::getUrl().'" role="button"><span class="glyphicon glyphicon-log-out"></span></a>';
-                            echo '<a class="btn btn-primary account" href="" role="button"><span class="glyphicon glyphicon-user"></span></a>';
+                            echo '<a class="btn btn-primary account" href="' . \covoiturage\pages\user\Edit::getUrl($user->id) . '" role="button"><span class="glyphicon glyphicon-user"></span></a>';
                         }
                     ?>
                     <h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>

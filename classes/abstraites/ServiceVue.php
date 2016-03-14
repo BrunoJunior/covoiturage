@@ -9,6 +9,7 @@
 namespace covoiturage\classes\abstraites;
 
 use covoiturage\utils\HDatabase;
+use covoiturage\utils\HLog;
 use Exception;
 
 /**
@@ -37,8 +38,10 @@ abstract class ServiceVue extends Service {
             echo ob_get_clean();
         } catch (Exception $exc) {
             $err = TRUE;
+            HLog::logError($exc->getMessage());
+            HLog::logError($exc->getTraceAsString());
             echo '<div class="alert alert-danger" role="alert">';
-            echo 'Doh! ' . $exc->getTraceAsString();
+            echo $exc->getMessage();
             echo '</div>';
         }
         HDatabase::closeTransaction($err);

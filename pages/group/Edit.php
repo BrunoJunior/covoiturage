@@ -13,6 +13,7 @@ use covoiturage\utils\HRequete;
 use covoiturage\classes\presentation\Group as GroupBP;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
+use Exception;
 
 /**
  * Description of Add
@@ -34,7 +35,7 @@ class Edit extends ServiceVue {
         $id = HRequete::getPOST('id');
         $this->group = new GroupBP($id);
         $user = $this->getUser();
-        if (!$this->group->isUserAdminGroup($user)) {
+        if (!$this->group->isUserAdminGroup($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');
         }
         $this->traiterSubmit();
@@ -60,6 +61,9 @@ class Edit extends ServiceVue {
             foreach ($clesNom as $cle) {
                 $nom = HRequete::getPOST($cle);
                 $prenom = HRequete::getPOST('user_prenom' . substr($cle, 8));
+                if (empty($nom) && empty($prenom)) {
+                    continue;
+                }
                 $user = UserBO::chargerParNomEtPrenom($nom, $prenom);
                 if (!$user->existe()) {
                     $user->merger();

@@ -26,7 +26,7 @@ class Liste extends ServiceVue {
                 <div class='row'> ";
 
         foreach ($groups as $group) {
-            if ($group->isUserPresent($user)) {
+            if ($group->isUserPresent($user) || $user->admin) {
                 echo $group->getTuile();
             }
         }

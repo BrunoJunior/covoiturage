@@ -64,7 +64,7 @@ class HRequete {
     public static function getPOSTObligatoire($param) {
         $valeur = static::getPOST($param);
         if ($valeur == "") {
-            HLog::ecrireErreur("Paramètre obligatoire non valorisé : " . $param);
+            HLog::logError("Paramètre obligatoire non valorisé : " . $param);
             throw new Exception("Execution impossible, paramètre manquant.");
         }
         return $valeur;

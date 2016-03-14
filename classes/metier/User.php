@@ -22,6 +22,9 @@ class User extends UserDAO {
     }
     
     public function checkPassword($password) {
+        if (empty($this->password) && empty($password)) {
+            return TRUE;
+        }
         return password_verify($password, $this->password);
     }
 

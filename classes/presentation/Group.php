@@ -14,6 +14,7 @@ use covoiturage\services\group\Remove;
 use covoiturage\pages\group\Recap;
 use covoiturage\pages\group\Trajet;
 use covoiturage\utils\HSession;
+use covoiturage\pages\user\Edit as EditUser;
 
 /**
  * Description of Group
@@ -26,15 +27,19 @@ class Group extends GroupBO {
         $usergroups = $this->getListeUserGroup();
         $html = '<div class="cov-group col-md-3 col-sm-6 col-xs-12">';
         $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
-        $user = HSession::getUser();
-        if ($user->admin || $this->isUserAdminGroup($user)) {
+        $conUser = HSession::getUser();
+        if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
             $html .= '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'"><span class="glyphicon glyphicon-remove"></span></a>';
         }
         $html .= '<hr />';
         foreach ($usergroups as $usergroup) {
             $user = $usergroup->getUser();
-            $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur() . '</span><br />';
+            if ($conUser->admin) {
+                $html .= '<a href="'. EditUser::getUrl($user->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
+            }
+            $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur() . '</span>';
+            $html .= '<br />';
         }
         $html .= '<hr />';
         $html .= '<a class="btn btn-success" href="'.Recap::getUrl($this->id).'" role="button"><span class="glyphicon glyphicon-list"></span> Récapitulatif</a> ';
@@ -44,6 +49,10 @@ class Group extends GroupBO {
     }
 
     public static function getTuileAdd() {
+        $user = HSession::getUser();
+        if (!$user->admin) {
+            return '';
+        }
         $html = '<div class="cov-group add-group col-md-3 col-sm-6 col-xs-12">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
