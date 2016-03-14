@@ -27,12 +27,14 @@ abstract class ServiceVue extends Service {
      */
     public abstract function getTitre();
 
-    public function executer() {
+    public function executer($withTrx = TRUE) {
         $this->addJs($this->getName());
         $this->addCss($this->getName());
         ob_start();
         $err = FALSE;
-        HDatabase::openTransaction();
+        if ($withTrx) {
+            HDatabase::openTransaction();
+        }
         try {
             $this->executerService();
             echo ob_get_clean();
@@ -44,7 +46,9 @@ abstract class ServiceVue extends Service {
             echo $exc->getMessage();
             echo '</div>';
         }
-        HDatabase::closeTransaction($err);
+        if ($withTrx) {
+            HDatabase::closeTransaction($err);
+        }
         $this->insertJs();
         $this->insertCss();
     }
