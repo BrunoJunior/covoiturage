@@ -16,6 +16,8 @@ use covoiturage\pages\group\Trajet;
 use covoiturage\utils\HSession;
 use covoiturage\pages\user\Edit as EditUser;
 use covoiturage\classes\metier\User;
+use covoiturage\classes\presentation\UserGroup as UserGroupBP;
+use covoiturage\services\group\Adduser;
 
 /**
  * Description of Group
@@ -44,7 +46,7 @@ class Group extends GroupBO {
         $html .= '<a class="btn btn-primary" href="'. Trajet::getUrl($this->id).'" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
         if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<a class="btn btn-danger group-remove" href="'.Remove::getUrl($this->id).'" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></a>';
+            $html .= '<button class="btn btn-danger group-remove" url="'.Remove::getUrl($this->id).'" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
         }
         $html .= '</div></div></div>';
         return $html;
@@ -64,69 +66,82 @@ class Group extends GroupBO {
     }
 
     public function getForm() {
-        $html = '<form action="'.Edit::getUrl().'" class="form-horizontal" method="POST">
-                    <input type="hidden" name="id" value="' . $this->id . '" />
-                    <div class="form-group">
-                      <label for="group_name" class="col-sm-2 control-label">Nom</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="group_name" name="group_name" placeholder="Nom du groupe" value="' . $this->nom . '">
-                      </div>
+        $panelIdent = '<div class="panel panel-primary">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Identification</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                              <label for="group_name" class="col-sm-2 control-label">Nom</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="group_name" name="group_name" placeholder="Nom du groupe" value="' . $this->nom . '">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-10 col-sm-2">
+                                  <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">'.($this->existe() ? 'Modifier' : 'Créer').'</button>
+                                </div>
+                              </div>
+                        </div>
                     </div>';
 
+        $panelListeCov = '';
         $users = $this->getListeUserGroup();
         if (!empty($users)) {
+            $panelListeCov .= '<div class="panel panel-primary">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Covoitureurs</h3>
+                        </div>
+                        <div class="panel-body">';
             foreach ($users as $userGp) {
-                $user = $userGp->getUser();
-                $html .= '<div class="form-group">
-                            <label for="user_'.$user->id.'" class="col-sm-2 control-label">Co-voitureur</label>
-                                <div class="col-sm-4">
-                                  <input name="user_'.$user->id.'" id="user_'.$user->id.'" class="form-control" placeholder="Nom" value="'.$user->nom.'" disabled="disabled" />
-                                </div>
-                                <div class="col-sm-4">
-                                  <input name="prenom_user_'.$user->id.'" id="prenom_user_'.$user->id.'" class="form-control" placeholder="Prénom" value="'.$user->prenom.'" disabled="disabled" />
-                                </div>
-                                <div class="col-sm-2">
-                                  <span class="glyphicon glyphicon-minus-sign"></span>
-                                </div>
-                          </div>';
+                $panelListeCov .= UserGroupBP::getLigneForm($userGp);
             }
+            $panelListeCov .= '</div></div>';
         }
 
-        $html .= '<div class="form-group">
-                      <label for="select_user1" class="col-sm-2 control-label">Co-voitureur existant</label>
-                      <div class="col-sm-8">
-                        <select id="select_user1" name="select_user1" class="form-control">
-                            <option value="" selected>Choisir un covoitureur</option>';
-
+        $panelAjoutCov = '<div class="panel panel-success">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Ajouter des covoitureurs</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                          <label for="select_user1" class="col-sm-2 control-label">Co-voitureur existant</label>
+                          <div class="col-sm-8">
+                            <select id="select_user1" name="select_user1" class="form-control">
+                                <option value="" selected>Choisir un covoitureur</option>';
         $userList = User::getListe();
         foreach ($userList as $user) {
-            $html .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
+            $panelAjoutCov .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
         }
+        $panelAjoutCov .= '</select>
+                              </div>
+                              <div class="col-sm-2">
+                                <button class="btn btn-success cov-ug-remove" url="'.  Adduser::getUrl($this->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="user_nom1" class="col-sm-2 control-label">Nouveau co-voitureur</label>
+                              <div class="col-sm-4">
+                                <input name="user_nom1" id="user_nom1" class="form-control" placeholder="Nom" />
+                              </div>
+                              <div class="col-sm-4">
+                                <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
+                              </div>
+                              <div class="col-sm-2">
+                                <button class="btn btn-success cov-ug-remove" url="'.Adduser::getUrl($this->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>';
 
-        $html .='       </select>
-                      </div>
-                      <div class="col-sm-2">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="user_nom1" class="col-sm-2 control-label">Nouveau co-voitureur</label>
-                      <div class="col-sm-4">
-                        <input name="user_nom1" id="user_nom1" class="form-control" placeholder="Nom" />
-                      </div>
-                      <div class="col-sm-4">
-                        <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
-                      </div>
-                      <div class="col-sm-2">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">'.($this->existe() ? 'Modifier' : 'Créer').'</button>
-                      </div>
-                    </div>
-                </form>';
+        $html = '<form action="'.Edit::getUrl().'" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" value="' . $this->id . '" />';
+        $html .= $panelIdent;
+        if ($this->existe()) {
+            $html .= $panelListeCov;
+            $html .= $panelAjoutCov;
+        }
+        $html .= '</form>';
         return $html;
     }
 

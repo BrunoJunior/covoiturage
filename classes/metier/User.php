@@ -9,6 +9,7 @@
 namespace covoiturage\classes\metier;
 
 use covoiturage\classes\dao\User as UserDAO;
+use covoiturage\classes\metier\Group as GroupBO;
 
 /**
  * Description of User
@@ -39,5 +40,9 @@ class User extends UserDAO {
 
     public function toHtml() {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function isDansGroupe(GroupBO $group) {
+        return $group->isUserPresent($this);
     }
 }

@@ -6,10 +6,10 @@
  * and open the template in the editor.
  */
 
-namespace covoiturage\services\group;
+namespace covoiturage\services\usergroup;
 
 use covoiturage\classes\abstraites\Service;
-use covoiturage\classes\metier\Group as GroupBO;
+use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\utils\HRequete;
 use Exception;
 
@@ -20,11 +20,12 @@ use Exception;
  */
 class Remove extends Service {
     public function executerService() {
-        $group = new GroupBO(HRequete::getPOST('id'));
         $user = $this->getUser();
+        $usergroup = new UserGroupBO(HRequete::getPOST('id'));
+        $group = $usergroup->getGroup();
         if (!$user->admin && !$group->isUserAdminGroup($user)) {
             throw new Exception("Vous n'êtes pas autorisé à effectuer cette action !");
         }
-        $group->supprimer();
+        $usergroup->supprimer();
     }
 }

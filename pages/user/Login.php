@@ -11,6 +11,7 @@ namespace covoiturage\pages\user;
 use covoiturage\classes\presentation\User as UserBP;
 use covoiturage\utils\HRequete;
 use covoiturage\pages\group\Liste as GroupList;
+use Exception;
 
 /**
  * Description of Login

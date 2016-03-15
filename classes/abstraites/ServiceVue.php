@@ -94,7 +94,7 @@ abstract class ServiceVue extends Service {
                 <div class="container">
                     <a href="/"><img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" /></a>';
         if (!empty($user) && $user->existe()) {
-            echo '<a class="btn btn-danger deconnexion" href="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></a>';
+            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></button>';
             echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos"><span class="glyphicon glyphicon-user"></span></a>';
         }
         echo  '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>
@@ -102,9 +102,15 @@ abstract class ServiceVue extends Service {
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
                 </div>
             </header>
-            <div id="main-page" class="container">';
+            <div id="main-page" class="container">
+            <div id="cov-alert-error" class="alert alert-danger alert-dismissible hidden" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span class="message"></span>
+            </div>';
         $this->executerService();
-            echo '</div><script src="' . $root . 'lib/bootstrap/js/bootstrap.min.js"></script>
+            echo '</div>
+                <script src="' . $root . 'lib/bootstrap/js/bootstrap.min.js"></script>
+                <script src="' . $root . 'resources/js/global.js"></script>
         </body>
     </html>';
     }

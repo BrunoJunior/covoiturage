@@ -10,6 +10,7 @@ namespace covoiturage\pages\group;
 
 use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\classes\presentation\Group;
+use Exception;
 
 /**
  * Description of Liste

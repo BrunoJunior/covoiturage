@@ -11,8 +11,6 @@ namespace covoiturage\pages\group;
 use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\utils\HRequete;
 use covoiturage\classes\presentation\Group as GroupBP;
-use covoiturage\classes\metier\User as UserBO;
-use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use Exception;
 
 /**
@@ -57,38 +55,6 @@ class Edit extends ServiceVue {
         if (HRequete::isParamPostPresent('submit')) {
             $this->group->nom = HRequete::getPOST('group_name');
             $this->group->merger();
-
-            $clesSelect = HRequete::getListeClePostCommencant('select_user');
-            foreach ($clesSelect as $cle) {
-                $id = HRequete::getPOST($cle);
-                if (empty($id)) {
-                    continue;
-                }
-                $user = new UserBO($id);
-                $userGroup = UserGroupBO::chargerParGroupeEtUser($this->group, $user);
-                if ($userGroup->existe()) {
-                    throw new Exception('L\'utilisateur ' . $prenom . ' ' . $nom . ' est déjà présent dans le groupe !');
-                }
-                $userGroup->merger();
-            }
-
-            $clesNom = HRequete::getListeClePostCommencant('user_nom');
-            foreach ($clesNom as $cle) {
-                $nom = HRequete::getPOST($cle);
-                $prenom = HRequete::getPOST('user_prenom' . substr($cle, 8));
-                if (empty($nom) && empty($prenom)) {
-                    continue;
-                }
-                $user = UserBO::chargerParNomEtPrenom($nom, $prenom);
-                if (!$user->existe()) {
-                    $user->merger();
-                }
-                $userGroup = UserGroupBO::chargerParGroupeEtUser($this->group, $user);
-                if ($userGroup->existe()) {
-                    throw new Exception('L\'utilisateur ' . $prenom . ' ' . $nom . ' est déjà présent dans le groupe !');
-                }
-                $userGroup->merger();
-            }
         }
     }
 

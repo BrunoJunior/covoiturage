@@ -11,6 +11,7 @@ namespace covoiturage\pages\user;
 use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\utils\HRequete;
 use covoiturage\classes\presentation\User as UserBP;
+use Exception;
 
 /**
  * Description of Add
