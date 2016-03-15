@@ -16,5 +16,6 @@ use covoiturage\classes\dao\Covoiturage as CovoiturageDAO;
  * @author bruno
  */
 class Covoiturage extends CovoiturageDAO {
-    
+    const TYPE_ALLER = 0;
+    const TYPE_RETOUR = 1;
 }

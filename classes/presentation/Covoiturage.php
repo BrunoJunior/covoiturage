@@ -32,7 +32,7 @@ class Covoiturage extends CovoiturageBO {
                 $htmlPassagers .= $passager->getUser()->toHtml() . ', ';
             }
         }
-        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == 0 ? 'right' : 'left') . '"></span>';
+        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == CovoiturageBO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
         return '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td><td>' . $conducteur->toHtml() . '</td><td>' . $htmlPassagers . '</td></tr>';
     }
 
@@ -50,12 +50,20 @@ class Covoiturage extends CovoiturageBO {
     public static function getForm() {
         $html = '<form action="' . Add::getUrl() . '" class="form-horizontal" method="POST">';
         $html .= '<div class="form-group">
-                    <label for="group_name" class="col-sm-2 control-label">Date</label>
+                    <label for="cov_date" class="col-sm-2 control-label">Date</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="cov_date" name="cov_date">
                     </div>
-                  </div>';
-        $html .= '</form>';
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-8 col-sm-2 col-xs-6">
+                      <button type="submit" class="btn btn-success" value="'.CovoiturageBO::TYPE_ALLER.'" name="submit_'.CovoiturageBO::TYPE_ALLER.'" id="submit_'.CovoiturageBO::TYPE_ALLER.'">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                    <div class="col-sm-2 col-xs-6">
+                      <button type="submit" class="btn btn-danger" value="'.CovoiturageBO::TYPE_RETOUR.'" name="submit_'.CovoiturageBO::TYPE_RETOUR.'" id="submit_'.CovoiturageBO::TYPE_RETOUR.'"><span class="glyphicon glyphicon-arrow-left"></span> Retour</button>
+                    </div>
+                  </div>
+                </form>';
         return $html;
     }
 
