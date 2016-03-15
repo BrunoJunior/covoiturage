@@ -6,22 +6,20 @@
  * and open the template in the editor.
  */
 
-namespace covoiturage\pages\group;
+namespace covoiturage\services\group;
 
-use covoiturage\classes\abstraites\ServiceVue;
+use covoiturage\classes\abstraites\Service;
 use covoiturage\utils\HRequete;
 use covoiturage\classes\presentation\Group as GroupBP;
 use Exception;
 
 /**
- * Description of Add
+ * Description of Remove
  *
  * @author bruno
  */
-class Edit extends ServiceVue {
-    /**
-     * Execution du service
-     */
+class Edit extends Service {
+
     public function executerService() {
         $id = HRequete::getPOST('id');
         $group = new GroupBP($id);
@@ -29,14 +27,9 @@ class Edit extends ServiceVue {
         if (!$group->isUserAdminGroup($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');
         }
-        echo $group->getForm();
+        $group->nom = HRequete::getPOST('group_name');
+        $group->merger();
+        $this->setMessage('Groupe modifié !');
     }
 
-    /**
-     * Titre
-     * @return string
-     */
-    public function getTitre() {
-        return 'Création d\'un nouveau groupe';
-    }
 }

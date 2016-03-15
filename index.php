@@ -29,11 +29,12 @@ $serviceInstance = new $serviceName();
 // Accès sécurisé ?
 if ($serviceInstance->isSecurised()) {
     session_start();
-    if (!\covoiturage\utils\HSession::getUser()->existe()) {
+    if (!\covoiturage\utils\HSession::getUser()->existe() && !($serviceInstance instanceof \covoiturage\services\user\Login)) {
         $serviceInstance = new covoiturage\pages\user\Login();
     }
 }
 covoiturage\utils\HRequete::setGetToPost();
+\covoiturage\utils\Cache::add('', 'service', $serviceInstance);
 
 if (!($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue)) {
     header('Content-Type: application/json');

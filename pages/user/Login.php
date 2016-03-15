@@ -9,9 +9,6 @@
 namespace covoiturage\pages\user;
 
 use covoiturage\classes\presentation\User as UserBP;
-use covoiturage\utils\HRequete;
-use covoiturage\pages\group\Liste as GroupList;
-use Exception;
 
 /**
  * Description of Login
@@ -19,19 +16,10 @@ use Exception;
  * @author bruno
  */
 class Login extends \covoiturage\classes\abstraites\ServiceVue {
+
     public function executerService() {
-        if (HRequete::isParamPostPresent('submit')) {
-            $email = HRequete::getPOST('user_email');
-            $password = HRequete::getPOST('user_password');
-            if (UserBP::connecter($email, $password)) {
-                $service = new GroupList();
-                $service->executer();
-            } else {
-                throw new Exception('Identification incorrecte !');
-            }
-        } else {
-            echo UserBP::getConnexionForm();
-        }
+
+        echo UserBP::getConnexionForm();
     }
 
     public function getTitre() {
@@ -39,10 +27,7 @@ class Login extends \covoiturage\classes\abstraites\ServiceVue {
     }
 
     public function isSecurised() {
-        return HRequete::isParamPostPresent('submit');
+        return FALSE;
     }
 
-    public function isComplete() {
-        return !HRequete::isParamPostPresent('submit');
-    }
 }

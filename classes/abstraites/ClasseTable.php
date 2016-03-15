@@ -312,7 +312,7 @@ abstract class ClasseTable extends ClasseSimple {
         } else {
             $this->ajouter($obj_source);
         }
-        if (!Cache::contains(get_class(), 'success')) {
+        if (!Cache::contains(get_class(), 'success') && ((Cache::get('', 'service')) instanceof ServiceVue)) {
             echo '<div class="alert alert-success" role="alert">Enregistrement effectué</div>';
             Cache::add(get_class(), 'success', 1);
         }

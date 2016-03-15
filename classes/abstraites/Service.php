@@ -23,6 +23,8 @@ abstract class Service {
 
     private $reponse;
 
+    private $message = 'OK';
+
     private $user;
 
     public function __construct() {
@@ -39,6 +41,10 @@ abstract class Service {
         $this->reponse = $reponse;
     }
 
+    protected function setMessage($message) {
+        $this->message = $message;
+    }
+
     public abstract function executerService();
 
     public function executer() {
@@ -50,7 +56,9 @@ abstract class Service {
         try {
             $this->executerService();
             $retour->reponse = $this->reponse;
+            $retour->message = $this->message;
         } catch (Exception $exc) {
+            $retour->isErr = TRUE;
             $retour->message = $exc->getMessage();
             $retour->trace = $exc->getTraceAsString();
         }

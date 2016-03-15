@@ -35,18 +35,18 @@ class Group extends GroupBO {
         foreach ($usergroups as $usergroup) {
             $user = $usergroup->getUser();
             if ($conUser->admin) {
-                $html .= '<a href="'. EditUser::getUrl($user->id).'"><span class="glyphicon glyphicon-pencil"></span></a> ';
+                $html .= '<a href="' . EditUser::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
             }
             $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
         }
         $html .= '</div>';
         $html .= '<div class="cov-group-actions"><hr />';
-        $html .= '<a class="btn btn-success" href="'.Recap::getUrl($this->id).'" role="button" data-toggle="tooltip" title="Récapitulatif"><span class="glyphicon glyphicon-list"></span></a>';
-        $html .= '<a class="btn btn-primary" href="'. Trajet::getUrl($this->id).'" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
+        $html .= '<a class="btn btn-success" href="' . Recap::getUrl($this->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif"><span class="glyphicon glyphicon-list"></span></a>';
+        $html .= '<a class="btn btn-primary" href="' . Trajet::getUrl($this->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
         if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
-            $html .= '<a class="btn btn-primary" href="'.Edit::getUrl($this->id).'" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<button class="btn btn-danger group-remove" url="'.Remove::getUrl($this->id).'" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
+            $html .= '<a class="btn btn-primary" href="' . Edit::getUrl($this->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $html .= '<button class="btn btn-danger group-remove" url="' . Remove::getUrl($this->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
         }
         $html .= '</div></div></div>';
         return $html;
@@ -60,7 +60,7 @@ class Group extends GroupBO {
         $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group add-group">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
-        $html .= '<a href="'.Edit::getUrl().'"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+        $html .= '<a href="' . Edit::getUrl() . '"><span class="glyphicon glyphicon-plus-sign"></span></a>';
         $html .= '</div></div>';
         return $html;
     }
@@ -79,7 +79,7 @@ class Group extends GroupBO {
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-10 col-sm-2">
-                                  <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">'.($this->existe() ? 'Modifier' : 'Créer').'</button>
+                                  <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">' . ($this->existe() ? 'Modifier' : 'Créer') . '</button>
                                 </div>
                               </div>
                         </div>
@@ -116,7 +116,7 @@ class Group extends GroupBO {
         $panelAjoutCov .= '</select>
                               </div>
                               <div class="col-sm-2">
-                                <button class="btn btn-success cov-ug-remove" url="'.  Adduser::getUrl($this->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </div>
                             <div class="form-group">
@@ -128,13 +128,13 @@ class Group extends GroupBO {
                                 <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
                               </div>
                               <div class="col-sm-2">
-                                <button class="btn btn-success cov-ug-remove" url="'.Adduser::getUrl($this->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </div>
                         </div>
                     </div>';
 
-        $html = '<form action="'.Edit::getUrl().'" class="form-horizontal" method="POST">
+        $html = '<form action="' . \covoiturage\services\group\Edit::getUrl() . '" class="form-horizontal" method="POST">
                     <input type="hidden" name="id" value="' . $this->id . '" />';
         $html .= $panelIdent;
         if ($this->existe()) {

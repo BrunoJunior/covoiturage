@@ -103,8 +103,10 @@ abstract class ServiceVue extends Service {
                 </div>
             </header>
             <div id="main-page" class="container">
-            <div id="cov-alert-error" class="alert alert-danger alert-dismissible hidden" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div id="cov-alert-error" class="alert alert-danger hidden" role="alert">
+                <span class="message"></span>
+            </div>
+            <div id="cov-alert-success" class="alert alert-success hidden" role="alert">
                 <span class="message"></span>
             </div>';
         $this->executerService();

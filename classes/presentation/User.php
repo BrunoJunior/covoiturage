@@ -9,8 +9,8 @@
 namespace covoiturage\classes\presentation;
 
 use covoiturage\classes\metier\User as UserBO;
-use covoiturage\pages\user\Login;
-use covoiturage\pages\user\Edit;
+use covoiturage\services\user\Login;
+use covoiturage\services\user\Edit;
 use covoiturage\utils\HSession;
 
 /**
