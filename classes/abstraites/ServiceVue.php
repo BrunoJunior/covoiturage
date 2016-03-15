@@ -87,9 +87,11 @@ abstract class ServiceVue extends Service {
             <title>Co-voiturage</title>
             <link rel="stylesheet" href="' . $root . 'lib/bootstrap/css/bootstrap.min.css">
             <link rel="stylesheet" href="' . $root . 'resources/css/global.css">
+            <link rel="stylesheet" href="' . $root . 'lib/jquery-ui/jquery-ui.min.css">
         </head>
         <body>
             <script type="text/javascript" src="'.$root.'lib/jquery/jquery-2.1.4.min.js"></script>
+            <script type="text/javascript" src="'.$root.'lib/jquery-ui/jquery-ui.min.js"></script>
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container">
                     <a href="/"><img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" /></a>';

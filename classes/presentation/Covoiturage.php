@@ -10,6 +10,7 @@ namespace covoiturage\classes\presentation;
 
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Group as GroupBO;
+use covoiturage\services\covoiturage\Add;
 
 /**
  * Description of Covoiturage
@@ -31,8 +32,8 @@ class Covoiturage extends CovoiturageBO {
                 $htmlPassagers .= $passager->getUser()->toHtml() . ', ';
             }
         }
-        $type = '<span class="cov-type glyphicon glyphicon-arrow-'.($covoiturage->type == 0 ? 'right' : 'left').'"></span>';
-        return '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">'.$type.'</td><td>' . $conducteur->toHtml() . '</td><td>' . $htmlPassagers . '</td></tr>';
+        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == 0 ? 'right' : 'left') . '"></span>';
+        return '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td><td>' . $conducteur->toHtml() . '</td><td>' . $htmlPassagers . '</td></tr>';
     }
 
     public static function getHtmlTable(GroupBO $group) {
@@ -43,6 +44,18 @@ class Covoiturage extends CovoiturageBO {
             $html .= static::getTr($covoiturage);
         }
         $html .= '</table></div>';
+        return $html;
+    }
+
+    public static function getForm() {
+        $html = '<form action="' . Add::getUrl() . '" class="form-horizontal" method="POST">';
+        $html .= '<div class="form-group">
+                    <label for="group_name" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="cov_date" name="cov_date">
+                    </div>
+                  </div>';
+        $html .= '</form>';
         return $html;
     }
 

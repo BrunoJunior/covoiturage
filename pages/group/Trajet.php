@@ -30,9 +30,9 @@ class Trajet extends ServiceVue {
         echo "<div id='cov-group-trajet'>";
         echo '<div class="panel panel-primary">
                 <div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div>
-                <div class="panel-body">
-                  FORMULAIRE TODO
-                </div>
+                <div class="panel-body">' .
+        CovoiturageBP::getForm() .
+                '</div>
               </div>';
         echo '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">Liste des trajets <span class="badge">'.$nbTrajets.'</span></h3></div>
