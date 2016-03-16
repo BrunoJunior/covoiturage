@@ -94,7 +94,7 @@ abstract class ClasseTable extends ClasseSimple {
      * @return string
      */
     protected static function getSqlSelect($count = FALSE) {
-        return 'SELECT ' . ($count ? 'COUNT(*)' : '*') . ' FROM `' . static::getTable()->nom . '`';
+        return 'SELECT ' . ($count ? 'COUNT(`' . static::getTable()->nom . '`.*)' : '`' . static::getTable()->nom . '`.*') . ' FROM `' . static::getTable()->nom . '`';
     }
 
     /**
