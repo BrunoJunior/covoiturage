@@ -45,4 +45,34 @@ class User extends UserDAO {
     public function isDansGroupe(GroupBO $group) {
         return $group->isUserPresent($this);
     }
+    
+    public function getNbConducteurDe(GroupBO $group, User $user) {
+        return count($this->getListeCovoiturage($group, $user));
+    }
+    
+    public function getNbPassagerDe(GroupBO $group, User $user) {
+        return count($this->getListeCovoituragePassager($group, $user));
+    }
+
+    public function getCreditsTrajet(GroupBO $group) {
+        $credits = [];
+        $userGroups = $group->getListeUserGroup();
+        foreach ($userGroups as $userGroup) {
+            if ($userGroup->user_id == $this->id) {
+                continue;
+            }
+            $user = $userGroup->getUser();
+            $credits[$userGroup->user_id] = $this->getNbConducteurDe($group, $user) - $this->getNbPassagerDe($group, $user);
+        }
+        return $credits;
+    }
+
+    public function getSommeCreditsTrajet(GroupBO $group) {
+        $somme = 0;
+        $credits = $this->getCreditsTrajet($group);
+        foreach ($credits as $credit) {
+            $somme += $credit;
+        }
+        return $somme;
+    }
 }

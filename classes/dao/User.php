@@ -81,38 +81,48 @@ class User extends ClasseTable {
      * Liste des covoiturage dont le conducteur est l'utilisateur
      * @return CovoiturageBO[]
      */
-    public function getListeCovoiturage($group = NULL) {
+    public function getListeCovoiturage($group = NULL, $userPassager = NULL) {
         $params = [];
-        $sql = Covoiturage::getSqlSelect();
-        $sql .= ' WHERE 1';
-        if (!$this->admin) {
-            $sql .= ' AND conducteur_id = ?';
+        $select = Covoiturage::getSqlSelect();
+        $from = '';
+        $where = ' WHERE 1';
+        if (!$this->admin || ($userPassager instanceof UserBO && $userPassager->existe())) {
+            $where .= ' AND conducteur_id = ?';
             $params = [$this->id];
         }
         if ($group instanceof GroupBO && $group->existe()) {
-            $sql .= ' AND group_id = ?';
+            $where .= ' AND group_id = ?';
             $params[] = $group->id;
         }
-        $sql .= ' ORDER BY date DESC';
-        return Covoiturage::getListe($sql, $params);
+        if ($userPassager instanceof UserBO && $userPassager->existe()) {
+            $from .= ' INNER JOIN passager ON (passager.covoiturage_id = covoiturage.id)';
+            $where .= ' AND passager.user_id = ?';
+            $params[] = $userPassager->id;
+        }
+        $order = ' ORDER BY date DESC';
+        return Covoiturage::getListe($select . $from . $where . $order, $params);
     }
 
     /**
      * Liste des covoiturage dont l'utilisateur était passager
      * @return CovoiturageBO[]
      */
-    public function getListeCovoituragePassager($group = NULL) {
+    public function getListeCovoituragePassager($group = NULL, $userConducteur = NULL) {
         $select = Covoiturage::getSqlSelect();
         $from = '';
         $where = ' WHERE 1';
         $order = ' ORDER BY date DESC';
         $params = [$this->id];
         if ($group instanceof GroupBO && $group->existe()) {
-            if (!$this->admin) {
+            if (!$this->admin || ($userConducteur instanceof UserBO && $userConducteur->existe())) {
                 $from .= ' INNER JOIN passager ON (passager.covoiturage_id = covoiturage.id)';
             }
             $where .= ' AND group_id = ?';
             $params[] = $group->id;
+        }
+        if ($userConducteur instanceof UserBO && $userConducteur->existe()) {
+            $where .= ' AND conducteur_id = ?';
+            $params[] = $userConducteur->id;
         }
         return Covoiturage::getListe($select . $from . $where . $order, $params);
     }

@@ -27,6 +27,7 @@ use covoiturage\services\group\Adduser;
 class Group extends GroupBO {
 
     public function getTuile() {
+        $prochainConducteur = NULL; //$this->getProchainConducteurPropose();
         $usergroups = $this->getListeUserGroup();
         $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
@@ -36,6 +37,9 @@ class Group extends GroupBO {
             $user = $usergroup->getUser();
             if ($conUser->admin) {
                 $html .= '<a href="' . EditUser::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
+            }
+            if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
+                $html .= '<span class="glyphicon glyphicon-dashboard"></span>';
             }
             $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
