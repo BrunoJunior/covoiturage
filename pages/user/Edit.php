@@ -33,7 +33,7 @@ class Edit extends ServiceVue {
         $id = HRequete::getPOST('id');
         $this->user = new UserBP($id);
         $user = $this->getUser();
-        if (!$user->admin && !$this->user->id !== $user->id) {
+        if (!$user->admin && $this->user->id !== $user->id) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier cet utilisateur !');
         }
         echo $this->user->getForm();
