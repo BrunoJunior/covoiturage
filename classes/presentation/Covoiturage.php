@@ -82,10 +82,13 @@ class Covoiturage extends CovoiturageBO {
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-2 col-xs-6">
+                    <div class="col-sm-2 col-xs-4">
                       <button type="submit" class="btn btn-success" value="' . CovoiturageBO::TYPE_ALLER . '" name="submit" id="submit_' . CovoiturageBO::TYPE_ALLER . '">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
-                    <div class="col-sm-offset-8 col-sm-2 col-xs-6">
+                    <div class="col-sm-offset-3 col-sm-2 col-xs-4">
+                      <button type="submit" class="btn btn-primary" value="' . CovoiturageBO::TYPE_ALLER . ',' . CovoiturageBO::TYPE_RETOUR . '" name="submit" id="submit">Aller <span class="glyphicon glyphicon-transfer"></span> Retour</button>
+                    </div>
+                    <div class="col-sm-offset-3 col-sm-2 col-xs-4">
                       <button type="submit" class="btn btn-danger pull-right" value="' . CovoiturageBO::TYPE_RETOUR . '" name="submit" id="submit_' . CovoiturageBO::TYPE_RETOUR . '"><span class="glyphicon glyphicon-arrow-left"></span> Retour</button>
                     </div>
                   </div>
