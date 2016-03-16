@@ -14,6 +14,7 @@ use covoiturage\services\covoiturage\Add;
 use covoiturage\utils\HSession;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
+use \covoiturage\pages\covoiturage\Liste;
 
 /**
  * Description of Covoiturage
@@ -51,7 +52,10 @@ class Covoiturage extends CovoiturageBO {
         if ($user->admin) {
             $lib = 'Trajets';
         }
-        return static::getHtmlTable($covoiturages, $lib);
+        $html = '<div id="cov_list_trajets" data-refresh="'.Liste::getUrl(NULL, ['group_id' => $group->id]).'">';
+        $html .= static::getHtmlTable($covoiturages, $lib);
+        $html .= '</div>';
+        return $html;
     }
     
     public static function getHtmlTablePass(GroupBO $group, UserBO $user) {
@@ -96,29 +100,30 @@ class Covoiturage extends CovoiturageBO {
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="cov_date" name="cov_date">
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Passagers</label>
-                    <div id="cov_passagers_visu" class="col-sm-8"></div>
-                    <div class="cov_passager_tuile hidden bg-primary" id="cov_passager_tuile_hidden" data-param-id=""><span class="cov_passager_lib"></span><button type="button" class="btn btn-danger cov_remove_pass" data-toggle="tooltip" title="Enlever du trajet"><span class="glyphicon glyphicon-trash"></span></button></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="cov_pass" class="col-sm-2 control-label">Passager</label>
-                    <div class="col-sm-9 col-xs-10">
-                      <select id="cov_pass" name="cov_pass" class="form-control">
-                                <option value="" selected>Choisir un passager</option>';
+                  </div>';
+//        $html .= '<div class="form-group">
+//                    <label class="col-sm-2 control-label">Passagers</label>
+//                    <div id="cov_passagers_visu" class="col-sm-8"></div>
+//                    <div class="cov_passager_tuile hidden bg-primary" id="cov_passager_tuile_hidden" data-param-id=""><span class="cov_passager_lib"></span><button type="button" class="btn btn-danger cov_remove_pass" data-toggle="tooltip" title="Enlever du trajet"><span class="glyphicon glyphicon-trash"></span></button></div>
+//                  </div>';
+        $html .= '<div class="form-group">
+                    <label for="cov_pass" class="col-sm-2 control-label">Passagers</label>
+                    <div class="col-sm-10">';
+//        $html .= '      <select id="cov_pass" name="cov_pass" class="form-control">
+//                            <option value="" selected>Choisir un passager</option>';
         foreach ($userGList as $userGroup) {
             $user = $userGroup->getUser();
             if ($user->id != $connectUser->id || $connectUser->admin) {
-                $html .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
+                $html .= '<label class="checkbox-inline"> <input type="checkbox" id="cov_pass_cb_'.$user->id.'" name="cov_pass_cb_'.$user->id.'" value="'.$user->id.'"> ' . $user->toHtml() . ' </label>';
+//                $html .= '<option value="' . $user->id . '">' . $user->toHtml() . '</option>';
             }
         }
-        $html .= '      </select>
-                    </div>
-                    <div class="col-xs-2 col-sm-1">
-                        <button type="button" class="btn btn-success" id="cov_add_pass" data-toggle="tooltip" title="Ajouter au trajet"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                  </div>
+//        $html .= '      </select>';
+        $html .= '</div>';
+//        $html .= '  <div class="col-xs-2 col-sm-1">
+//                        <button type="button" class="btn btn-success" id="cov_add_pass" data-toggle="tooltip" title="Ajouter au trajet"><span class="glyphicon glyphicon-plus"></span></button>
+//                    </div>';
+        $html .= '</div>
                   <div class="form-group">
                     <div class="col-sm-2 col-xs-4">
                       <button type="submit" class="btn btn-success" value="' . CovoiturageBO::TYPE_ALLER . '" name="submit" id="submit_' . CovoiturageBO::TYPE_ALLER . '">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>

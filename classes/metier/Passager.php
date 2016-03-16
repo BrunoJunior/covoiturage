@@ -9,6 +9,7 @@
 namespace covoiturage\classes\metier;
 
 use covoiturage\classes\dao\Passager as PassagerDAO;
+use Exception;
 
 /**
  * Description of Passager
@@ -16,5 +17,10 @@ use covoiturage\classes\dao\Passager as PassagerDAO;
  * @author bruno
  */
 class Passager extends PassagerDAO {
-    
+    protected function avantAjout() {
+        $idConducteur = $this->getCovoiturage()->conducteur_id;
+        if ($this->user_id == $idConducteur) {
+            throw new Exception('Le conducteur ne peut être passager !');
+        }
+    }
 }

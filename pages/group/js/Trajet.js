@@ -1,7 +1,11 @@
 var form = $('#cov-group-trajet form');
 
 form.data('callback', function () {
-    location.reload();
+    var div_refresh = $('#cov_list_trajets');
+    var url = div_refresh.data('refresh');
+
+    div_refresh.find('.panel-title .badge').html('<span class="glyphicon glyphicon-refresh spin"></span>');
+    div_refresh.load(url);
 });
 
 $("#cov_date").datepicker({

@@ -31,7 +31,11 @@ class Add extends Service {
             throw new Exception("Vous n'êtes pas autorisé à créer un trajet avec un autre conducteur que vous-même !");
         }
         $date = DateTime::createFromFormat('d/m/Y', HRequete::getPOSTObligatoire('cov_date'));
-        $idPassagers = explode(',', HRequete::getPOSTObligatoire('cov_passagers'));
+//        $idPassagers = explode(',', HRequete::getPOSTObligatoire('cov_passagers'));
+        $clesCbPassager = HRequete::getListeClePostCommencant('cov_pass_cb_');
+        if (empty($clesCbPassager)) {
+            throw new Exception("Sélectionnez au moins un passager !");
+        }
         $types = explode(',', HRequete::getPOSTObligatoire('submit'));
         $group = new GroupBO(HRequete::getPOSTObligatoire('group_id'));
         if (!$user->isDansGroupe($group) && !$user->admin) {
@@ -48,10 +52,8 @@ class Add extends Service {
             $covoiturage->type = $type;
             $covoiturage->merger();
 
-            foreach ($idPassagers as $idPassager) {
-                if (empty($idPassager)) {
-                    continue;
-                }
+            foreach ($clesCbPassager as $cle) {
+                $idPassager = HRequete::getPOST($cle);
                 $userPassager = new UserBO($idPassager);
                 if (!$userPassager->isDansGroupe($group)) {
                     throw new Exception("Un des passager ne fait pas partie du groupe !");
