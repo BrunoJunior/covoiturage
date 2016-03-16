@@ -82,14 +82,39 @@ class User extends ClasseTable {
      * @return CovoiturageBO[]
      */
     public function getListeCovoiturage($group = NULL) {
+        $params = [];
         $sql = Covoiturage::getSqlSelect();
-        $sql .= ' WHERE conducteur_id = ?';
-        $params = [$this->id];
+        $sql .= ' WHERE 1';
+        if (!$this->admin) {
+            $sql .= ' AND conducteur_id = ?';
+            $params = [$this->id];
+        }
         if ($group instanceof GroupBO && $group->existe()) {
             $sql .= ' AND group_id = ?';
             $params[] = $group->id;
         }
+        $sql .= ' ORDER BY date DESC';
         return Covoiturage::getListe($sql, $params);
+    }
+
+    /**
+     * Liste des covoiturage dont l'utilisateur était passager
+     * @return CovoiturageBO[]
+     */
+    public function getListeCovoituragePassager($group = NULL) {
+        $select = Covoiturage::getSqlSelect();
+        $from = '';
+        $where = ' WHERE 1';
+        $order = ' ORDER BY date DESC';
+        $params = [$this->id];
+        if ($group instanceof GroupBO && $group->existe()) {
+            if (!$this->admin) {
+                $from .= ' INNER JOIN passager ON (passager.covoiturage_id = covoiturage.id)';
+            }
+            $where .= ' AND group_id = ?';
+            $params[] = $group->id;
+        }
+        return Covoiturage::getListe($select . $from . $where . $order, $params);
     }
 
     /**

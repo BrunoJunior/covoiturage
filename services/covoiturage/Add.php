@@ -25,11 +25,15 @@ use DateTime;
 class Add extends Service {
 
     public function executerService() {
+        $user = $this->getUser();
+        $idConducteur = HRequete::getPOST('cov_conducteur', $user->id);
+        if (!$user->admin && $idConducteur != $user->id) {
+            throw new Exception("Vous n'êtes pas autorisé à créer un trajet avec un autre conducteur que vous-même !");
+        }
         $date = DateTime::createFromFormat('d/m/Y', HRequete::getPOSTObligatoire('cov_date'));
         $idPassagers = explode(',', HRequete::getPOSTObligatoire('cov_passagers'));
         $types = explode(',', HRequete::getPOSTObligatoire('submit'));
         $group = new GroupBO(HRequete::getPOSTObligatoire('group_id'));
-        $user = $this->getUser();
         if (!$user->isDansGroupe($group) && !$user->admin) {
             throw new Exception("Vous ne faites pas partie de ce groupe !");
         }
@@ -38,7 +42,7 @@ class Add extends Service {
                 throw new Exception("Type de trajet inconnu !");
             }
             $covoiturage = new CovoiturageBO();
-            $covoiturage->conducteur_id = $user->id;
+            $covoiturage->conducteur_id = $idConducteur;
             $covoiturage->group_id = $group->id;
             $covoiturage->date = $date->format('Y-m-d');
             $covoiturage->type = $type;

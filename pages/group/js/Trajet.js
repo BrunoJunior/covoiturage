@@ -19,6 +19,23 @@ $("#cov_date").datepicker({
     weekHeader: 'Sem.',
     dateFormat: 'dd/mm/yy'});
 
+$('#cov-group-trajet').on('click', 'form button.cov_remove_pass', function (e) {
+    var button = $(this);
+    var tuile = button.closest('.cov_passager_tuile');
+    var input_pass = $('#cov_passagers');
+    var final_passagers = [];
+    var passagers = input_pass.val().split(',');
+    for (i = 0; i < passagers.length; i++) {
+        var passager = passagers[i];
+        var id_tuile = tuile.data('param-id');
+        if (passager != '' && passager != id_tuile) {
+            final_passagers.push(passagers[i]);
+        }
+    }
+    input_pass.val(final_passagers.join());
+    tuile.fadeOut();
+});
+
 $('#cov_add_pass').on('click', function (e) {
     var select_passager = $('#cov_pass');
     var id_passager = select_passager.val();

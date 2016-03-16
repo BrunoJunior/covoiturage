@@ -12,6 +12,8 @@ use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\services\covoiturage\Add;
 use covoiturage\utils\HSession;
+use covoiturage\classes\metier\User as UserBO;
+use covoiturage\classes\metier\UserGroup as UserGroupBO;
 
 /**
  * Description of Covoiturage
@@ -27,31 +29,68 @@ class Covoiturage extends CovoiturageBO {
     private static function getTr(CovoiturageBO $covoiturage) {
         $conducteur = $covoiturage->getConducteur();
         $passagers = $covoiturage->getListePassagers();
+        $group = $covoiturage->getGroup();
         $htmlPassagers = '';
         if (!empty($passagers)) {
             foreach ($passagers as $passager) {
-                $htmlPassagers .= '<div class="cov_passager_tuile bg-primary">' . $passager->getUser()->toHtml() . '</div>';
+                $user = $passager->getUser();
+                $htmlPassagers .= '<div class="cov_passager_tuile bg-primary" data-param-id="'.$passager->id.'"><span class="cov_passager_lib">'.$user->toHtml().'</span>';
+                if (HSession::getUser()->admin || UserGroupBO::chargerParGroupeEtUser($group, HSession::getUser())->group_admin) {
+                    $htmlPassagers .= '<button type="button" class="btn btn-danger cov_remove_pass" data-toggle="tooltip" title="Enlever du trajet"><span class="glyphicon glyphicon-trash"></span></button>';
+                }
+                $htmlPassagers .= '</div>';
             }
         }
         $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == CovoiturageBO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
         return '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td><td>' . $conducteur->toHtml() . '</td><td>' . $htmlPassagers . '</td></tr>';
     }
 
-    public static function getHtmlTable(GroupBO $group) {
-        $covoiturages = $group->getListeCovoiturage();
-        $html = '<div class="table-responsive"><table class="table">';
+    public static function getHtmlTableCond(GroupBO $group, UserBO $user) {
+        $covoiturages = $user->getListeCovoiturage($group);
+        $lib = 'Mes trajets conducteur';
+        if ($user->admin) {
+            $lib = 'Trajets';
+        }
+        return static::getHtmlTable($covoiturages, $lib);
+    }
+    
+    public static function getHtmlTablePass(GroupBO $group, UserBO $user) {
+        $covoiturages = $user->getListeCovoituragePassager($group);
+        return static::getHtmlTable($covoiturages, 'Mes trajets passager');
+    }
+
+    private static function getHtmlTable($covoiturages, $label) {
+        $html = '<div class="panel panel-info">
+                <div class="panel-heading"><h3 class="panel-title">'.$label.' <span class="badge">'.count($covoiturages).'</span></h3></div>
+                <div class="panel-body"><div class="table-responsive"><table class="table">';
         $html .= static::getTh();
         foreach ($covoiturages as $covoiturage) {
             $html .= static::getTr($covoiturage);
         }
-        $html .= '</table></div>';
+        $html .= '</table></div></div></div>';
         return $html;
     }
 
     public static function getForm(GroupBO $group) {
+        $connectUser = HSession::getUser();
+        $userGList = $group->getListeUserGroup();
         $html = '<form action="' . Add::getUrl() . '" class="form-horizontal" method="POST">
                   <input type="hidden" id="cov_passagers" name="cov_passagers" />
                   <input type="hidden" id="group_id" name="group_id" value="' . $group->id . '" />';
+        if ($connectUser->admin) {
+            $html .= '<div class="form-group">
+                    <label for="cov_conducteur" class="col-sm-2 control-label">Conducteur</label>
+                    <div class="col-sm-10">
+                      <select id="cov_conducteur" name="cov_conducteur" class="form-control">';
+            foreach ($userGList as $userGroup) {
+                $user = $userGroup->getUser();
+                $selected = ($user->id == $connectUser->id) ? 'selected' : '';
+                $html .= '<option value="' . $user->id . ' ' . $selected . '">' . $user->toHtml() . '</option>';
+            }
+            $html .= '      </select>
+                    </div>
+                  </div>';
+        }
         $html .= '<div class="form-group">
                     <label for="cov_date" class="col-sm-2 control-label">Date</label>
                     <div class="col-sm-10">
@@ -68,10 +107,9 @@ class Covoiturage extends CovoiturageBO {
                     <div class="col-sm-9 col-xs-10">
                       <select id="cov_pass" name="cov_pass" class="form-control">
                                 <option value="" selected>Choisir un passager</option>';
-        $userGList = $group->getListeUserGroup();
         foreach ($userGList as $userGroup) {
             $user = $userGroup->getUser();
-            if ($user->id != HSession::getUser()->id) {
+            if ($user->id != $connectUser->id || $connectUser->admin) {
                 $html .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
             }
         }
