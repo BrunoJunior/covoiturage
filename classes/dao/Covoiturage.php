@@ -76,7 +76,7 @@ class Covoiturage extends ClasseTable {
     public function getListePassagers() {
         $sql = Passager::getSqlSelect();
         $sql .= ' WHERE covoiturage_id = ?';
-        return Passager::getListe($sql, [$this->id]);
+        return PassagerBO::getListe($sql, [$this->id]);
     }
 
     public function isDejaPresent() {

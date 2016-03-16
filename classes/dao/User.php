@@ -75,7 +75,7 @@ class User extends ClasseTable {
     public function getListeUserGroup() {
         $sql = UserGroup::getSqlSelect();
         $sql .= ' WHERE user_id = ?';
-        return UserGroup::getListe($sql, [$this->id]);
+        return UserGroupBO::getListe($sql, [$this->id]);
     }
 
     /**
@@ -101,7 +101,7 @@ class User extends ClasseTable {
             $params[] = $userPassager->id;
         }
         $order = ' ORDER BY date DESC';
-        return Covoiturage::getListe($select . $from . $where . $order, $params);
+        return CovoiturageBO::getListe($select . $from . $where . $order, $params);
     }
 
     /**
@@ -126,7 +126,7 @@ class User extends ClasseTable {
             $where .= ' AND conducteur_id = ?';
             $params[] = $userConducteur->id;
         }
-        return Covoiturage::getListe($select . $from . $where . $order, $params);
+        return CovoiturageBO::getListe($select . $from . $where . $order, $params);
     }
 
     /**
@@ -136,7 +136,7 @@ class User extends ClasseTable {
     public function getListePassager() {
         $sql = Passager::getSqlSelect();
         $sql .= ' WHERE user_id = ?';
-        return Passager::getListe($sql, [$this->id]);
+        return PassagerBO::getListe($sql, [$this->id]);
     }
 
     public static function chargerParNomEtPrenom($nom, $prenom) {
