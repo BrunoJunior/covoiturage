@@ -43,4 +43,13 @@ class Group extends GroupDAO {
         return $conducteur;
     }
 
+    public function getRecapitulatif() {
+        $recap = parent::getRecapitulatif();
+        $recapFinal = [];
+        foreach ($recap as $row) {
+            $recapFinal[$row['conducteur_id']][$row['user_id']] = $row['nb'];
+        }
+        return $recapFinal;
+    }
+
 }

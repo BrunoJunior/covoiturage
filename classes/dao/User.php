@@ -14,6 +14,7 @@ use covoiturage\classes\schema\Table;
 use covoiturage\classes\abstraites\ClasseTable;
 
 use covoiturage\utils\HSession;
+use covoiturage\utils\HDatabase;
 
 //DO
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
@@ -180,5 +181,23 @@ class User extends ClasseTable {
             default:
                 return parent::transformerValeurPourBdd($attribut);
         }
+    }
+
+    public function getCreditsConducteur($idGroup) {
+        $sql = 'SELECT COUNT(*) nb
+                FROM `passager` AS p
+                INNER JOIN `covoiturage` AS c ON (c.id = p.covoiturage_id)
+                WHERE c.conducteur_id = ? AND c.group_id = ?';
+        $result = HDatabase::rechercher($sql, [$this->id, $idGroup]);
+        return $result[0]['nb'];
+    }
+
+    public function getCreditsPassager($idGroup) {
+        $sql = 'SELECT COUNT(*) nb
+                FROM `passager` AS p
+                INNER JOIN `covoiturage` AS c ON (c.id = p.covoiturage_id)
+                WHERE p.user_id = ? AND c.group_id = ?';
+        $result = HDatabase::rechercher($sql, [$this->id, $idGroup]);
+        return $result[0]['nb'];
     }
 }

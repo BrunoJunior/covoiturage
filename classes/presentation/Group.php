@@ -18,6 +18,7 @@ use covoiturage\pages\user\Edit as EditUser;
 use covoiturage\classes\metier\User;
 use covoiturage\classes\presentation\UserGroup as UserGroupBP;
 use covoiturage\services\group\Adduser;
+use covoiturage\utils\HArray;
 
 /**
  * Description of Group
@@ -27,7 +28,7 @@ use covoiturage\services\group\Adduser;
 class Group extends GroupBO {
 
     public function getTuile() {
-        $prochainConducteur = NULL; //$this->getProchainConducteurPropose();
+        $prochainConducteur = $this->getProchainConducteurPropose();
         $usergroups = $this->getListeUserGroup();
         $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
@@ -39,7 +40,7 @@ class Group extends GroupBO {
                 $html .= '<a href="' . EditUser::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
             }
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
-                $html .= '<span class="glyphicon glyphicon-dashboard"></span>';
+                $html .= '<span class="glyphicon glyphicon-road"></span> ';
             }
             $html .= $user->toHtml() . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
@@ -149,4 +150,39 @@ class Group extends GroupBO {
         return $html;
     }
 
+    public function getRecapitulatifHtml() {
+        $recap = $this->getRecapitulatif();
+        $userGroups = $this->getListeUserGroup();
+        $html = '<div class="panel panel-info">
+                <div class="panel-heading"><h3 class="panel-title">Récapitulatif</h3></div>
+                <div class="panel-body"><div class="table-responsive"><table class="table">
+                <thead><tr><th></th>';
+        foreach ($userGroups as $userGroup) {
+            $html .= '<th>' . $userGroup->getUser()->toHtml() . '</th>';
+        }
+        $html .= '</tr></thead><tbody>';
+        foreach ($userGroups as $userGroupRow) {
+            $html .= '<tr><td>'.$userGroupRow->getUser()->toHtml().'</td>';
+            foreach ($userGroups as $userGroupCol) {
+                $class = 'bg-info';
+                $valeur = '';
+                if ($userGroupCol->id == $userGroupRow->id) {
+                    $class = 'bg-primary';
+                } else {
+                    $pos = HArray::getVal(HArray::getVal($recap, $userGroupRow->user_id, []), $userGroupCol->user_id, 0);
+                    $neg = HArray::getVal(HArray::getVal($recap, $userGroupCol->user_id, []), $userGroupRow->user_id, 0);
+                    $valeur = $pos - $neg;
+                    if ($valeur > 0) {
+                        $class = 'bg-success';
+                    } else if ($valeur < 0) {
+                        $class = 'bg-danger';
+                    }
+                }
+                $html .= '<td class="' . $class . '">' . $valeur . '</td>';
+            }
+            $html .= '</tr>';
+        }
+        $html .= '</tbody></table></div></div></div>';
+        return $html;
+    }
 }

@@ -78,4 +78,12 @@ class Group extends ClasseTable {
     public function getUserGroup(UserBO $user) {
         return UserGroupBO::chargerParGroupeEtUser($this, $user);
     }
+
+    public function getRecapitulatif() {
+        $sql = 'SELECT p.user_id, c.conducteur_id, COUNT(p.id) nb FROM `passager` p
+                INNER JOIN `covoiturage` c ON (c.id = p.covoiturage_id)
+                WHERE c.group_id = ?
+                GROUP BY p.user_id, c.conducteur_id';
+        return HDatabase::rechercher($sql, [$this->id]);
+    }
 }

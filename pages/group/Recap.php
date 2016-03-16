@@ -26,9 +26,9 @@ class Recap extends ServiceVue {
             throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
         }
         echo "<div id='cov-group-recap'>
-                <div class='row'> ";
-
-        echo "  </div>
+                <div class='row'><div class='col-xs-12'>";
+        echo $group->getRecapitulatifHtml();
+        echo "  </div></div>
               </div>";
     }
 
