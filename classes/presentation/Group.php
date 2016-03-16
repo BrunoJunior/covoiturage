@@ -41,7 +41,7 @@ class Group extends GroupBO {
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
                 $html .= '<span class="glyphicon glyphicon-dashboard"></span>';
             }
-            $html .= $user->prenom . ' ' . $user->nom . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
+            $html .= $user->toHtml() . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
         }
         $html .= '</div>';

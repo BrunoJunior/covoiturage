@@ -24,7 +24,7 @@ class User extends UserDAO {
      * @return int
      */
     public function getNbVoyageConducteur($group = NULL) {
-        return count($this->getListeCovoiturage($group));
+        return count($this->getListeCovoiturage($group, NULL, FALSE));
     }
     
     public function checkPassword($password) {

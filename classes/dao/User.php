@@ -81,12 +81,12 @@ class User extends ClasseTable {
      * Liste des covoiturage dont le conducteur est l'utilisateur
      * @return CovoiturageBO[]
      */
-    public function getListeCovoiturage($group = NULL, $userPassager = NULL) {
+    public function getListeCovoiturage($group = NULL, $userPassager = NULL, $checkAdmin = TRUE) {
         $params = [];
         $select = Covoiturage::getSqlSelect();
         $from = '';
         $where = ' WHERE 1';
-        if (!$this->admin || ($userPassager instanceof UserBO && $userPassager->existe())) {
+        if (!$checkAdmin || !$this->admin || ($userPassager instanceof UserBO && $userPassager->existe())) {
             $where .= ' AND conducteur_id = ?';
             $params = [$this->id];
         }
