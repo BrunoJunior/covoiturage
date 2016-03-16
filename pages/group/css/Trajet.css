@@ -11,3 +11,15 @@
 #cov-group-trajet .cov-conducteur{
     width: 200px;
 }
+#cov-group-trajet .cov_passager_tuile{
+    display: inline-block;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    padding: 5px;
+    margin-right: 5px;
+}
+#cov-group-trajet .cov_passager_tuile .cov_remove_pass{
+    margin-left: 5px;
+    padding: 3px 6px;
+}

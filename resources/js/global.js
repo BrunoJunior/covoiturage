@@ -1,20 +1,20 @@
-$(function () {
+function afficherErr(message) {
+    var div_alert_err = $('#cov-alert-error');
+    div_alert_err.find('.message').text(message);
+    div_alert_err.removeClass('hidden');
+    div_alert_err.fadeIn();
+}
 
+function afficherOK(message) {
+    var div_alert_suc = $('#cov-alert-success');
+    div_alert_suc.find('.message').text(message);
+    div_alert_suc.removeClass('hidden');
+    div_alert_suc.fadeIn();
+}
+
+$(function () {
     var div_alert_err = $('#cov-alert-error');
     var div_alert_suc = $('#cov-alert-success');
-
-    function afficherErr(message) {
-        div_alert_err.find('.message').text(message);
-        div_alert_err.removeClass('hidden');
-        div_alert_err.fadeIn();
-    }
-
-    function afficherOK(message) {
-        div_alert_suc.find('.message').text(message);
-        div_alert_suc.removeClass('hidden');
-        div_alert_suc.fadeIn();
-    }
-
     // Lors d'une déconnexion -> Redirection
     $('#cov-deco').data('callback', function (button, reponse) {
         window.location.replace("/");
@@ -43,17 +43,19 @@ $(function () {
                 });
     });
 
-    $('form').on('submit', function (e) {
-        debugger;
+    $('form button[type=submit]').on('click', function (e) {
+        var button = $(this);
         e.preventDefault();
-        var form = $(this);
+        e.stopPropagation();
+        var form = button.closest('form');
         var callback = form.data('callback');
         div_alert_err.fadeOut();
         div_alert_suc.fadeOut();
+        var data = form.serialize() + '&submit=' + button.attr('value');
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
-            data: form.serialize(),
+            data: data,
             dataType: 'json', // JSON
             success: function (json) {
                 debugger;
@@ -66,10 +68,9 @@ $(function () {
                 }
             }
         }).fail(function (jqxhr, textStatus, error) {
-            debugger;
             var err = textStatus + ", " + error;
             afficherErr(err);
         });
-        ;
+        return false;
     });
 });

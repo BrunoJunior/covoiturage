@@ -27,7 +27,7 @@ class UserGroup extends UserGroupBO {
                       <input name="user_'.$user->id.'" id="user_'.$user->id.'" class="form-control" placeholder="Nom" value="'.$user->nom.'" disabled="disabled" />
                     </div>
                     <div class="col-sm-2">
-                        <button class="btn btn-danger cov-ug-remove" url="'.Remove::getUrl($userGp->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-minus"></span></button>
+                        <button type="button" class="btn btn-danger cov-ug-remove" url="'.Remove::getUrl($userGp->id).'" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-minus"></span></button>
                     </div>
                   </div>';
         return $html;

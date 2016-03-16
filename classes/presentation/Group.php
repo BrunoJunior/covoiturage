@@ -46,7 +46,7 @@ class Group extends GroupBO {
         $html .= '<a class="btn btn-primary" href="' . Trajet::getUrl($this->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
         if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-primary" href="' . Edit::getUrl($this->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<button class="btn btn-danger group-remove" url="' . Remove::getUrl($this->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
+            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($this->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
         }
         $html .= '</div></div></div>';
         return $html;
@@ -116,7 +116,7 @@ class Group extends GroupBO {
         $panelAjoutCov .= '</select>
                               </div>
                               <div class="col-sm-2">
-                                <button class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </div>
                             <div class="form-group">
@@ -128,7 +128,7 @@ class Group extends GroupBO {
                                 <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
                               </div>
                               <div class="col-sm-2">
-                                <button class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($this->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
                               </div>
                             </div>
                         </div>

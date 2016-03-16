@@ -11,6 +11,7 @@ namespace covoiturage\utils;
 
 use covoiturage\utils\HArray;
 use covoiturage\utils\HLog;
+use Exception;
 
 /**
  * Helper de manipulation des requetes HTTP
