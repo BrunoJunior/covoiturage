@@ -113,13 +113,14 @@ class User extends ClasseTable {
         $from = '';
         $where = ' WHERE 1';
         $order = ' ORDER BY date DESC';
-        $params = [$this->id];
+        $params = [];
         if ($group instanceof GroupBO && $group->existe()) {
             if (!$this->admin || ($userConducteur instanceof UserBO && $userConducteur->existe())) {
                 $from .= ' INNER JOIN passager ON (passager.covoiturage_id = covoiturage.id)';
             }
-            $where .= ' AND group_id = ?';
+            $where .= ' AND group_id = ? AND passager.user_id = ?';
             $params[] = $group->id;
+            $params[] = $this->id;
         }
         if ($userConducteur instanceof UserBO && $userConducteur->existe()) {
             $where .= ' AND conducteur_id = ?';
