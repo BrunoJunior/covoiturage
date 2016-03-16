@@ -11,6 +11,7 @@ namespace covoiturage\classes\presentation;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\services\covoiturage\Add;
+use covoiturage\utils\HSession;
 
 /**
  * Description of Covoiturage
@@ -47,12 +48,32 @@ class Covoiturage extends CovoiturageBO {
         return $html;
     }
 
-    public static function getForm() {
+    public static function getForm(GroupBO $group) {
         $html = '<form action="' . Add::getUrl() . '" class="form-horizontal" method="POST">';
         $html .= '<div class="form-group">
                     <label for="cov_date" class="col-sm-2 control-label">Date</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control" id="cov_date" name="cov_date">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cov_pass_1" class="col-sm-2 control-label">Passager #<span class="cov_pass_num">1</span></label>
+                    <div class="col-sm-10">
+                      <select id="cov_pass_1" name="cov_pass_1" class="form-control">
+                                <option value="" selected>Choisir un passager</option>';
+        $userGList = $group->getListeUserGroup();
+        foreach ($userGList as $userGroup) {
+            $user = $userGroup->getUser();
+            if ($user->id != HSession::getUser()->id) {
+                $html .= '<option value="' . $user->id . '">' . $user->prenom . ' ' . $user->nom . '</option>';
+            }
+        }
+        $html .= '</select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-xs-offset-5 col-xs-2">
+                        <button class="btn btn-success" id="cov_add_pass"><span class="glyphicon glyphicon-plus"></span><span class="hidden-xs"> Autre passager</span></button>
                     </div>
                   </div>
                   <div class="form-group">

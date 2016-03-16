@@ -31,7 +31,7 @@ class Trajet extends ServiceVue {
         echo '<div class="panel panel-primary">
                 <div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div>
                 <div class="panel-body">' .
-        CovoiturageBP::getForm() .
+        CovoiturageBP::getForm($group) .
                 '</div>
               </div>';
         echo '<div class="panel panel-info">

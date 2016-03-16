@@ -12,3 +12,7 @@ $("#cov_date").datepicker({
     dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     weekHeader: 'Sem.',
     dateFormat: 'dd/mm/yy'});
+
+$('#cov_add_pass').on('click', function () {
+    
+});
