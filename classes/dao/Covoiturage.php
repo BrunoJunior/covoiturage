@@ -18,6 +18,8 @@ use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
 
+use covoiturage\utils\HDatabase;
+
 /**
  * Description of Covoiturage
  *
@@ -75,5 +77,11 @@ class Covoiturage extends ClasseTable {
         $sql = Passager::getSqlSelect();
         $sql .= ' WHERE covoiturage_id = ?';
         return Passager::getListe($sql, [$this->id]);
+    }
+
+    public function isDejaPresent() {
+        $sql = 'SELECT * FROM covoiturage WHERE group_id = ? AND date = ? AND type = ?';
+        $result = HDatabase::rechercher($sql, [$this->group_id, $this->date, $this->type]);
+        return !empty($result);
     }
 }

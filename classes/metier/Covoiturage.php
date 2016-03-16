@@ -9,6 +9,7 @@
 namespace covoiturage\classes\metier;
 
 use covoiturage\classes\dao\Covoiturage as CovoiturageDAO;
+use Exception;
 
 /**
  * Description of Covoiturage
@@ -18,4 +19,10 @@ use covoiturage\classes\dao\Covoiturage as CovoiturageDAO;
 class Covoiturage extends CovoiturageDAO {
     const TYPE_ALLER = 0;
     const TYPE_RETOUR = 1;
+
+    protected function avantAjout() {
+        if ($this->isDejaPresent()) {
+            throw new Exception('Covoiturage déjà présent à cette date !');
+        }
+    }
 }
