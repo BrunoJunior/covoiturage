@@ -80,9 +80,9 @@ class User extends ClasseTable {
 
     /**
      * Liste des covoiturage dont le conducteur est l'utilisateur
-     * @return CovoiturageBO[]
+     * @return int|CovoiturageBO[]
      */
-    public function getListeCovoiturage($group = NULL, $userPassager = NULL, $checkAdmin = TRUE) {
+    public function getListeCovoiturage($group = NULL, $userPassager = NULL, $nbMax = 0, $page = 1, $mode = self::MODE_NORMAL, $checkAdmin = TRUE) {
         $params = [];
         $select = Covoiturage::getSqlSelect();
         $from = '';
@@ -101,14 +101,15 @@ class User extends ClasseTable {
             $params[] = $userPassager->id;
         }
         $order = ' ORDER BY date DESC';
-        return CovoiturageBO::getListe($select . $from . $where . $order, $params);
+        $sql = $select . $from . $where . $order;
+        return CovoiturageBO::getListe($sql, $params, $nbMax, $page, $mode);
     }
 
     /**
      * Liste des covoiturage dont l'utilisateur était passager
-     * @return CovoiturageBO[]
+     * @return int|CovoiturageBO[]
      */
-    public function getListeCovoituragePassager($group = NULL, $userConducteur = NULL) {
+    public function getListeCovoituragePassager($group = NULL, $userConducteur = NULL, $nbMax = 0, $page = 1, $mode = self::MODE_NORMAL) {
         $select = Covoiturage::getSqlSelect();
         $from = '';
         $where = ' WHERE 1';
@@ -126,7 +127,8 @@ class User extends ClasseTable {
             $where .= ' AND conducteur_id = ?';
             $params[] = $userConducteur->id;
         }
-        return CovoiturageBO::getListe($select . $from . $where . $order, $params);
+        $sql = $select . $from . $where . $order;
+        return CovoiturageBO::getListe($sql, $params, $nbMax, $page, $mode);
     }
 
     /**

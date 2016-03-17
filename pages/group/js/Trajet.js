@@ -1,11 +1,41 @@
 var form = $('#cov-group-trajet form');
 
-form.data('callback', function () {
-    var div_refresh = $('#cov_list_trajets');
+function refreshList(div_refresh, page) {
+    var div_pagination = div_refresh.find('.cov_pag');
     var url = div_refresh.data('refresh');
+    var actual = parseInt(div_pagination.find('li.active a').attr('href'));
 
+    if (div_pagination.length < 1) {
+        page = 1;
+    } else if (page == undefined) {
+        page = actual;
+    }
+    
+    if (page === '+1') {
+        page = actual + 1;
+    } else if (page === '-1') {
+        page = actual - 1;
+    }
+    url += 'num_page=' + page + '?';
     div_refresh.find('.panel-title .badge').html('<span class="glyphicon glyphicon-refresh spin"></span>');
     div_refresh.load(url);
+}
+
+form.data('callback', function () {
+    refreshList($('#cov_list_trajets'));
+});
+
+$('#cov-group-trajet').on('click', '.cov_pag a', function(e) {
+    var lien = $(this);
+    var li = lien.closest('li');
+    if (!li.hasClass('disabled')) {
+        var div_refresh = lien.closest('div[data-refresh]');
+        var page = lien.attr('href');
+        refreshList(div_refresh, page);
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
 });
 
 $("#cov_date").datepicker({

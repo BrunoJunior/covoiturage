@@ -197,6 +197,11 @@ class HString {
         return Conf::getConfByCode(Conf::BASE_DIR) . str_replace('\\', DIRECTORY_SEPARATOR, $relative_class_name) . '.php';
     }
 
+    /**
+     * Obtenir le nom d'une classe sans son espace de nom
+     * @param string $class
+     * @return string
+     */
     public static function getClassnameWithoutNamespace($class) {
         $refl = new \ReflectionClass($class);
         return $refl->getShortName();

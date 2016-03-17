@@ -24,7 +24,7 @@ class User extends UserDAO {
      * @return int
      */
     public function getNbVoyageConducteur($group = NULL) {
-        return count($this->getListeCovoiturage($group, NULL, FALSE));
+        return $this->getListeCovoiturage($group, NULL, 0, 1, static::MODE_COUNT, FALSE);
     }
     
     public function checkPassword($password) {
@@ -47,11 +47,11 @@ class User extends UserDAO {
     }
     
     public function getNbConducteurDe(GroupBO $group, User $user) {
-        return count($this->getListeCovoiturage($group, $user));
+        return $this->getListeCovoiturage($group, $user, 0, 1, static::MODE_COUNT);
     }
     
     public function getNbPassagerDe(GroupBO $group, User $user) {
-        return count($this->getListeCovoituragePassager($group, $user));
+        return $this->getListeCovoituragePassager($group, $user, 0, 1, static::MODE_COUNT);
     }
 
     public function getSommeCreditsTrajet(GroupBO $group) {

@@ -23,8 +23,15 @@ class Liste extends ServiceVue {
 
     public function executerService() {
         $group = new GroupBO(HRequete::getPOST('group_id'));
+        $numPage = HRequete::getPOST('num_page', 1);
+        $type = HRequete::getPOST('type', 'conducteur');
+        $max = HRequete::getPOST('max', 0);
         $user = $this->getUser();
-        echo CovoiturageBP::getHtmlTableCond($group, $user);
+        if ($type === 'conducteur') {
+            echo CovoiturageBP::getHtmlTableCond($group, $user, $max, $numPage);
+        } elseif ($type === 'passager') {
+            echo CovoiturageBP::getHtmlTablePass($group, $user, $max, $numPage);
+        }
     }
 
     public function getTitre() {

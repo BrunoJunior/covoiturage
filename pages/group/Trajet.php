@@ -23,6 +23,7 @@ class Trajet extends ServiceVue {
 
     public function executerService() {
         $group = new Group(HRequete::getPOST('id'));
+        $numPage = intval (HRequete::getPOST('num_page', 1));
         $user = $this->getUser();
         if (!$group->isUserPresent($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
@@ -34,9 +35,9 @@ class Trajet extends ServiceVue {
         CovoiturageBP::getForm($group) .
         '       </div>
               </div>';
-        echo CovoiturageBP::getHtmlTableCond($group, $user);
+        echo CovoiturageBP::getHtmlTableCond($group, $user, 10);
         if (!$user->admin) {
-            echo CovoiturageBP::getHtmlTablePass($group, $user);
+            echo CovoiturageBP::getHtmlTablePass($group, $user, 10);
         }
         echo "</div>";
     }

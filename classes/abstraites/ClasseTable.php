@@ -30,6 +30,7 @@ namespace covoiturage\classes\abstraites;
 use covoiturage\utils\Cache;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\HLog;
+use covoiturage\utils\HString;
 use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
 use \Exception;
@@ -44,6 +45,10 @@ abstract class ClasseTable extends ClasseSimple {
     const ETAT_CREE = 'C';
     const ETAT_MODIFIE = 'M';
     const ETAT_SUPPRIME = 'S';
+
+    const MODE_NORMAL = 0;
+    const MODE_COUNT = 1;
+    const MODE_NBPAGES = 2;
 
     /**
      * @var int
@@ -133,15 +138,69 @@ abstract class ClasseTable extends ClasseSimple {
     }
 
     /**
-     * Récupérer une liste d'objet à partir d'une requête et de ses paramètres associés
+     * Compter le nombre d'éléments d'une requête de liste
      * @param string $requete
      * @param array $params
      */
-    public static function getListe($requete = '', $params = []) {
-        $nom_classe = get_called_class();
+    public static function getCountListe($requete = '', $params = []) {
+        // FIXME - COMPTER SOUS REQUETE
+        if (empty($requete)) {
+            $requete = static::getSqlSelect();
+        }
+        //$sqlCount = 'SELECT COUNT(*) nb FROM (' . $requete . ')';
+        $countResult = HDatabase::rechercher($requete, $params);
+        return count($countResult);
+    }
+
+    /**
+     * Obtenir le nombre de pages pour une requête et un nombre max par page
+     * @param string $requete
+     * @param array $params
+     * @param int $nbMax
+     * @return int
+     */
+    public static function getNbPages($requete = '', $params = [], $nbMax = 0) {
+        if ($nbMax < 1) {
+            return 1;
+        }
+        $nb = static::getCountListe($requete, $params);
+        $nbPages = intval($nb / $nbMax);
+        $reste = $nb % $nbMax;
+        if ($reste > 0) {
+            $nbPages++;
+        }
+        return $nbPages;
+    }
+
+    /**
+     * Récupérer une liste d'objet à partir d'une requête et de ses paramètres associés
+     * @param string $requete
+     * @param array $params
+     * @param int $nbMax Nombre d'éléments max affichés
+     * @param int $page Page à afficher (ne fonctionne qu'en présence de $nbMax)
+     * @return int|ClasseTable
+     */
+    public static function getListe($requete = '', $params = [], $nbMax = 0, $page = 1, $mode = self::MODE_NORMAL) {
+        // On oblige à retourner l'objet présentation
+        $nomClasseSimple = HString::getClassnameWithoutNamespace(get_called_class());
+        $nomClasse = 'covoiturage\\classes\\presentation\\' . $nomClasseSimple;
 
         if (empty($requete)) {
             $requete = static::getSqlSelect();
+        }
+
+        if ($mode === static::MODE_COUNT) {
+            return static::getCountListe($requete, $params);
+        }
+
+        if ($mode === static::MODE_NBPAGES) {
+            return static::getNbPages($requete, $params, $nbMax);
+        }
+
+        $offset = 0;
+        if ($nbMax > 0) {
+            $offset = $nbMax * ($page - 1);
+            $requete .= ' LIMIT ' . $nbMax . ' OFFSET ' . $offset;
         }
 
         HLog::log('Debut getListe ' . $requete . '. Params : ' . json_encode($params), '', true, HLog::DEBUG);
@@ -151,7 +210,7 @@ abstract class ClasseTable extends ClasseSimple {
 
         if (!empty($resultat)) {
             foreach ($resultat as $row) {
-                $classe = new $nom_classe();
+                $classe = new $nomClasse();
                 $classe->chargerFromLigne($row);
                 $liste[] = $classe;
                 Cache::add(get_class($classe), $classe->id, $classe, 'id');

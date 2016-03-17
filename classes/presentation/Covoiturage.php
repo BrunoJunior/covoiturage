@@ -35,7 +35,7 @@ class Covoiturage extends CovoiturageBO {
         if (!empty($passagers)) {
             foreach ($passagers as $passager) {
                 $user = $passager->getUser();
-                $htmlPassagers .= '<div class="cov_passager_tuile bg-primary" data-param-id="'.$passager->id.'"><span class="cov_passager_lib">'.$user->toHtml().'</span>';
+                $htmlPassagers .= '<div class="cov_passager_tuile bg-primary" data-param-id="' . $passager->id . '"><span class="cov_passager_lib">' . $user->toHtml() . '</span>';
                 if (HSession::getUser()->admin || UserGroupBO::chargerParGroupeEtUser($group, HSession::getUser())->group_admin) {
                     $htmlPassagers .= '<button type="button" class="btn btn-danger cov_remove_pass" data-toggle="tooltip" title="Enlever du trajet"><span class="glyphicon glyphicon-trash"></span></button>';
                 }
@@ -46,27 +46,45 @@ class Covoiturage extends CovoiturageBO {
         return '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td><td>' . $conducteur->toHtml() . '</td><td>' . $htmlPassagers . '</td></tr>';
     }
 
-    public static function getHtmlTableCond(GroupBO $group, UserBO $user) {
-        $covoiturages = $user->getListeCovoiturage($group);
+    public static function getHtmlTableCond(GroupBO $group, UserBO $user, $nbMax = 0, $page = 1) {
+        $covoiturages = $user->getListeCovoiturage($group, NULL, $nbMax, $page);
+        $nbPages = $user->getListeCovoiturage($group, NULL, $nbMax, $page, static::MODE_NBPAGES);
+        $nbTotal = $user->getListeCovoiturage($group, NULL, $nbMax, $page, static::MODE_COUNT);
         $lib = 'Mes trajets conducteur';
         if ($user->admin) {
             $lib = 'Trajets';
         }
-        $html = '<div id="cov_list_trajets" data-refresh="'.Liste::getUrl(NULL, ['group_id' => $group->id]).'">';
-        $html .= static::getHtmlTable($covoiturages, $lib);
+        $html = '<div id="cov_list_trajets" data-refresh="' . Liste::getUrl(NULL, ['group_id' => $group->id, 'max' => $nbMax]) . '">';
+        $html .= static::getHtmlTable($covoiturages, $lib, $nbTotal, $nbPages, $page);
         $html .= '</div>';
         return $html;
     }
-    
-    public static function getHtmlTablePass(GroupBO $group, UserBO $user) {
-        $covoiturages = $user->getListeCovoituragePassager($group);
-        return static::getHtmlTable($covoiturages, 'Mes trajets passager');
+
+    public static function getHtmlTablePass(GroupBO $group, UserBO $user, $nbMax = 0, $page = 1) {
+        $covoiturages = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page);
+        $nbPages = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, static::MODE_NBPAGES);
+        $nbTotal = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, static::MODE_COUNT);
+        $html = '<div id="cov_list_passagers" data-refresh="' . Liste::getUrl(NULL, ['group_id' => $group->id, 'type' => 'passager', 'max' => $nbMax]) . '">';
+        $html .= static::getHtmlTable($covoiturages, 'Mes trajets passager', $nbTotal, $nbPages, $page);
+        $html .= '</div>';
+        return $html;
     }
 
-    private static function getHtmlTable($covoiturages, $label) {
+    private static function getHtmlTable($covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1) {
+        $htmlPagination = '';
+        if ($nbPage > 1) {
+            $htmlPagination .= '<div id="cov_pag_' . $label . '" class="cov_pag"><nav><ul class="pagination">';
+            $htmlPagination .= '<li class="' . ($page <= 1 ? 'disabled' : '') . '"><a href="-1" aria-label="Précédents"><span aria-hidden="true">&laquo;</span></a></li>';
+            for ($index = 1; $index <= $nbPage; $index++) {
+                $htmlPagination .= '<li class="' . ($index == $page ? 'active' : '') . '"><a href="' . $index . '">' . $index . '</a></li>';
+            }
+            $htmlPagination .= '<li class="' . ($page >= $nbPage ? 'disabled' : '') . '"><a href="+1" aria-label="Suivants"><span aria-hidden="true">&raquo;</span></a></li>';
+            $htmlPagination .= '</ul></nav></div>';
+        }
+
         $html = '<div class="panel panel-info">
-                <div class="panel-heading"><h3 class="panel-title">'.$label.' <span class="badge">'.count($covoiturages).'</span></h3></div>
-                <div class="panel-body"><div class="table-responsive"><table class="table">';
+                <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
+                <div class="panel-body">' . $htmlPagination . '<div class="table-responsive"><table class="table">';
         $html .= static::getTh() . '<tbody>';
         foreach ($covoiturages as $covoiturage) {
             $html .= static::getTr($covoiturage);
@@ -114,7 +132,7 @@ class Covoiturage extends CovoiturageBO {
         foreach ($userGList as $userGroup) {
             $user = $userGroup->getUser();
             if ($user->id != $connectUser->id || $connectUser->admin) {
-                $html .= '<label class="checkbox-inline"> <input type="checkbox" id="cov_pass_cb_'.$user->id.'" name="cov_pass_cb_'.$user->id.'" value="'.$user->id.'"> ' . $user->toHtml() . ' </label>';
+                $html .= '<label class="checkbox-inline"> <input type="checkbox" id="cov_pass_cb_' . $user->id . '" name="cov_pass_cb_' . $user->id . '" value="' . $user->id . '"> ' . $user->toHtml() . ' </label>';
 //                $html .= '<option value="' . $user->id . '">' . $user->toHtml() . '</option>';
             }
         }
