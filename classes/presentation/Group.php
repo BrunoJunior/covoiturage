@@ -29,6 +29,7 @@ class Group extends GroupBO {
 
     public function getTuile() {
         $prochainConducteur = $this->getProchainConducteurPropose();
+        $conducteurRecurrent = $this->getConducteurRecurrent();
         $usergroups = $this->getListeUserGroup();
         $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $this->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
@@ -36,13 +37,16 @@ class Group extends GroupBO {
         $html .= '<hr /><div class="cov-group-users">';
         foreach ($usergroups as $usergroup) {
             $user = $usergroup->getUser();
+            $credit = $user->getSommeCreditsTrajet($this);
             if ($conUser->admin) {
                 $html .= '<a href="' . EditUser::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
             }
+            $html .= $user->toHtml() . '<span class="badge '.($credit < 0 ? 'bg-danger' : 'bg-success').'">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($this) . '</span>';
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
                 $html .= '<span class="glyphicon glyphicon-road"></span> ';
+            }else if (!empty($conducteurRecurrent) && $user->id == $conducteurRecurrent->id) {
+                $html .= '<span class="glyphicon glyphicon-star"></span> ';
             }
-            $html .= $user->toHtml() . ' <span class="badge">' . $user->getNbVoyageConducteur($this) . '</span>';
             $html .= '<br />';
         }
         $html .= '</div>';

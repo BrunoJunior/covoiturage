@@ -43,6 +43,21 @@ class Group extends GroupDAO {
         return $conducteur;
     }
 
+    public function getConducteurRecurrent() {
+        $userGroups = $this->getListeUserGroup();
+        $conducteur = NULL;
+        $creditMin = 0;
+        foreach ($userGroups as $userGroup) {
+            $user = $userGroup->getUser();
+            $credit = $user->getSommeCreditsTrajet($this);
+            if ($conducteur === NULL || $credit > $creditMin) {
+                $conducteur = $user;
+                $creditMin = $credit;
+            }
+        }
+        return $conducteur;
+    }
+
     public function getRecapitulatif() {
         $recap = parent::getRecapitulatif();
         $recapFinal = [];

@@ -3,11 +3,31 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
     background-color: #31b0d5;
-    text-align: center;
     margin-bottom: 15px;
     min-height: 190px;
     position: relative;
     padding-bottom: 45px;
+}
+
+#cov-group-list .cov-group-actions {
+    text-align: center;
+}
+
+#cov-group-list .cov-group-users .glyphicon {
+    margin-left: 5px;
+}
+
+#cov-group-list .cov-group-users .badge {
+    margin-right: 5px;
+    float: right;
+}
+
+#cov-group-list .cov-group-users .badge.bg-danger {
+    background-color: crimson;
+}
+
+#cov-group-list .cov-group-users .badge.bg-success {
+    background-color: green;
 }
 
 #cov-group-list .cov-group h3{
