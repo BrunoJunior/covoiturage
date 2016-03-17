@@ -84,12 +84,12 @@ class Covoiturage extends CovoiturageBO {
 
         $html = '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
-                <div class="panel-body">' . $htmlPagination . '<div class="table-responsive"><table class="table">';
+                <div class="panel-body">' . $htmlPagination . '<table class="table">';
         $html .= static::getTh() . '<tbody>';
         foreach ($covoiturages as $covoiturage) {
             $html .= static::getTr($covoiturage);
         }
-        $html .= '</tbody></table></div></div></div>';
+        $html .= '</tbody></table></div></div>';
         return $html;
     }
 

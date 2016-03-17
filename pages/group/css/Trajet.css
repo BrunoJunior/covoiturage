@@ -6,7 +6,7 @@
 }
 #cov-group-trajet .cov-date,
 #cov-group-trajet .cov-type{
-    width: 100px;
+    width: 75px;
 }
 #cov-group-trajet .cov-conducteur{
     width: 200px;
@@ -18,6 +18,8 @@
     border-radius: 0.5em;
     padding: 5px;
     margin-right: 5px;
+    margin-bottom: 5px;
+    float: left;
 }
 #cov-group-trajet .cov_passager_tuile .cov_remove_pass{
     margin-left: 5px;
