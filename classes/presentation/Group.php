@@ -41,10 +41,10 @@ class Group extends GroupBO {
             if ($conUser->admin) {
                 $html .= '<a href="' . EditUser::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
             }
-            $html .= $user->toHtml() . '<span class="badge '.($credit < 0 ? 'bg-danger' : 'bg-success').'">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($this) . '</span>';
+            $html .= $user->toHtml() . '<span class="badge ' . ($credit < 0 ? 'bg-danger' : 'bg-success') . '">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($this) . '</span>';
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
                 $html .= '<span class="glyphicon glyphicon-road"></span> ';
-            }else if (!empty($conducteurRecurrent) && $user->id == $conducteurRecurrent->id) {
+            } else if (!empty($conducteurRecurrent) && $user->id == $conducteurRecurrent->id) {
                 $html .= '<span class="glyphicon glyphicon-star"></span> ';
             }
             $html .= '<br />';
@@ -157,36 +157,50 @@ class Group extends GroupBO {
     public function getRecapitulatifHtml() {
         $recap = $this->getRecapitulatif();
         $userGroups = $this->getListeUserGroup();
-        $html = '<div class="panel panel-info">
-                <div class="panel-heading"><h3 class="panel-title">Récapitulatif</h3></div>
-                <div class="panel-body"><div class="table-responsive"><table class="table">
-                <thead><tr><th></th>';
-        foreach ($userGroups as $userGroup) {
-            $html .= '<th>' . $userGroup->getUser()->toHtml() . '</th>';
-        }
-        $html .= '</tr></thead><tbody>';
-        foreach ($userGroups as $userGroupRow) {
-            $html .= '<tr><td>'.$userGroupRow->getUser()->toHtml().'</td>';
-            foreach ($userGroups as $userGroupCol) {
-                $class = 'bg-info';
-                $valeur = '';
-                if ($userGroupCol->id == $userGroupRow->id) {
-                    $class = 'bg-primary';
-                } else {
-                    $pos = HArray::getVal(HArray::getVal($recap, $userGroupRow->user_id, []), $userGroupCol->user_id, 0);
-                    $neg = HArray::getVal(HArray::getVal($recap, $userGroupCol->user_id, []), $userGroupRow->user_id, 0);
-                    $valeur = $pos - $neg;
-                    if ($valeur > 0) {
-                        $class = 'bg-success';
-                    } else if ($valeur < 0) {
-                        $class = 'bg-danger';
-                    }
-                }
-                $html .= '<td class="' . $class . '">' . $valeur . '</td>';
+        $user = HSession::getUser();
+        $html = '';
+
+        $users = [];
+//        if ($user->admin) {
+            foreach ($userGroups as $userGroup) {
+                $actUser = $userGroup->getUser();
+                $users[] = ['user' => $actUser, 'label' => $actUser->toHtml()];
             }
-            $html .= '</tr>';
+//        } else {
+//            $users[] = ['user' => $user, 'label' => 'Récapitulatif'];
+//        }
+
+        foreach ($users as $row) {
+            $rowUser = $row['user'];
+            $html .= '<div class="panel panel-info">
+                <div class="panel-heading"><h3 class="panel-title">'.$row['label'].'</h3></div>
+                <div class="panel-body">';
+
+            foreach ($userGroups as $userGroupRow) {
+                if ($userGroupRow->user_id == $rowUser->id) {
+                    continue;
+                }
+                $pos = HArray::getVal(HArray::getVal($recap, $rowUser->id, []), $userGroupRow->user_id, 0);
+                $neg = HArray::getVal(HArray::getVal($recap, $userGroupRow->user_id, []), $rowUser->id, 0);
+                $valeur = $pos - $neg;
+                $classe = $valeur >= 0 ? 'bg-success' : 'bg-danger';
+                $html .= '<div class="col-md-2 col-sm-3 col-xs-6"><div class="cov-recap">';
+                $html .= '<h5>' . $userGroupRow->getUser()->toHtml() . '</h5><hr />';
+                $html .= '<span class="badge ' . $classe . '">' . $valeur . '</span><hr />';
+                $html .= '<span class="explication">*';
+                if ($valeur > 0) {
+                    $html .= $userGroupRow->getUser()->toHtml() . ' doit ' . $valeur . ' trajets à ' . $rowUser->toHtml();
+                } else if ($valeur < 0) {
+                    $html .= $rowUser->toHtml() . ' doit ' . abs($valeur) . ' trajets à ' . $userGroupRow->getUser()->toHtml();
+                } else {
+                    $html .= 'Equilibre atteint';
+                }
+                $html .= '</span>';
+                $html .= '</div></div>';
+            }
+            $html .= '</div></div>';
         }
-        $html .= '</tbody></table></div></div></div>';
         return $html;
     }
+
 }

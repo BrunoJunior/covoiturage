@@ -1,0 +1,44 @@
+#cov-group-recap .cov-recap{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #31b0d5;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#cov-group-recap .cov-recap h5{
+    text-align: center;
+    color: whitesmoke;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+#cov-group-recap .cov-recap hr{
+    margin: 0;
+}
+
+#cov-group-recap .cov-recap .badge{
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    border-radius: 32px;
+}
+
+#cov-group-recap .cov-recap .badge.bg-danger {
+    background-color: crimson;
+}
+
+#cov-group-recap .cov-recap .badge.bg-success {
+    background-color: green;
+}
+
+#cov-group-recap .explication {
+    color: whitesmoke;
+    font-style: italic;
+    font-size: 12px;
+}
