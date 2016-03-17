@@ -58,6 +58,7 @@
 }
 #cov-group-list .cov-group .cov-group-users{
     margin-top: 5px;
+    padding-left: 5px;
 }
 
 #cov-group-list .cov-group .cov-group-actions {
