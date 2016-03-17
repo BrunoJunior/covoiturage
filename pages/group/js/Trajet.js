@@ -28,7 +28,7 @@ form.data('callback', function () {
 $('#cov-group-trajet').on('click', '.cov_pag a', function(e) {
     var lien = $(this);
     var li = lien.closest('li');
-    if (!li.hasClass('disabled')) {
+    if (!li.hasClass('disabled') && !li.hasClass('active')) {
         var div_refresh = lien.closest('div[data-refresh]');
         var page = lien.attr('href');
         refreshList(div_refresh, page);
