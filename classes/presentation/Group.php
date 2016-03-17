@@ -184,7 +184,7 @@ class Group extends GroupBO {
                 $neg = HArray::getVal(HArray::getVal($recap, $userGroupRow->user_id, []), $rowUser->id, 0);
                 $valeur = $pos - $neg;
                 $classe = $valeur >= 0 ? 'bg-success' : 'bg-danger';
-                $html .= '<div class="col-md-2 col-sm-3 col-xs-6"><div class="cov-recap">';
+                $html .= '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-recap">';
                 $html .= '<h5>' . $userGroupRow->getUser()->toHtml() . '</h5><hr />';
                 $html .= '<span class="badge ' . $classe . '">' . $valeur . '</span><hr />';
                 $html .= '<span class="explication">*';
