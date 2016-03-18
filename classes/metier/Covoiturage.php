@@ -30,5 +30,8 @@ class Covoiturage extends DAO {
         if ($this->isDejaPresent()) {
             throw new Exception('Covoiturage déjà présent à cette date !');
         }
+        if ($this->date > date('Y-m-d')) {
+            throw new Exception('Vous ne pouvez renseigner de trajet à venir !');
+        }
     }
 }
