@@ -14,7 +14,7 @@ namespace covoiturage\utils;
  * @author bruno
  */
 class Html {
-    public static function getBlocPagination($label, $nbMilieu = 3, $nbPage = 0, $page = 1) {
+    public static function getBlocPagination($nbMilieu = 3, $nbPage = 0, $page = 1) {
         $htmlPagination = '';
         if ($nbPage > 1) {
             $debutMilieu = $page - intval($nbMilieu/2);
@@ -28,7 +28,7 @@ class Html {
             } elseif ($debutMilieu > $limiteMax) {
                 $debutMilieu = $limiteMax;
             }
-            $htmlPagination .= '<div id="cov_pag_' . $label . '" class="cov_pag"><nav><ul class="pagination">';
+            $htmlPagination .= '<div class="cov_pag"><nav><ul class="pagination">';
             $htmlPagination .= '<li class="' . ($page <= 1 ? 'disabled' : '') . '"><a href="-1" aria-label="Précédents"><span aria-hidden="true">&laquo;</span></a></li>';
             for ($index = 1; $index <= $nbPage; $index++) {
                 if ($hasSepGauche && $index === 2) {

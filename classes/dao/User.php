@@ -113,7 +113,7 @@ class User extends ClasseTable {
         $select = Covoiturage::getSqlSelect();
         $from = '';
         $where = ' WHERE 1';
-        $order = ' ORDER BY date DESC';
+        $order = ' ORDER BY date DESC, type DESC';
         $params = [];
         if ($group instanceof GroupBO && $group->existe()) {
             if (!$this->admin || ($userConducteur instanceof UserBO && $userConducteur->existe())) {

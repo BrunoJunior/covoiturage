@@ -55,7 +55,7 @@ class Group extends GroupBO {
         $html .= '<a class="btn btn-primary" href="' . Trajet::getUrl($this->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
         if ($conUser->admin || $this->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-primary" href="' . Edit::getUrl($this->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($this->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-remove"></span></button>';
+            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($this->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></button>';
         }
         $html .= '</div></div></div>';
         return $html;

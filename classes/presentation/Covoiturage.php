@@ -25,12 +25,15 @@ use covoiturage\utils\Html;
 class Covoiturage extends CovoiturageBO {
 
     private static function getTh($withConducteur = TRUE, $withPassagers = TRUE) {
-        $html = '<thead><tr><th class="cov-date">Date</th><th class="center cov-type">Type</th>';
+        $html = '<thead><tr><th class="hidden">id</th><th class="cov-date">Date</th><th class="center cov-type">Type</th>';
         if ($withConducteur) {
-            $html .= '<th class="cov-conducteur">Conducteur</th>';
+            $html .= '<th class="' . ($withPassagers ? 'cov-conducteur' : '') . '">Conducteur</th>';
         }
         if ($withPassagers) {
             $html .= '<th>Passagers</th>';
+        }
+        if (HSession::getUser()->admin) {
+            $html .= '<th>Actions</th>';
         }
         $html .= '</tr></thead>';
         return $html;
@@ -45,18 +48,24 @@ class Covoiturage extends CovoiturageBO {
             if (!empty($passagers)) {
                 foreach ($passagers as $passager) {
                     $user = $passager->getUser();
-                    $htmlPassagers .= '<div class="cov_passager_tuile bg-primary" data-param-id="' . $passager->id . '"><span class="cov_passager_lib">' . $user->toHtml() . '</span>';
+                    $htmlPassagers .= '<div class="cov_passager_tuile bg-info" data-param-id="' . $passager->id . '"><span class="cov_passager_lib">' . $user->toHtml() . '</span>';
                     $htmlPassagers .= '</div>';
                 }
             }
         }
         $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == CovoiturageBO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
-        $html = '<tr><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td>';
+        $html = '<tr><td class="hidden">' . $covoiturage->id . '</td><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td>';
         if ($withConducteur) {
-            $html .= '<td><div class="cov_passager_tuile bg-primary"><span class="cov_passager_lib">' . $conducteur->toHtml() . '</span></div></td>';
+            $html .= '<td><div class="cov_passager_tuile bg-info"><span class="cov_passager_lib">' . $conducteur->toHtml() . '</span></div></td>';
         }
         if ($withPassagers) {
             $html .= '<td>' . $htmlPassagers . '</td>';
+        }
+        if (HSession::getUser()->admin) {
+            $html .= '<td>
+                        <button class="btn btn-danger" url="" role="button" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button class="btn btn-primary" url="" role="button" data-toggle="tooltip" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </td>';
         }
         $html .= '</tr>';
         return $html;
@@ -87,7 +96,7 @@ class Covoiturage extends CovoiturageBO {
     }
 
     private static function getHtmlTable($covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
-        $htmlPagination = Html::getBlocPagination($label, 3, $nbPage, $page);
+        $htmlPagination = Html::getBlocPagination(3, $nbPage, $page);
         $html = '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
                 <div class="panel-body">' . $htmlPagination . '<table class="table">';
