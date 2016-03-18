@@ -10,7 +10,7 @@ function refreshList(div_refresh, page) {
     } else if (page == undefined) {
         page = actual;
     }
-    
+
     if (page === '+1') {
         page = actual + 1;
     } else if (page === '-1') {
@@ -25,7 +25,7 @@ form.data('callback', function () {
     refreshList($('#cov_list_trajets'));
 });
 
-$('#cov-group-trajet').on('click', '.cov_pag a', function(e) {
+$('#cov-group-trajet').on('click', '.cov_pag a', function (e) {
     var lien = $(this);
     var li = lien.closest('li');
     if (!li.hasClass('disabled') && !li.hasClass('active')) {
@@ -51,7 +51,12 @@ $("#cov_date").datepicker({
     dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
     dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     weekHeader: 'Sem.',
-    dateFormat: 'dd/mm/yy'});
+    dateFormat: 'dd/mm/yy',
+    beforeShow: function () {
+        setTimeout(function () {
+            $('.ui-datepicker').css('z-index', 9999);
+        }, 0);
+    }});
 
 $('#cov-group-trajet').on('click', 'form button.cov_remove_pass', function (e) {
     var button = $(this);
