@@ -100,7 +100,7 @@ class User extends ClasseTable {
             $where .= ' AND passager.user_id = ?';
             $params[] = $userPassager->id;
         }
-        $order = ' ORDER BY date DESC';
+        $order = ' ORDER BY date DESC, type DESC';
         $sql = $select . $from . $where . $order;
         return CovoiturageBO::getListe($sql, $params, $nbMax, $page, $mode);
     }

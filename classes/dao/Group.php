@@ -56,7 +56,7 @@ class Group extends ClasseTable {
      */
     public function getListeCovoiturage() {
         $sql = CovoiturageBO::getSqlSelect();
-        $sql .= ' WHERE group_id = ? ORDER BY date DESC';
+        $sql .= ' WHERE group_id = ? ORDER BY date DESC, type';
         return CovoiturageBO::getListe($sql, [$this->id]);
     }
 

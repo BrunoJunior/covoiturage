@@ -16,7 +16,7 @@ function refreshList(div_refresh, page) {
     } else if (page === '-1') {
         page = actual - 1;
     }
-    url += 'num_page=' + page + '?';
+    url += 'num_page=' + page + '&';
     div_refresh.find('.panel-title .badge').html('<span class="glyphicon glyphicon-refresh spin"></span>');
     div_refresh.load(url);
 }
