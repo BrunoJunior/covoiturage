@@ -25,7 +25,9 @@
     margin-left: 5px;
     padding: 3px 6px;
 }
-
 #cov-group-trajet .cov_pag{
     text-align: center;
+}
+#cov-group-trajet tr .btn {
+    margin-bottom: 5px;
 }
