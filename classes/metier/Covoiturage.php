@@ -8,18 +8,24 @@
 
 namespace covoiturage\classes\metier;
 
-use covoiturage\classes\dao\Covoiturage as CovoiturageDAO;
 use Exception;
+
+// DAO
+use covoiturage\classes\dao\Covoiturage as DAO;
 
 /**
  * Description of Covoiturage
  *
  * @author bruno
  */
-class Covoiturage extends CovoiturageDAO {
+class Covoiturage extends DAO {
     const TYPE_ALLER = 0;
     const TYPE_RETOUR = 1;
 
+    /**
+     * Ne pas créer si un trajet existe déjà pour un groupe un type et une date donnés
+     * @throws Exception
+     */
     protected function avantAjout() {
         if ($this->isDejaPresent()) {
             throw new Exception('Covoiturage déjà présent à cette date !');

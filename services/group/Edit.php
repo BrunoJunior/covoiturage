@@ -8,9 +8,12 @@
 
 namespace covoiturage\services\group;
 
+// Service Traitement
 use covoiturage\classes\abstraites\Service;
+// BO
+use covoiturage\classes\metier\Group as BO;
+// Helpers
 use covoiturage\utils\HRequete;
-use covoiturage\classes\presentation\Group as GroupBP;
 use Exception;
 
 /**
@@ -20,9 +23,12 @@ use Exception;
  */
 class Edit extends Service {
 
+    /**
+     * Mise à jour d'un groupe
+     * @throws Exception
+     */
     public function executerService() {
-        $id = HRequete::getPOST('id');
-        $group = new GroupBP($id);
+        $group = new BO(HRequete::getPOST('id'));
         $user = $this->getUser();
         if (!$group->isUserAdminGroup($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');

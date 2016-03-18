@@ -8,10 +8,16 @@
 
 namespace covoiturage\classes\abstraites;
 
+/**
+ * Helpers
+ */
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\HLog;
-use Exception;
 use covoiturage\utils\Cache;
+use Exception;
+/**
+ * Services
+ */
 use covoiturage\services\user\Logout;
 use covoiturage\pages\user\Edit;
 
@@ -22,9 +28,26 @@ use covoiturage\pages\user\Edit;
  */
 abstract class ServiceVue extends Service {
 
+    /**
+     * Liste des fichiers js liés
+     * @var array
+     */
     private $jsFiles = [];
+    /**
+     * Liste des fichiers css liés
+     * @var type
+     */
     private $cssFiles = [];
+    /**
+     * Titre du service de vue
+     * @var string
+     */
     private $titre;
+    /**
+     * Ce service doit-il être chargé complètement
+     * (page complète)
+     * @var boolean
+     */
     private $complete = TRUE;
 
     /**
@@ -32,14 +55,26 @@ abstract class ServiceVue extends Service {
      */
     public abstract function getTitre();
 
+    /**
+     * Setter titre de la page
+     * @param type $titre
+     */
     public function setTitre($titre) {
         $this->titre = $titre;
     }
 
+    /**
+     * La vue doit-elle être chargée complètement
+     * @return boolean
+     */
     public function isComplete() {
         return TRUE;
     }
 
+    /**
+     * Gestion de l'exécution d'un service de vue
+     * @param string $titre
+     */
     public function executer($titre = NULL) {
         if ($titre === NULL) {
             $titre = $this->getTitre();
@@ -75,6 +110,9 @@ abstract class ServiceVue extends Service {
         $this->insertCss();
     }
 
+    /**
+     * Afficher la vue complète
+     */
     private function afficher() {
         $root = Cache::get('', 'root');
         $user = $this->getUser();
@@ -119,28 +157,47 @@ abstract class ServiceVue extends Service {
     </html>';
     }
 
+    /**
+     * Ajouter un fichier javascript à la vue
+     * @param string $filename
+     */
     protected function addJs($filename) {
-        $filePath = $this->getDirname() . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $filename . '.js';
+        $filePath = $this->getJsDirname() . DIRECTORY_SEPARATOR . $filename . '.js';
         if (file_exists($filePath)) {
             $this->jsFiles[] = $filePath;
         }
     }
 
+    /**
+     * Ajouter un ficheir css à la vue
+     * @param string $filename
+     */
     protected function addCss($filename) {
-        $filePath = $this->getDirname() . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . $filename . '.css';
+        $filePath = $this->getCssDirname() . DIRECTORY_SEPARATOR . $filename . '.css';
         if (file_exists($filePath)) {
             $this->cssFiles[] = $filePath;
         }
     }
 
+    /**
+     * Obtenir le répertoire où sont stockés les fichiers javascript pour la vue
+     * @return string
+     */
     protected function getJsDirname() {
-        $this->getDirname() . DIRECTORY_SEPARATOR . 'js';
+        return $this->getDirname() . DIRECTORY_SEPARATOR . 'js';
     }
 
+    /**
+     * Obtenir le répertoire où sont stockés les fichiers css pour la vue
+     * @return string
+     */
     protected function getCssDirname() {
-        $this->getDirname() . DIRECTORY_SEPARATOR . 'js';
+        return $this->getDirname() . DIRECTORY_SEPARATOR . 'css';
     }
 
+    /**
+     * Ajout des fichiers javascript à la vue
+     */
     protected function insertJs() {
         foreach ($this->jsFiles as $file) {
             echo "\n<script type=\"text/javascript\" >\n";
@@ -151,6 +208,9 @@ abstract class ServiceVue extends Service {
         }
     }
 
+    /**
+     * Ajout des fichiers CSS à la vue
+     */
     protected function insertCss() {
         foreach ($this->cssFiles as $file) {
             echo "\n<style type='text/css' media='all'>\n";
@@ -159,6 +219,10 @@ abstract class ServiceVue extends Service {
         }
     }
 
+    /**
+     * L'extension d'un service de vue sera html
+     * @return string
+     */
     protected static function getExtension() {
         return 'html';
     }

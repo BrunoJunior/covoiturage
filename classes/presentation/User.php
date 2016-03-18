@@ -8,9 +8,12 @@
 
 namespace covoiturage\classes\presentation;
 
-use covoiturage\classes\metier\User as UserBO;
+// BO
+use covoiturage\classes\metier\User as BO;
+// Services
 use covoiturage\services\user\Login;
 use covoiturage\services\user\Edit;
+// Helpers
 use covoiturage\utils\HSession;
 
 /**
@@ -18,9 +21,14 @@ use covoiturage\utils\HSession;
  *
  * @author bruno
  */
-class User extends UserBO {
+class User {
+
+    /**
+     * Obtenir le formulaire de connexion
+     * @return string
+     */
     public static function getConnexionForm() {
-        return '<form action="'.Login::getUrl().'" class="form-horizontal" method="POST">
+        return '<form action="' . Login::getUrl() . '" class="form-horizontal" method="POST">
                     <div class="form-group">
                       <label for="user_email" class="col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
@@ -50,11 +58,16 @@ class User extends UserBO {
                   </form>';
     }
 
-    public function getForm() {
-        $html = '<form action="'.Edit::getUrl().'" class="form-horizontal" method="POST">
-                    <input type="hidden" name="id" value="' . $this->id . '" />';
+    /**
+     * Obtenir le formulaire de gestion d'un utilisateur
+     * @param BO $user
+     * @return string
+     */
+    public static function getForm(BO $user) {
+        $html = '<form action="' . Edit::getUrl() . '" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" value="' . $user->id . '" />';
 
-        $html .=   '<div class="panel panel-primary">
+        $html .= '<div class="panel panel-primary">
                         <div class="panel-heading">
                           <h3 class="panel-title">Informations personnelles</h3>
                         </div>
@@ -62,25 +75,25 @@ class User extends UserBO {
                             <div class="form-group">
                               <label for="prenom" class="col-sm-2 control-label">Prénom</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="' . $this->prenom . '">
+                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="' . $user->prenom . '">
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="nom" class="col-sm-2 control-label">Nom</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="' . $this->nom . '">
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="' . $user->nom . '">
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="email" class="col-sm-2 control-label">Email</label>
                               <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="' . $this->email . '">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="' . $user->email . '">
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="tel" class="col-sm-2 control-label">N° de téléphone</label>
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" id="tel" name="tel" placeholder="0601020304" value="' . $this->tel . '">
+                                <input type="text" class="form-control" id="tel" name="tel" placeholder="0601020304" value="' . $user->tel . '">
                               </div>
                             </div>';
         if (HSession::getUser()->admin) {
@@ -88,13 +101,13 @@ class User extends UserBO {
                         <div class="col-sm-offset-2 col-sm-10">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="admin" id="admin" ' . ($this->admin ? 'checked' : '') . '> Administrateur
+                              <input type="checkbox" name="admin" id="admin" ' . ($user->admin ? 'checked' : '') . '> Administrateur
                             </label>
                           </div>
                         </div>
                     </div>';
         }
-            $html .= '  </div>
+        $html .= '  </div>
                     </div>
                     <div class="panel panel-danger">
                         <div class="panel-heading">
@@ -123,10 +136,11 @@ class User extends UserBO {
                       </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">'.($this->existe() ? 'Modifier' : 'Créer').'</button>
+                        <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">' . ($user->existe() ? 'Modifier' : 'Créer') . '</button>
                       </div>
                     </div>
                 </form>';
         return $html;
     }
+
 }

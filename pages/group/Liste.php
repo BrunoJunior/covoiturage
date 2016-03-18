@@ -8,9 +8,12 @@
 
 namespace covoiturage\pages\group;
 
+// Vue
 use covoiturage\classes\abstraites\ServiceVue;
-use covoiturage\classes\presentation\Group;
-use Exception;
+// BP
+use covoiturage\classes\presentation\Group as BP;
+// BO
+use covoiturage\classes\metier\Group as BO;
 
 /**
  * Description of Liste
@@ -19,26 +22,28 @@ use Exception;
  */
 class Liste extends ServiceVue {
 
+    /**
+     * Affichage de la liste des groupes sous forme de tuiles
+     */
     public function executerService() {
-        $groups = Group::getListe();
+        $groups = BO::getListe();
         $user = $this->getUser();
-
-        echo "<div id='cov-group-list'>
-                <div class='row'> ";
-
+        echo "<div id='cov-group-list'><div class='row'> ";
         foreach ($groups as $group) {
             if ($group->isUserPresent($user) || $user->admin) {
-                echo $group->getTuile();
+                echo BP::getTuile($group);
             }
         }
         if ($user->admin) {
-            echo Group::getTuileAdd();
+            echo BP::getTuileAdd();
         }
-
-        echo "  </div>
-              </div>";
+        echo "</div></div>";
     }
 
+    /**
+     * Titre de la vue
+     * @return string
+     */
     public function getTitre() {
         return 'Liste des groupes';
     }

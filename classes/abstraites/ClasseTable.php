@@ -27,10 +27,13 @@
 
 namespace covoiturage\classes\abstraites;
 
+// Helpers
 use covoiturage\utils\Cache;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\HLog;
 use covoiturage\utils\HString;
+
+// Table
 use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
 use \Exception;
@@ -42,10 +45,16 @@ use \Exception;
  */
 abstract class ClasseTable extends ClasseSimple {
 
+    /**
+     * Etats de la donnée
+     */
     const ETAT_CREE = 'C';
     const ETAT_MODIFIE = 'M';
     const ETAT_SUPPRIME = 'S';
 
+    /**
+     * Modes du chargement de liste
+     */
     const MODE_NORMAL = 0;
     const MODE_COUNT = 1;
     const MODE_NBPAGES = 2;
@@ -60,6 +69,10 @@ abstract class ClasseTable extends ClasseSimple {
      */
     protected static $tables = [];
 
+    /**
+     * Constructeur
+     * @param int $id
+     */
     public function __construct($id = null) {
         if (isset($id))
             $this->charger($id);
@@ -178,12 +191,13 @@ abstract class ClasseTable extends ClasseSimple {
      * @param array $params
      * @param int $nbMax Nombre d'éléments max affichés
      * @param int $page Page à afficher (ne fonctionne qu'en présence de $nbMax)
+     * @param int $mode Mode de chargement
      * @return int|ClasseTable
      */
     public static function getListe($requete = '', $params = [], $nbMax = 0, $page = 1, $mode = self::MODE_NORMAL) {
-        // On oblige à retourner l'objet présentation
+        // On oblige à retourner l'objet métier
         $nomClasseSimple = HString::getClassnameWithoutNamespace(get_called_class());
-        $nomClasse = 'covoiturage\\classes\\presentation\\' . $nomClasseSimple;
+        $nomClasse = 'covoiturage\\classes\\metier\\' . $nomClasseSimple;
 
         if (empty($requete)) {
             $requete = static::getSqlSelect();

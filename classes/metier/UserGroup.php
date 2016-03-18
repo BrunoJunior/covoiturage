@@ -8,13 +8,14 @@
 
 namespace covoiturage\classes\metier;
 
-use covoiturage\classes\dao\UserGroup as UserGroupDAO;
+// DAO
+use covoiturage\classes\dao\UserGroup as DAO;
 
 /**
  * Description of UserGroup
  *
  * @author bruno
  */
-class UserGroup extends UserGroupDAO {
+class UserGroup extends DAO {
     
 }

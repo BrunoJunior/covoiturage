@@ -8,13 +8,15 @@
 
 namespace covoiturage\classes\presentation;
 
-use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
+// BO
+use covoiturage\classes\metier\Covoiturage as BO;
 use covoiturage\classes\metier\Group as GroupBO;
-use covoiturage\services\covoiturage\Add;
-use covoiturage\utils\HSession;
 use covoiturage\classes\metier\User as UserBO;
-use covoiturage\classes\metier\UserGroup as UserGroupBO;
-use \covoiturage\pages\covoiturage\Liste;
+// Services
+use covoiturage\services\covoiturage\Add;
+use covoiturage\pages\covoiturage\Liste;
+// Helpers
+use covoiturage\utils\HSession;
 use covoiturage\utils\Html;
 
 /**
@@ -22,8 +24,14 @@ use covoiturage\utils\Html;
  *
  * @author bruno
  */
-class Covoiturage extends CovoiturageBO {
+class Covoiturage {
 
+    /**
+     * Obtenir l'entête du tableau de trajets
+     * @param boolean $withConducteur
+     * @param boolean $withPassagers
+     * @return string
+     */
     private static function getTh($withConducteur = TRUE, $withPassagers = TRUE) {
         $html = '<thead><tr><th class="hidden">id</th><th class="cov-date">Date</th><th class="center cov-type">Type</th>';
         if ($withConducteur) {
@@ -39,10 +47,16 @@ class Covoiturage extends CovoiturageBO {
         return $html;
     }
 
-    private static function getTr(CovoiturageBO $covoiturage, $withConducteur = TRUE, $withPassagers = TRUE) {
+    /**
+     * Obtenir une ligne dans le tableau des trajet
+     * @param BO $covoiturage
+     * @param boolean $withConducteur
+     * @param boolean $withPassagers
+     * @return string
+     */
+    private static function getTr(BO $covoiturage, $withConducteur = TRUE, $withPassagers = TRUE) {
         $conducteur = $covoiturage->getConducteur();
         $passagers = $covoiturage->getListePassagers();
-        $group = $covoiturage->getGroup();
         if ($withPassagers) {
             $htmlPassagers = '';
             if (!empty($passagers)) {
@@ -53,7 +67,7 @@ class Covoiturage extends CovoiturageBO {
                 }
             }
         }
-        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == CovoiturageBO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
+        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == BO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
         $html = '<tr><td class="hidden">' . $covoiturage->id . '</td><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td>';
         if ($withConducteur) {
             $html .= '<td><div class="cov_passager_tuile bg-info"><span class="cov_passager_lib">' . $conducteur->toHtml() . '</span></div></td>';
@@ -71,10 +85,18 @@ class Covoiturage extends CovoiturageBO {
         return $html;
     }
 
+    /**
+     * Obtenir le tableau des trajets dont l'utilisateur est le conducteur
+     * @param GroupBO $group
+     * @param UserBO $user
+     * @param int $nbMax
+     * @param int $page
+     * @return string
+     */
     public static function getHtmlTableCond(GroupBO $group, UserBO $user, $nbMax = 0, $page = 1) {
         $covoiturages = $user->getListeCovoiturage($group, NULL, $nbMax, $page);
-        $nbPages = $user->getListeCovoiturage($group, NULL, $nbMax, $page, static::MODE_NBPAGES);
-        $nbTotal = $user->getListeCovoiturage($group, NULL, $nbMax, $page, static::MODE_COUNT);
+        $nbPages = $user->getListeCovoiturage($group, NULL, $nbMax, $page, BO::MODE_NBPAGES);
+        $nbTotal = $user->getListeCovoiturage($group, NULL, $nbMax, $page, BO::MODE_COUNT);
         $lib = 'Mes trajets conducteur';
         if ($user->admin) {
             $lib = 'Trajets';
@@ -85,17 +107,36 @@ class Covoiturage extends CovoiturageBO {
         return $html;
     }
 
+    /**
+     * Obtenir le tableau des trajets dont l'utilisateur est un passager
+     * @param GroupBO $group
+     * @param UserBO $user
+     * @param int $nbMax
+     * @param int $page
+     * @return string
+     */
     public static function getHtmlTablePass(GroupBO $group, UserBO $user, $nbMax = 0, $page = 1) {
         $covoiturages = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page);
-        $nbPages = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, static::MODE_NBPAGES);
-        $nbTotal = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, static::MODE_COUNT);
+        $nbPages = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, BO::MODE_NBPAGES);
+        $nbTotal = $user->getListeCovoituragePassager($group, NULL, $nbMax, $page, BO::MODE_COUNT);
         $html = '<div id="cov_list_passagers" data-refresh="' . Liste::getUrl(NULL, ['group_id' => $group->id, 'type' => 'passager', 'max' => $nbMax]) . '">';
         $html .= static::getHtmlTable($covoiturages, 'Mes trajets passager', $nbTotal, $nbPages, $page, TRUE, FALSE);
         $html .= '</div>';
         return $html;
     }
 
-    private static function getHtmlTable($covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
+    /**
+     * Obtenir un tableau de trajets
+     * @param BO $covoiturages
+     * @param string $label Libellé du bloc
+     * @param int $nbTotal Nombre total de trajets
+     * @param int $nbPage Nombre de pages
+     * @param int $page Page demandée
+     * @param boolean $withConducteur Afficher la colonne conducteur
+     * @param boolean $withPassagers Afficher la colonne passagers
+     * @return string
+     */
+    private static function getHtmlTable(BO $covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
         $htmlPagination = Html::getBlocPagination(3, $nbPage, $page);
         $html = '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
@@ -108,6 +149,11 @@ class Covoiturage extends CovoiturageBO {
         return $html;
     }
 
+    /**
+     * Obtenir un formulaire d'ajout de trajet
+     * @param GroupBO $group
+     * @return string
+     */
     public static function getForm(GroupBO $group) {
         $connectUser = HSession::getUser();
         $userGList = $group->getListeUserGroup();
@@ -134,38 +180,26 @@ class Covoiturage extends CovoiturageBO {
                       <input type="text" class="form-control" id="cov_date" name="cov_date">
                     </div>
                   </div>';
-//        $html .= '<div class="form-group">
-//                    <label class="col-sm-2 control-label">Passagers</label>
-//                    <div id="cov_passagers_visu" class="col-sm-8"></div>
-//                    <div class="cov_passager_tuile hidden bg-primary" id="cov_passager_tuile_hidden" data-param-id=""><span class="cov_passager_lib"></span><button type="button" class="btn btn-danger cov_remove_pass" data-toggle="tooltip" title="Enlever du trajet"><span class="glyphicon glyphicon-trash"></span></button></div>
-//                  </div>';
         $html .= '<div class="form-group">
                     <label for="cov_pass" class="col-sm-2 control-label">Passagers</label>
                     <div class="col-sm-10">';
-//        $html .= '      <select id="cov_pass" name="cov_pass" class="form-control">
-//                            <option value="" selected>Choisir un passager</option>';
         foreach ($userGList as $userGroup) {
             $user = $userGroup->getUser();
             if ($user->id != $connectUser->id || $connectUser->admin) {
                 $html .= '<label class="checkbox-inline"> <input type="checkbox" id="cov_pass_cb_' . $user->id . '" name="cov_pass_cb_' . $user->id . '" value="' . $user->id . '"> ' . $user->toHtml() . ' </label>';
-//                $html .= '<option value="' . $user->id . '">' . $user->toHtml() . '</option>';
             }
         }
-//        $html .= '      </select>';
         $html .= '</div>';
-//        $html .= '  <div class="col-xs-2 col-sm-1">
-//                        <button type="button" class="btn btn-success" id="cov_add_pass" data-toggle="tooltip" title="Ajouter au trajet"><span class="glyphicon glyphicon-plus"></span></button>
-//                    </div>';
         $html .= '</div>
                   <div class="form-group">
                     <div class="col-sm-2 col-xs-4">
-                      <button type="submit" class="btn btn-success" value="' . CovoiturageBO::TYPE_ALLER . '" name="submit" id="submit_' . CovoiturageBO::TYPE_ALLER . '">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>
+                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>
                     </div>
                     <div class="col-sm-offset-3 col-sm-2 col-xs-4">
-                      <button type="submit" class="btn btn-primary" value="' . CovoiturageBO::TYPE_ALLER . ',' . CovoiturageBO::TYPE_RETOUR . '" name="submit" id="submit">Aller <span class="glyphicon glyphicon-transfer"></span> Retour</button>
+                      <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller <span class="glyphicon glyphicon-transfer"></span> Retour</button>
                     </div>
                     <div class="col-sm-offset-3 col-sm-2 col-xs-4">
-                      <button type="submit" class="btn btn-danger pull-right" value="' . CovoiturageBO::TYPE_RETOUR . '" name="submit" id="submit_' . CovoiturageBO::TYPE_RETOUR . '"><span class="glyphicon glyphicon-arrow-left"></span> Retour</button>
+                      <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '"><span class="glyphicon glyphicon-arrow-left"></span> Retour</button>
                     </div>
                   </div>
                 </form>';

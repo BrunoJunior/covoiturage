@@ -8,11 +8,14 @@
 
 namespace covoiturage\classes\abstraites;
 
+/**
+ * Helpers
+ */
 use covoiturage\utils\HString;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\Cache;
-use Exception;
 use covoiturage\utils\HSession;
+use Exception;
 
 /**
  * Description of Service
@@ -21,32 +24,67 @@ use covoiturage\utils\HSession;
  */
 abstract class Service {
 
+    /**
+     * Réponse du service
+     * @var \stdClass
+     */
     private $reponse;
 
+    /**
+     * Message simple de retour
+     * @var string
+     */
     private $message = 'OK';
 
+    /**
+     * Utilisateur connecté
+     * @var \covoiturage\classes\metier\User
+     */
     private $user;
 
+    /**
+     * Constructeur
+     */
     public function __construct() {
         $this->reponse = new \stdClass();
     }
 
+    /**
+     * Ajouter un élément à la réponse
+     * @param string $key
+     * @param mixed $value
+     */
     protected function addResponseItem($key, $value) {
         if (is_object($this->reponse)) {
             $this->reponse->$key = $value;
         }
     }
 
+    /**
+     * Setter $reponse
+     * @param \stdClass $reponse
+     */
     protected function setResponse($reponse) {
         $this->reponse = $reponse;
     }
 
+    /**
+     * Setter message simple de retour
+     * @param string $message
+     */
     protected function setMessage($message) {
         $this->message = $message;
     }
 
+    /**
+     * Méthode d'exécution du service à surcharger
+     */
     public abstract function executerService();
 
+    /**
+     * Gestion de l'exécution du service
+     * Overture/Fermeture ... transaction
+     */
     public function executer() {
         ob_start();
         $retour = new \stdClass();
@@ -66,20 +104,39 @@ abstract class Service {
         HDatabase::closeTransaction($retour->isErr);
     }
 
+    /**
+     * Récupérer le nom du service
+     * @return string
+     */
     public function getName() {
         return HString::getClassnameWithoutNamespace($this);
     }
-    
+
+    /**
+     * Récupérer le répertoire du service
+     * @return string
+     */
     protected function getDirname() {
         $classname = get_called_class();
         $path = HString::getNamespacedClassPath($classname, 'covoiturage\\');
         return dirname($path);
     }
-    
+
+    /**
+     * Extension par défaut d'un service
+     * Les services héritant de cette classe seront des services de traitement
+     * @return string
+     */
     protected static function getExtension() {
         return 'serv';
     }
 
+    /**
+     * Obtenir l'url du service
+     * @param int $id
+     * @param array $params
+     * @return string
+     */
     public static function getUrl($id = NULL, $params = []) {
         if (array_key_exists('id', $params)) {
             $id = $params['id'];
@@ -101,6 +158,10 @@ abstract class Service {
         return $url;
     }
 
+    /**
+     * L'accès au service est-il sécurisé
+     * @return boolean
+     */
     public function isSecurised() {
         return TRUE;
     }
@@ -117,6 +178,21 @@ abstract class Service {
             $this->user = HSession::getUser();
         }
         return $this->user;
+    }
+
+    /**
+     *
+     */
+    protected function avantExecuterService() {
+
+    }
+
+    /**
+     *
+     * @param boolean $isErr
+     */
+    protected function apresExecuterService($isErr) {
+
     }
 
 }

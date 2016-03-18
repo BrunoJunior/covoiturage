@@ -8,15 +8,21 @@
 
 namespace covoiturage\classes\metier;
 
-use covoiturage\classes\dao\Passager as PassagerDAO;
-use Exception;
+// DAO
+use covoiturage\classes\dao\Passager as DAO;
 
+use Exception;
 /**
  * Description of Passager
  *
  * @author bruno
  */
-class Passager extends PassagerDAO {
+class Passager extends DAO {
+
+    /**
+     * Ne pas créer de trajet si le passager est le conducteur
+     * @throws Exception
+     */
     protected function avantAjout() {
         $idConducteur = $this->getCovoiturage()->conducteur_id;
         if ($this->user_id == $idConducteur) {

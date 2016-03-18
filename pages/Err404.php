@@ -8,6 +8,7 @@
 
 namespace covoiturage\pages;
 
+// Vue
 use covoiturage\classes\abstraites\ServiceVue;
 
 /**
@@ -16,16 +17,26 @@ use covoiturage\classes\abstraites\ServiceVue;
  * @author bruno
  */
 class Err404 extends ServiceVue {
+
+    /**
+     * Page 404
+     */
     public function executerService() {
-        echo '<div id="404" class="bg-danger text-center">';
-        echo '<h3>Page inconnue !</h3>';
-        echo '</div>';
+        echo '<div id="404" class="bg-danger text-center"><h3>Page inconnue !</h3></div>';
     }
 
+    /**
+     * Titre de la page
+     * @return string
+     */
     public function getTitre() {
         return 'Erreur 404';
     }
 
+    /**
+     * La page n'est pas sécurisé
+     * @return boolean
+     */
     public function isSecurised() {
         return FALSE;
     }

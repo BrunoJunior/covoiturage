@@ -8,14 +8,17 @@
 
 namespace covoiturage\services\covoiturage;
 
+// Service traitement
 use covoiturage\classes\abstraites\Service;
-use covoiturage\utils\HRequete;
-use Exception;
+// BO
+use covoiturage\classes\metier\User as BO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
-use covoiturage\classes\metier\User as UserBO;
+// Helpers
 use DateTime;
+use covoiturage\utils\HRequete;
+use Exception;
 
 /**
  * Description of Add
@@ -24,6 +27,10 @@ use DateTime;
  */
 class Add extends Service {
 
+    /**
+     * Ajout d'un trajet
+     * @throws Exception
+     */
     public function executerService() {
         $user = $this->getUser();
         $idConducteur = HRequete::getPOST('cov_conducteur', $user->id);
@@ -31,7 +38,6 @@ class Add extends Service {
             throw new Exception("Vous n'êtes pas autorisé à créer un trajet avec un autre conducteur que vous-même !");
         }
         $date = DateTime::createFromFormat('d/m/Y', HRequete::getPOSTObligatoire('cov_date'));
-//        $idPassagers = explode(',', HRequete::getPOSTObligatoire('cov_passagers'));
         $clesCbPassager = HRequete::getListeClePostCommencant('cov_pass_cb_');
         if (empty($clesCbPassager)) {
             throw new Exception("Sélectionnez au moins un passager !");
@@ -54,7 +60,7 @@ class Add extends Service {
 
             foreach ($clesCbPassager as $cle) {
                 $idPassager = HRequete::getPOST($cle);
-                $userPassager = new UserBO($idPassager);
+                $userPassager = new BO($idPassager);
                 if (!$userPassager->isDansGroupe($group)) {
                     throw new Exception("Un des passager ne fait pas partie du groupe !");
                 }

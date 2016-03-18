@@ -8,33 +8,48 @@
 
 namespace covoiturage\classes\metier;
 
-use covoiturage\classes\dao\Group as GroupDAO;
-use covoiturage\classes\metier\User;
+// DAO
+use covoiturage\classes\dao\Group as DAO;
 
 /**
  * Description of Group
  *
  * @author bruno
  */
-class Group extends GroupDAO {
+class Group extends DAO {
 
+    /**
+     * L'utilisateur est-il présent dans le groupe
+     * @param User $user
+     * @return boolean
+     */
     public function isUserPresent(User $user) {
         $userGroup = $this->getUserGroup($user);
         return $userGroup->existe();
     }
 
+    /**
+     * L'utilisateur est-il administrateur du groupe
+     * @param User $user
+     * @return boolean
+     */
     public function isUserAdminGroup(User $user) {
         $userGroup = $this->getUserGroup($user);
         return $userGroup->group_admin;
     }
 
+    /**
+     * Obtenir l'utilisateur qui devrait être conducteur
+     * pour le prochain trajet dans le groupe
+     * @return User
+     */
     public function getProchainConducteurPropose() {
         $userGroups = $this->getListeUserGroup();
         $conducteur = NULL;
         $creditMin = 0;
         foreach ($userGroups as $userGroup) {
             $user = $userGroup->getUser();
-            $credit = $user->getSommeCreditsTrajet($this);
+            $credit = $user->getScore($this);
             if ($conducteur === NULL || $credit < $creditMin) {
                 $conducteur = $user;
                 $creditMin = $credit;
@@ -43,13 +58,18 @@ class Group extends GroupDAO {
         return $conducteur;
     }
 
+    /**
+     * Obtenir l'utilisateur qui a le plus souvent
+     * été conducteur dans le groupe
+     * @return User
+     */
     public function getConducteurRecurrent() {
         $userGroups = $this->getListeUserGroup();
         $conducteur = NULL;
         $creditMin = 0;
         foreach ($userGroups as $userGroup) {
             $user = $userGroup->getUser();
-            $credit = $user->getSommeCreditsTrajet($this);
+            $credit = $user->getScore($this);
             if ($conducteur === NULL || $credit > $creditMin) {
                 $conducteur = $user;
                 $creditMin = $credit;
@@ -58,6 +78,12 @@ class Group extends GroupDAO {
         return $conducteur;
     }
 
+    /**
+     * Obtenir le récapitulatif du groupe
+     * Tableau de la forme [id_conducteur => [id_passager => nb de trajet]]
+     * Soit une ligne par couple conducteur / passager
+     * @return array
+     */
     public function getRecapitulatif() {
         $recap = parent::getRecapitulatif();
         $recapFinal = [];

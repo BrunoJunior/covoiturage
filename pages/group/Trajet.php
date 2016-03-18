@@ -8,11 +8,15 @@
 
 namespace covoiturage\pages\group;
 
+// Vue
 use covoiturage\classes\abstraites\ServiceVue;
-use covoiturage\classes\presentation\Group;
+// BO
+use covoiturage\classes\metier\Group as BO;
+// BP
+use covoiturage\classes\presentation\Covoiturage as CovoiturageBP;
+// Helpers
 use covoiturage\utils\HRequete;
 use Exception;
-use covoiturage\classes\presentation\Covoiturage as CovoiturageBP;
 
 /**
  * Description of Liste
@@ -21,20 +25,19 @@ use covoiturage\classes\presentation\Covoiturage as CovoiturageBP;
  */
 class Trajet extends ServiceVue {
 
+    /**
+     * Affichage des trajets
+     * @throws Exception
+     */
     public function executerService() {
-        $group = new Group(HRequete::getPOST('id'));
-        $numPage = intval (HRequete::getPOST('num_page', 1));
+        $group = new BO(HRequete::getPOST('id'));
         $user = $this->getUser();
         if (!$group->isUserPresent($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
         }
-        echo "<div id='cov-group-trajet'>";
-        echo '<div class="panel panel-primary">
-                <div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div>
-                <div class="panel-body">' .
-        CovoiturageBP::getForm($group) .
-        '       </div>
-              </div>';
+        echo '<div id="cov-group-trajet"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div><div class="panel-body">';
+        echo CovoiturageBP::getForm($group);
+        echo '</div></div>';
         echo CovoiturageBP::getHtmlTableCond($group, $user, 10);
         if (!$user->admin) {
             echo CovoiturageBP::getHtmlTablePass($group, $user, 10);
@@ -43,7 +46,7 @@ class Trajet extends ServiceVue {
     }
 
     public function getTitre() {
-        $group = new Group(HRequete::getPOST('id'));
+        $group = new BO(HRequete::getPOST('id'));
         return $group->nom . ' - Trajets';
     }
 

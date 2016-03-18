@@ -14,6 +14,9 @@ namespace covoiturage\services;
  * @author bruno
  */
 class Infos extends \covoiturage\classes\abstraites\Service {
+    /**
+     * PHP INFO
+     */
     public function executerService() {
         phpinfo();
     }

@@ -7,8 +7,11 @@
  */
 
 namespace covoiturage\services\user;
+
+// BO
+use covoiturage\classes\metier\User as BO;
+// Helpers
 use covoiturage\utils\HRequete;
-use covoiturage\classes\presentation\User as UserBP;
 use Exception;
 
 /**
@@ -18,10 +21,14 @@ use Exception;
  */
 class Login extends \covoiturage\classes\abstraites\Service {
 
+    /**
+     * Connexion
+     * @throws Exception
+     */
     public function executerService() {
         $email = HRequete::getPOST('user_email');
         $password = HRequete::getPOST('user_password');
-        if (!UserBP::connecter($email, $password)) {
+        if (!BO::connecter($email, $password)) {
             throw new Exception('Identification incorrecte !');
         }
     }

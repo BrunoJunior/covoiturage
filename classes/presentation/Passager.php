@@ -8,13 +8,11 @@
 
 namespace covoiturage\classes\presentation;
 
-use covoiturage\classes\metier\Passager as PassagerBO;
-
 /**
  * Description of Passager
  *
  * @author bruno
  */
-class Passager extends PassagerBO {
+class Passager {
     
 }

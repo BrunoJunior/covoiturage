@@ -16,6 +16,9 @@ use covoiturage\classes\abstraites\Service;
  * @author bruno
  */
 class Test extends Service {
+    /**
+     * Service de test
+     */
     public function executerService() {
         $this->addResponseItem('array', ['array']);
         $obj = new \stdClass();

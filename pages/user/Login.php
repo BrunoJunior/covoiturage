@@ -8,7 +8,8 @@
 
 namespace covoiturage\pages\user;
 
-use covoiturage\classes\presentation\User as UserBP;
+// BP
+use covoiturage\classes\presentation\User as BP;
 
 /**
  * Description of Login
@@ -17,9 +18,11 @@ use covoiturage\classes\presentation\User as UserBP;
  */
 class Login extends \covoiturage\classes\abstraites\ServiceVue {
 
+    /**
+     * Vue formulaire connexion
+     */
     public function executerService() {
-
-        echo UserBP::getConnexionForm();
+        echo BP::getConnexionForm();
     }
 
     public function getTitre() {

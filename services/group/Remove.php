@@ -8,8 +8,11 @@
 
 namespace covoiturage\services\group;
 
+// Service traitement
 use covoiturage\classes\abstraites\Service;
-use covoiturage\classes\metier\Group as GroupBO;
+// BO
+use covoiturage\classes\metier\Group as BO;
+// Helper
 use covoiturage\utils\HRequete;
 use Exception;
 
@@ -19,8 +22,13 @@ use Exception;
  * @author bruno
  */
 class Remove extends Service {
+
+    /**
+     * Suppression d'un groupe
+     * @throws Exception
+     */
     public function executerService() {
-        $group = new GroupBO(HRequete::getPOST('id'));
+        $group = new BO(HRequete::getPOST('id'));
         $user = $this->getUser();
         if (!$user->admin && !$group->isUserAdminGroup($user)) {
             throw new Exception("Vous n'êtes pas autorisé à effectuer cette action !");

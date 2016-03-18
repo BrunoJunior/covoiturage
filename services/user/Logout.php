@@ -14,6 +14,9 @@ namespace covoiturage\services\user;
  * @author bruno
  */
 class Logout extends \covoiturage\classes\abstraites\Service {
+    /**
+     * Déconnexion
+     */
     public function executerService() {
         // On détruit les variables de notre session
         session_unset ();

@@ -13,10 +13,11 @@ use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
 use covoiturage\classes\abstraites\ClasseTable;
 
+// Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\HDatabase;
 
-//DO
+//BO
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
@@ -141,6 +142,12 @@ class User extends ClasseTable {
         return PassagerBO::getListe($sql, [$this->id]);
     }
 
+    /**
+     * Chargement d'un utilisateur par son nom et son prénom
+     * @param string $nom
+     * @param string $prenom
+     * @return UserBO
+     */
     public static function chargerParNomEtPrenom($nom, $prenom) {
         $sql = static::getSqlSelect();
         $sql .= ' WHERE nom = :nom AND prenom = :prenom';
@@ -154,7 +161,13 @@ class User extends ClasseTable {
             return $liste[0];
         }
     }
-    
+
+    /**
+     * Connexion utilisateur
+     * @param string $email
+     * @param string $password
+     * @return boolean
+     */
     public static function connecter($email, $password) {
         $sql = static::getSqlSelect();
         $sql .= ' WHERE email = :email';
@@ -170,6 +183,12 @@ class User extends ClasseTable {
         return FALSE;
     }
 
+    /**
+     * Transformation des données provenant de la BDD
+     * @param string $attribut
+     * @param mixed $value
+     * @return mixed
+     */
     protected function transformerValeurFromBdd($attribut, $value) {
         if ($attribut == 'admin') {
             return ($value == 1);
@@ -177,6 +196,11 @@ class User extends ClasseTable {
         return parent::transformerValeurFromBdd($attribut, $value);
     }
 
+    /**
+     * Transformation des données avant envoi vers la BDD
+     * @param string $attribut
+     * @return mixed
+     */
     protected function transformerValeurPourBdd($attribut) {
         switch ($attribut) {
             case 'admin':
@@ -186,6 +210,11 @@ class User extends ClasseTable {
         }
     }
 
+    /**
+     * Combien de fois un utilisateur a-t-il été conducteur dans un groupe
+     * @param int $idGroup
+     * @return int
+     */
     public function getCreditsConducteur($idGroup) {
         $sql = 'SELECT COUNT(*) nb
                 FROM `passager` AS p
@@ -195,6 +224,11 @@ class User extends ClasseTable {
         return $result[0]['nb'];
     }
 
+    /**
+     * Combien de fois un utilisateur a-t-il été passager dans un groupe
+     * @param int $idGroup
+     * @return int
+     */
     public function getCreditsPassager($idGroup) {
         $sql = 'SELECT COUNT(*) nb
                 FROM `passager` AS p

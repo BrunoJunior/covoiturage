@@ -18,6 +18,7 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 
+// Helpers
 use covoiturage\utils\HDatabase;
 
 /**
@@ -79,6 +80,10 @@ class Group extends ClasseTable {
         return UserGroupBO::chargerParGroupeEtUser($this, $user);
     }
 
+    /**
+     * Récapitulatif complet d'un groupe
+     * @return array
+     */
     public function getRecapitulatif() {
         $sql = 'SELECT p.user_id, c.conducteur_id, COUNT(p.id) nb FROM `passager` p
                 INNER JOIN `covoiturage` c ON (c.id = p.covoiturage_id)

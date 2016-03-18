@@ -8,9 +8,14 @@
 
 namespace covoiturage\pages\user;
 
+// Vue
 use covoiturage\classes\abstraites\ServiceVue;
+// BP
+use covoiturage\classes\presentation\User as BP;
+// BO
+use covoiturage\classes\metier\User as BO;
+// Helpers
 use covoiturage\utils\HRequete;
-use covoiturage\classes\presentation\User as UserBP;
 use Exception;
 
 /**
@@ -21,22 +26,16 @@ use Exception;
 class Edit extends ServiceVue {
 
     /**
-     * Utilisateur lié
-     * @var UserBP
-     */
-    private $user;
-
-    /**
      * Execution du service
      */
     public function executerService() {
         $id = HRequete::getPOST('id');
-        $this->user = new UserBP($id);
-        $user = $this->getUser();
-        if (!$user->admin && $this->user->id !== $user->id) {
+        $user = new BO($id);
+        $connectedUser = $this->getUser();
+        if (!$connectedUser->admin && $user->id !== $connectedUser->id) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier cet utilisateur !');
         }
-        echo $this->user->getForm();
+        echo BP::getForm($user);
     }
 
     /**

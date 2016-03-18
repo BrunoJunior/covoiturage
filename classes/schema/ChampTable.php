@@ -79,6 +79,18 @@ class ChampTable {
      */
     public $dans_parametres;
 
+    /**
+     * Constructeur
+     * @param string $nom
+     * @param string $type
+     * @param boolean $obligatoire
+     * @param boolean $non_vide
+     * @param int $taille
+     * @param boolean $dans_parametres
+     * @param boolean $persiste
+     * @param string $nom_colonne
+     * @param boolean $primaire
+     */
     public function __construct($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $persiste = true, $nom_colonne = null, $primaire = false) {
         $this->nom_attribut = $nom;
         $this->type = $type;
@@ -94,14 +106,37 @@ class ChampTable {
             $this->nom_colonne = $nom;
     }
 
+    /**
+     * Obtenir un champ primaire
+     * @param string $nom
+     * @return ChampTable
+     */
     public static function getPrimaire($nom) {
         return new ChampTable('id', 'int', true, true, 10, false, true, $nom, true);
     }
 
+    /**
+     * Obtenir un champ persisté
+     * @param string $nom
+     * @param string $type
+     * @param boolean $obligatoire
+     * @param boolean $non_vide
+     * @param int $taille
+     * @param boolean $dans_parametres
+     * @param string $nom_colonne
+     * @return ChampTable
+     */
     public static function getPersiste($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $nom_colonne = null) {
         return new ChampTable($nom, $type, $obligatoire, $non_vide, $taille, $dans_parametres, true, $nom_colonne, false);
     }
 
+    /**
+     * Obtenir un champ non persisté
+     * @param string $nom
+     * @param boolean $obligatoire
+     * @param boolean $non_vide
+     * @return ChampTable
+     */
     public static function getNonPersiste($nom, $obligatoire = false, $non_vide = false) {
         return new ChampTable($nom, 'varchar', $obligatoire, $non_vide, null, true, false, null, false);
     }

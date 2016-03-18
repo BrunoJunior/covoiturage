@@ -22,6 +22,9 @@ use covoiturage\classes\metier\UserGroup as UserGroupBO;
  */
 class Install extends Service {
 
+    /**
+     * Installation
+     */
     public function executerService() {
         UserBO::install();
         CovoiturageBO::install();

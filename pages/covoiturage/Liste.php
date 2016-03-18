@@ -8,9 +8,13 @@
 
 namespace covoiturage\pages\covoiturage;
 
+// Service de vue
 use covoiturage\classes\abstraites\ServiceVue;
+// BP
+use covoiturage\classes\presentation\Covoiturage as BP;
+// BO
 use covoiturage\classes\metier\Group as GroupBO;
-use covoiturage\classes\presentation\Covoiturage as CovoiturageBP;
+// Helpers
 use covoiturage\utils\HRequete;
 use Exception;
 
@@ -21,6 +25,9 @@ use Exception;
  */
 class Liste extends ServiceVue {
 
+    /**
+     * Affiche le contenu de la vue
+     */
     public function executerService() {
         $group = new GroupBO(HRequete::getPOST('group_id'));
         $numPage = HRequete::getPOST('num_page', 1);
@@ -28,16 +35,24 @@ class Liste extends ServiceVue {
         $max = HRequete::getPOST('max', 0);
         $user = $this->getUser();
         if ($type === 'conducteur') {
-            echo CovoiturageBP::getHtmlTableCond($group, $user, $max, $numPage);
+            echo BP::getHtmlTableCond($group, $user, $max, $numPage);
         } elseif ($type === 'passager') {
-            echo CovoiturageBP::getHtmlTablePass($group, $user, $max, $numPage);
+            echo BP::getHtmlTablePass($group, $user, $max, $numPage);
         }
     }
 
+    /**
+     * Titre de la vue
+     * @return string
+     */
     public function getTitre() {
         return 'Liste des trajets';
     }
 
+    /**
+     * La vue ne doit pas retourner une page HTML complète
+     * @return boolean
+     */
     public function isComplete() {
         return FALSE;
     }

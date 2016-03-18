@@ -8,9 +8,14 @@
 
 namespace covoiturage\pages\group;
 
+// Vue
 use covoiturage\classes\abstraites\ServiceVue;
+// BP
+use covoiturage\classes\presentation\Group as BP;
+// BO
+use covoiturage\classes\metier\Group as BO;
+// Helpers
 use covoiturage\utils\HRequete;
-use covoiturage\classes\presentation\Group as GroupBP;
 use Exception;
 
 /**
@@ -23,13 +28,12 @@ class Edit extends ServiceVue {
      * Execution du service
      */
     public function executerService() {
-        $id = HRequete::getPOST('id');
-        $group = new GroupBP($id);
+        $group = new BO(HRequete::getPOST('id'));
         $user = $this->getUser();
         if (!$group->isUserAdminGroup($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');
         }
-        echo $group->getForm();
+        echo BP::getForm($group);
     }
 
     /**

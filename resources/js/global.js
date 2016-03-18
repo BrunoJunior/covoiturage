@@ -1,3 +1,8 @@
+/**
+ * Afficher un message d'erreur
+ * @param {String} message
+ * @returns {void}
+ */
 function afficherErr(message) {
     var div_alert_err = $('#cov-alert-error');
     div_alert_err.find('.message').text(message);
@@ -5,12 +10,18 @@ function afficherErr(message) {
     div_alert_err.fadeIn();
 }
 
+/**
+ * Affichage message OK
+ * @param {String} message
+ * @returns {void}
+ */
 function afficherOK(message) {
     var div_alert_suc = $('#cov-alert-success');
     div_alert_suc.find('.message').text(message);
     div_alert_suc.removeClass('hidden');
     div_alert_suc.fadeIn();
 }
+
 
 $(function () {
     var div_alert_err = $('#cov-alert-error');
@@ -25,9 +36,14 @@ $(function () {
         var button = $(this);
         var url = button.attr('url');
         var callback = button.data('callback');
+        var define_params = button.data('define-params');
+        var params = {};
+        if (define_params !== undefined) {
+            define_params(button, params);
+        }
         div_alert_err.fadeOut();
         div_alert_suc.fadeOut();
-        $.getJSON(url)
+        $.getJSON(url, params)
                 .done(function (json) {
                     if (json.isErr) {
                         afficherErr(json.message);
@@ -43,6 +59,9 @@ $(function () {
                 });
     });
 
+    /**
+     * Envoi d'un formulaire par AJAX
+     */
     $('form button[type=submit]').on('click', function (e) {
         var button = $(this);
         e.preventDefault();

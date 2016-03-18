@@ -8,11 +8,15 @@
 
 namespace covoiturage\classes\dao;
 
+// Table
 use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
 use covoiturage\classes\abstraites\ClasseTable;
+
+// BO
 use \covoiturage\classes\metier\Group as GroupBO;
 use \covoiturage\classes\metier\User as UserBO;
+use covoiturage\classes\metier\UserGroup as UserGroupBO;
 
 /**
  * Description of UserGroupe
@@ -58,12 +62,18 @@ class UserGroup extends ClasseTable {
         return new UserBO($this->user_id);
     }
 
+    /**
+     * Chargement par groupe et utilisateur
+     * @param GroupBO $group
+     * @param UserBO $user
+     * @return UserGroupBO
+     */
     public static function chargerParGroupeEtUser($group, $user) {
         $sql = static::getSqlSelect();
         $sql .= ' WHERE user_id = :user AND group_id = :group';
         $liste = static::getListe($sql, [':user' => $user->id, ':group' => $group->id]);
         if (empty($liste)) {
-            $userGroup = new UserGroup();
+            $userGroup = new UserGroupBO();
             $userGroup->group_id = $group->id;
             $userGroup->user_id = $user->id;
             return $userGroup;
@@ -72,6 +82,12 @@ class UserGroup extends ClasseTable {
         }
     }
 
+    /**
+     * Transformation des données provenant de la BDD
+     * @param string $attribut
+     * @param mixed $value
+     * @return mixed
+     */
     protected function transformerValeurFromBdd($attribut, $value) {
         if ($attribut == 'group_admin') {
             return ($value == 1);
@@ -79,6 +95,11 @@ class UserGroup extends ClasseTable {
         return parent::transformerValeurFromBdd($attribut, $value);
     }
 
+    /**
+     * Transformation des données avant envoi vers la BDD
+     * @param string $attribut
+     * @return mixed
+     */
     protected function transformerValeurPourBdd($attribut) {
         if ($attribut == 'group_admin') {
             return $this->$attribut ? 1 : 0;
