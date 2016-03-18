@@ -15,6 +15,8 @@ use covoiturage\classes\metier\User as UserBO;
 // Services
 use covoiturage\services\covoiturage\Add;
 use covoiturage\pages\covoiturage\Liste;
+use covoiturage\services\covoiturage\Delete;
+use covoiturage\pages\covoiturage\Edit;
 // Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\Html;
@@ -77,8 +79,8 @@ class Covoiturage {
         }
         if (HSession::getUser()->admin) {
             $html .= '<td>
-                        <button class="btn btn-danger" url="" role="button" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></button>
-                        <button class="btn btn-primary" url="" role="button" data-toggle="tooltip" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-danger cov-trajet-del" href="'.Delete::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></button>
+                        <a class="btn btn-primary" href="'.Edit::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></button>
                       </td>';
         }
         $html .= '</tr>';

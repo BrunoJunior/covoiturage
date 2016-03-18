@@ -22,6 +22,10 @@ function afficherOK(message) {
     div_alert_suc.fadeIn();
 }
 
+$.fn.hasAttr = function(name) {
+   return this.attr(name) !== undefined && this.attr(name) !== false;
+};
+
 
 $(function () {
     var div_alert_err = $('#cov-alert-error');
@@ -32,9 +36,19 @@ $(function () {
     });
 
     // Gestion retour AJAX
-    $('body').on('click', "button[url$='serv']", function () {
+    $('body').on('click', "[url$='serv'],[href$='serv']", function () {
+        debugger;
         var button = $(this);
-        var url = button.attr('url');
+        var url;
+        if (button.hasAttr('url')) {
+            url = button.attr('url');
+        } else if (button.hasAttr('href')) {
+            url = button.attr('href');
+        }
+        if (url === undefined) {
+            afficherErr('Aucune url n\'est définie !');
+            return;
+        }
         var callback = button.data('callback');
         var define_params = button.data('define-params');
         var params = {};

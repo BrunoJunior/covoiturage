@@ -24,7 +24,12 @@ function refreshList(div_refresh, page) {
     }
     url += 'num_page=' + page + '&';
     div_refresh.find('.panel-title .badge').html('<span class="glyphicon glyphicon-refresh spin"></span>');
-    div_refresh.load(url);
+    div_refresh.load(url, function () {
+        $('#cov_list_trajets').find('.cov-trajet-del').data('callback', function (button, reponse) {
+            // On cache le trajet
+            button.closest('tr').fadeOut();
+        });
+    });
 }
 
 /**
@@ -33,6 +38,14 @@ function refreshList(div_refresh, page) {
  */
 form.data('callback', function () {
     refreshList($('#cov_list_trajets'));
+});
+
+/**
+ * Si la suppression du trajet est OK
+ */
+$('#cov_list_trajets').find('.cov-trajet-del').data('callback', function (button, reponse) {
+    // On cache le trajet
+    button.closest('tr').fadeOut();
 });
 
 /**
