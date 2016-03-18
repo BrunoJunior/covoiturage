@@ -134,7 +134,7 @@ abstract class ServiceVue extends Service {
                 <div class="container">
                     <a href="/"><img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" /></a>';
         if (!empty($user) && $user->existe()) {
-            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion"><span class="glyphicon glyphicon-log-out"></span></button>';
+            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-log-out"></span></button>';
             echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos"><span class="glyphicon glyphicon-user"></span></a>';
         }
         echo  '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>

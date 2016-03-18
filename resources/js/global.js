@@ -49,6 +49,14 @@ $(function () {
             afficherErr('Aucune url n\'est définie !');
             return;
         }
+        // Si confirmation sur boutton
+        var str_confirm = button.data('confirm');
+        if (str_confirm !== undefined) {
+            var r = confirm(str_confirm);
+            if (r == false) {
+                return;
+            }
+        }
         var callback = button.data('callback');
         var define_params = button.data('define-params');
         var params = {};

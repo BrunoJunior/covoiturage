@@ -65,7 +65,7 @@ class Group {
         $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
         if ($conUser->admin || $group->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-primary" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($group->id) . '" data-toggle="tooltip" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></button>';
+            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($group->id) . '" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-trash"></span></button>';
         }
         $html .= '</div></div></div>';
         return $html;
