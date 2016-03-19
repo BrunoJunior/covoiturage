@@ -13,6 +13,7 @@ use covoiturage\classes\metier\User as BO;
 // Services
 use covoiturage\services\user\Login;
 use covoiturage\services\user\Edit;
+use covoiturage\services\user\Contact;
 // Helpers
 use covoiturage\utils\HSession;
 
@@ -140,6 +141,38 @@ class User {
                       </div>
                     </div>
                 </form>';
+        return $html;
+    }
+
+    /**
+     * Obtenir le formulaire de contact
+     * @param BO $user
+     * @return string
+     */
+    public static function getContactForm(BO $user) {
+        $html = '<form action="' . Contact::getUrl() . '" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" value="' . $user->id . '" />';
+        $html .= '<div class="panel panel-success">
+                    <div class="panel-heading"><h3 class="panel-title">Votre message</h3></div>
+                    <div class="panel-body">';
+        $html .= '<div class="form-group">
+                    <label for="user_cont_titre" class="col-sm-2 control-label">Sujet</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="user_cont_titre" name="user_cont_titre" placeholder="Donnez un titre à votre message" />
+                    </div>
+                  </div>';
+        $html .= '<div class="form-group">
+                    <label for="user_cont_message" class="col-sm-2 control-label">Votre message</label>
+                    <div class="col-sm-10">
+                      <textarea id="user_cont_message" name="user_cont_message" class="form-control" rows="10"></textarea>
+                    </div>
+                  </div>';
+        $html .= '<div class="form-group">
+                    <div class="col-sm-offset-10 col-sm-2">
+                      <button type="submit" class="btn btn-success pull-right" value="submit" name="submit" id="submit">Envoyer</button>
+                    </div>
+                  </div>';
+        $html .= '</div></div></form>';
         return $html;
     }
 

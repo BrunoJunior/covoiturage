@@ -10,6 +10,9 @@ namespace covoiturage\classes\metier;
 
 // DAO
 use covoiturage\classes\dao\Group as DAO;
+// Helpers
+use covoiturage\utils\HSession;
+use covoiturage\utils\HMail;
 
 /**
  * Description of Group
@@ -91,6 +94,35 @@ class Group extends DAO {
             $recapFinal[$row['conducteur_id']][$row['user_id']] = $row['nb'];
         }
         return $recapFinal;
+    }
+
+    /**
+     * Contacter tous les membres du groupe
+     * @param string $sujet
+     * @param string $message
+     * @throws Exception
+     * @return boolean Description
+     */
+    public function contacter($sujet, $message) {
+        $connectedUser = HSession::getUser();
+        if (empty($connectedUser->email)) {
+            throw new Exception('Veuillez configurer votre adresse email !');
+        }
+        $destinataires = [];
+        $userGroups = $this->getListeUserGroup();
+        foreach ($userGroups as $userGroup) {
+            $user = $userGroup->getUser();
+            $email = $user->email;
+            // L'utilisateur envoie un message au groupe sauf à lui-même
+            if (empty($email) || $connectedUser->id == $user->id) {
+                continue;
+            }
+            $destinataires[] = $email;
+        }
+        if (empty($destinataires)) {
+            throw new Exception('Aucune adresse email renseignée dans ce groupe !');
+        }
+        return HMail::envoyer($connectedUser, $destinataires, $sujet, $message);
     }
 
 }

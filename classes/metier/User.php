@@ -10,6 +10,9 @@ namespace covoiturage\classes\metier;
 
 // DAO
 use covoiturage\classes\dao\User as DAO;
+// Helpers
+use covoiturage\utils\HMail;
+use covoiturage\utils\HSession;
 
 /**
  * Description of User
@@ -92,5 +95,51 @@ class User extends DAO {
      */
     public function getScore(Group $group) {
         return $this->getCreditsConducteur($group->id) - $this->getCreditsPassager($group->id);
+    }
+    
+    /**
+     * Vérifier si l'adresse email est déjà utilisée
+     * @throws Exception
+     */
+    private function checkEmail() {
+        $user = static::chargerParEmail($this->email);
+        if ($user->existe() && $this->id != $user->id) {
+            throw new Exception('Cette adresse email est déjà utilisée !');
+        }
+    }
+
+    /**
+     * Interdiction de création si email déjà utilisé
+     */
+    protected function avantAjout() {
+        $this->checkEmail();
+    }
+
+    /**
+     * Interdiction de modification si email déjà utilisé
+     */
+    protected function avantModification() {
+        $this->checkEmail();
+    }
+
+    /**
+     * Contacter un membres
+     * @param string $sujet
+     * @param string $message
+     * @throws Exception
+     * @return boolean Description
+     */
+    public function contacter($sujet, $message) {
+        $connectedUser = HSession::getUser();
+        if (empty($connectedUser->email)) {
+            throw new Exception('Veuillez configurer votre adresse email !');
+        }
+        if ($connectedUser->id == $this->id) {
+            throw new Exception('Vous ne pouvez vous contacter vous-même !');
+        }
+        if (empty($this->email)) {
+            throw new Exception('Cet utilisateur n\'a pas renseigné son adresse email !');
+        }
+        return HMail::envoyer($connectedUser, $this->email, $sujet, $message);
     }
 }

@@ -76,6 +76,7 @@ abstract class ServiceVue extends Service {
      * @param string $titre
      */
     public function executer($titre = NULL) {
+        $this->avantExecuterService();
         if ($titre === NULL) {
             $titre = $this->getTitre();
         }
@@ -108,6 +109,7 @@ abstract class ServiceVue extends Service {
         }
         $this->insertJs();
         $this->insertCss();
+        $this->apresExecuterService($err);
     }
 
     /**

@@ -90,6 +90,7 @@ abstract class Service {
         $retour = new \stdClass();
         $retour->isErr = FALSE;
         $retour->message = 'OK';
+        $this->avantExecuterService();
         HDatabase::openTransaction();
         try {
             $this->executerService();
@@ -102,6 +103,7 @@ abstract class Service {
         }
         echo json_encode($retour);
         HDatabase::closeTransaction($retour->isErr);
+        $this->apresExecuterService($retour->isErr);
     }
 
     /**

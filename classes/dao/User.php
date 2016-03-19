@@ -163,6 +163,22 @@ class User extends ClasseTable {
     }
 
     /**
+     * Recherche un utilisateur par son email
+     * @param string $email
+     * @return UserBO
+     */
+    public static function chargerParEmail($email) {
+        $sql = static::getSqlSelect();
+        $sql .= ' WHERE email = :email';
+        $liste = static::getListe($sql, [':email' => $email]);
+        if (empty($liste)) {
+            return new UserBO();
+        } else {
+            return $liste[0];
+        }
+    }
+
+    /**
      * Connexion utilisateur
      * @param string $email
      * @param string $password

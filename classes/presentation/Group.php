@@ -17,10 +17,13 @@ use covoiturage\pages\user\Edit as EditUserVue;
 use covoiturage\pages\group\Edit as EditVue;
 use covoiturage\pages\group\Recap as RecapVue;
 use covoiturage\pages\group\Trajet as TrajetVue;
+use covoiturage\pages\group\Contact as ContactVue;
+use covoiturage\pages\user\Contact as ContactUserVue;
 // Traitements
 use covoiturage\services\group\Edit;
 use covoiturage\services\group\Remove;
 use covoiturage\services\group\Adduser;
+use covoiturage\services\group\Contact;
 // Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\HArray;
@@ -50,6 +53,9 @@ class Group {
             $credit = $user->getScore($group);
             if ($conUser->admin) {
                 $html .= '<a href="' . EditUserVue::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
+            } 
+            if ($conUser->id != $user->id) {
+                $html .= '<a href="' . ContactUserVue::getUrl($user->id) . '"><span class="glyphicon glyphicon-envelope" data-toggle="tooltip" title="Contacter"></span></a> ';
             }
             $html .= $user->toHtml() . '<span class="badge ' . ($credit < 0 ? 'bg-danger' : 'bg-success') . '">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($group) . '</span>';
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
@@ -63,8 +69,9 @@ class Group {
         $html .= '<div class="cov-group-actions"><hr />';
         $html .= '<a class="btn btn-success" href="' . RecapVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif"><span class="glyphicon glyphicon-list"></span></a>';
         $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
+        $html .= '<a class="btn btn-primary" href="' . ContactVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Contacter le groupe"><span class="glyphicon glyphicon-envelope"></span></a>';
         if ($conUser->admin || $group->isUserAdminGroup($conUser)) {
-            $html .= '<a class="btn btn-primary" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $html .= '<a class="btn btn-warning" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
             $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($group->id) . '" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-trash"></span></button>';
         }
         $html .= '</div></div></div>';
@@ -218,6 +225,38 @@ class Group {
             }
             $html .= '</div></div>';
         }
+        return $html;
+    }
+
+    /**
+     * Obtenir le formulaire de contact
+     * @param BO $group
+     * @return string
+     */
+    public static function getContactForm(BO $group) {
+        $html = '<form action="' . Contact::getUrl() . '" class="form-horizontal" method="POST">
+                    <input type="hidden" name="id" value="' . $group->id . '" />';
+        $html .= '<div class="panel panel-success">
+                    <div class="panel-heading"><h3 class="panel-title">Votre message</h3></div>
+                    <div class="panel-body">';
+        $html .= '<div class="form-group">
+                    <label for="group_cont_titre" class="col-sm-2 control-label">Sujet</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="group_cont_titre" name="group_cont_titre" placeholder="Donnez un titre à votre message" />
+                    </div>
+                  </div>';
+        $html .= '<div class="form-group">
+                    <label for="group_cont_message" class="col-sm-2 control-label">Votre message</label>
+                    <div class="col-sm-10">
+                      <textarea id="group_cont_message" name="group_cont_message" class="form-control" rows="10"></textarea>
+                    </div>
+                  </div>';
+        $html .= '<div class="form-group">
+                    <div class="col-sm-offset-10 col-sm-2">
+                      <button type="submit" class="btn btn-success pull-right" value="submit" name="submit" id="submit">Envoyer</button>
+                    </div>
+                  </div>';
+        $html .= '</div></div></form>';
         return $html;
     }
 
