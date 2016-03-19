@@ -9,8 +9,3 @@ $('form').data('callback', function (json) {
 $('#user_forgot').data('define-params', function(button, parameters) {
     parameters.email = $('#user_email').val();
 });
-
-$('#user_forgot').data('callback', function(button, reponse) {
-    console.log(button);
-    console.log(reponse);
-});

@@ -43,7 +43,7 @@ class Contact extends Service {
     public function executerService() {
         $titre = HRequete::getPOSTObligatoire('group_cont_titre');
         $message = HRequete::getPOSTObligatoire('group_cont_message');
-        $ok = $this->group->contacter($titre, $message);
+        $ok = $this->group->contacter($titre, strip_tags($message));
         if (!$ok) {
             throw new Exception('Erreur lors de l\'envoi du message !');
         }

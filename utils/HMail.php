@@ -39,7 +39,7 @@ class HMail {
         $htmlMessage = '<html><body>';
         $htmlMessage .= '<img src="http://co-voiturage.bdesprez.com/resources/img/visu.jpg" alt="Logo" style="float: left;"/>';
         $htmlMessage .= '<h1>Message de '.$connectedUser->toHtml().'</h1>';
-        $htmlMessage .= '<div>'.  strip_tags($message).'</div>';
+        $htmlMessage .= '<div>'.  $message.'</div>';
         $htmlMessage .= '</body></html>';
 
         return mail($to, $subject, $htmlMessage, $headers);

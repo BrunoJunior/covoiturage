@@ -34,7 +34,7 @@ class Forgotpwd extends Service {
         if (!$user->existe()) {
             throw new Exception('Adresse e-mail inconnue !');
         }
-        $isOk = $user->contacter('Oublie de mot de passe',
+        $isOk = $user->contacter('Oubli de mot de passe',
             '<p>Vous avez oublié votre mot de passe !</p>
             <p>Pas de panique, cliquez sur le lien ci-dessous pour en renseigner un nouveau !</p>
             <p><a href="'.Newpassword::getUrl($user->id, ['token'=>$user->getNewToken()]).'">Obtenir un nouveau mot de passe</a></p>');
