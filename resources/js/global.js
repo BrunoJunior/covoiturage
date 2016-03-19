@@ -68,14 +68,18 @@ $(function () {
         $.getJSON(url, params)
                 .done(function (json) {
                     if (json.isErr) {
+                        debugger;
                         afficherErr(json.message);
                     } else if (callback !== undefined) {
+                        debugger;
                         callback(button, json.reponse);
                     } else {
+                        debugger;
                         afficherOK(json.message);
                     }
                 })
                 .fail(function (jqxhr, textStatus, error) {
+                    debugger;
                     var err = textStatus + ", " + error;
                     afficherErr(err);
                 });
