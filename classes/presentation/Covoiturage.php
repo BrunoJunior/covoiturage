@@ -138,7 +138,7 @@ class Covoiturage {
      * @param boolean $withPassagers Afficher la colonne passagers
      * @return string
      */
-    private static function getHtmlTable(BO $covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
+    private static function getHtmlTable($covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
         $htmlPagination = Html::getBlocPagination(3, $nbPage, $page);
         $html = '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
