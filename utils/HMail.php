@@ -42,6 +42,6 @@ class HMail {
         $htmlMessage .= '<div>'.  strip_tags($message).'</div>';
         $htmlMessage .= '</body></html>';
 
-        return mail($to, $subject, $htmlMessage);
+        return mail($to, $subject, $htmlMessage, $headers);
     }
 }
