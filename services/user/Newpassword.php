@@ -30,8 +30,8 @@ class Newpassword extends Service {
         $user = new BO(HRequete::getPOSTObligatoire('id'));
         $token = HRequete::getPOSTObligatoire('token');
         $user->checkToken($token);
-        $password = HRequete::getPOSTObligatoire('password');
-        $password2 = HRequete::getPOSTObligatoire('password2');
+        $password = HRequete::getPOSTObligatoire('user_password');
+        $password2 = HRequete::getPOSTObligatoire('user_password2');
         if ($password !== $password2) {
             throw new Exception("Veuillez saisir deux fois le même mot de passe !");
         }
