@@ -20,16 +20,16 @@ class HMail {
     /**
      * Envoyer un email
      * @param UserBO $connectedUser
-     * @param array $destinataires
+     * @param string|array $destinataires
      * @param string $sujet
      * @param string $message
      * @return boolean
      */
     public static function envoyer(UserBO $connectedUser, $destinataires, $sujet, $message) {
-        if (!is_array($destinataires)) {
-            $destinataires = [$destinataires];
+        $to = $destinataires;
+        if (is_array($to)) {
+            $to = implode(',', $to);
         }
-        $to = explode(',', $destinataires);
         $subject = strip_tags($sujet);
         $headers = "From: " . strip_tags($connectedUser->email) . "\r\n";
         $headers .= "Reply-To: ". strip_tags($connectedUser->email) . "\r\n";
