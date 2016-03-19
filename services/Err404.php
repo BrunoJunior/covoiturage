@@ -9,28 +9,20 @@
 namespace covoiturage\pages;
 
 // Vue
-use covoiturage\classes\abstraites\ServiceVue;
+use covoiturage\classes\abstraites\Service;
 
 /**
  * Description of 404
  *
  * @author bruno
  */
-class Err404 extends ServiceVue {
+class Err404 extends Service {
 
     /**
      * Page 404
      */
     public function executerService() {
-        echo '<div id="404" class="bg-danger text-center"><h3>Page inconnue !</h3></div>';
-    }
-
-    /**
-     * Titre de la page
-     * @return string
-     */
-    public function getTitre() {
-        return 'Erreur 404';
+        throw new Exception('Service introuvable !');
     }
 
     /**

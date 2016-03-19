@@ -21,7 +21,7 @@ use Exception;
  *
  * @author bruno
  */
-class NewPassword extends Service {
+class Newpassword extends Service {
 
     /**
      * Oublie de mot de passe

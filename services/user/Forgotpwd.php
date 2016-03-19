@@ -13,7 +13,7 @@ use covoiturage\classes\abstraites\Service;
 // BO
 use covoiturage\classes\metier\User as BO;
 // Service vue
-use covoiturage\pages\user\NewPassword;
+use covoiturage\pages\user\Newpassword;
 // Helper
 use covoiturage\utils\HRequete;
 use Exception;
@@ -23,7 +23,7 @@ use Exception;
  *
  * @author bruno
  */
-class ForgotPwd extends Service {
+class Forgotpwd extends Service {
 
     /**
      * Oublie de mot de passe
@@ -37,7 +37,7 @@ class ForgotPwd extends Service {
         $isOk = $user->contacter('Oublie de mot de passe',
             '<p>Vous avez oublié votre mot de passe !</p>
             <p>Pas de panique, cliquez sur le lien ci-dessous pour en renseigner un nouveau !</p>
-            <p><a href="'.NewPassword::getUrl($user->id, ['token'=>$user->getNewToken()]).'">Obtenir un nouveau mot de passe</a></p>');
+            <p><a href="'.Newpassword::getUrl($user->id, ['token'=>$user->getNewToken()]).'">Obtenir un nouveau mot de passe</a></p>');
         if (!$isOk) {
             throw new Exception('Erreur lors de l\'envoi du message !');
         }

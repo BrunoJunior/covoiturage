@@ -21,7 +21,11 @@ if (!empty($group)) {
 $serviceName .= ucfirst($service);
 
 if (!class_exists($serviceName)) {
-    $serviceName = "\\covoiturage\\pages\\Err404";
+    if ($serviceInstance instanceof covoiturage\classes\abstraites\ServiceVue) {
+        $serviceName = "\\covoiturage\\pages\\Err404";
+    } else {
+        $serviceName = "\\covoiturage\\services\\Err404";
+    }
 }
 
 $serviceInstance = new $serviceName();

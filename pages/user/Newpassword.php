@@ -20,7 +20,7 @@ use covoiturage\utils\HRequete;
  *
  * @author bruno
  */
-class NewPassword extends ServiceVue {
+class Newpassword extends ServiceVue {
 
     /**
      * Vue

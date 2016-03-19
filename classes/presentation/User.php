@@ -14,8 +14,8 @@ use covoiturage\classes\metier\User as BO;
 use covoiturage\services\user\Login;
 use covoiturage\services\user\Edit;
 use covoiturage\services\user\Contact;
-use covoiturage\services\user\NewPassword;
-use covoiturage\services\user\ForgotPwd;
+use covoiturage\services\user\Newpassword;
+use covoiturage\services\user\Forgotpwd;
 // Helpers
 use covoiturage\utils\HSession;
 
@@ -44,7 +44,7 @@ class User {
                         <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe">
                       </div>
                       <div class="col-xs-2">
-                        <button type="button" id="user_forgot" class="btn btn-success cov-ug-add" url="' . ForgotPwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe"><span class="glyphicon glyphicon-random"></span> J\'ai oublié</button>
+                        <button type="button" id="user_forgot" class="btn btn-success cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe"><span class="glyphicon glyphicon-random"></span> J\'ai oublié</button>
                       </div>
                     </div>
                     <div class="form-group">
@@ -187,7 +187,7 @@ class User {
      * @return string
      */
     public static function getNewPasswordForm(BO $user) {
-        $html = '<form action="' . NewPassword::getUrl() . '" class="form-horizontal" method="POST">
+        $html = '<form action="' . Newpassword::getUrl() . '" class="form-horizontal" method="POST">
                     <input type="hidden" name="id" value="' . $user->id . '" />
                     <input type="hidden" name="token" value="' . $user->getToken() . '" />';
         $html .= '<div class="panel panel-success">
