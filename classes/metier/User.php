@@ -13,6 +13,7 @@ use covoiturage\classes\dao\User as DAO;
 // Helpers
 use covoiturage\utils\HMail;
 use covoiturage\utils\HSession;
+use DateTime;
 
 /**
  * Description of User
@@ -47,6 +48,7 @@ class User extends DAO {
      * @param string $password
      */
     public function setPassword($password) {
+        $this->token = '';
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
@@ -131,6 +133,11 @@ class User extends DAO {
      */
     public function contacter($sujet, $message) {
         $connectedUser = HSession::getUser();
+        if (!$connectedUser->existe()){
+            $connectedUser->email = 'no-reply@co-voiturage.bdesprez.com';
+            $connectedUser->prenom = 'Co-voiturage';
+            $connectedUser->nom = '[Mot de passe]';
+        }
         if (empty($connectedUser->email)) {
             throw new Exception('Veuillez configurer votre adresse email !');
         }
@@ -141,5 +148,44 @@ class User extends DAO {
             throw new Exception('Cet utilisateur n\'a pas renseigné son adresse email !');
         }
         return HMail::envoyer($connectedUser, $this->email, $sujet, $message);
+    }
+
+    /**
+     * Essaie d'obtenir un token pour envoyer un oubli de mot de passe
+     * @return string
+     * @throws Exception
+     */
+    public function getNewToken() {
+        if (!empty($this->lastforgot)) {
+            $dtForgot = DateTime::createFromFormat('Y-m-d H:i:s', $this->lastforgot);
+            $dtNow = new DateTime('now');
+            $diff = $dtNow->getTimestamp() - $dtForgot->getTimestamp();
+            if ($diff < (86400)) {
+                throw new Exception('Vous devez attendre 24h avant de pouvoir générer un nouveau mot de passe !');
+            }
+        }
+        $this->token = HMail::getToken();
+        $this->lastforgot = date('Y-m-d H:i:s');
+        $this->merger();
+        return $this->token;
+    }
+
+    /**
+     * Vérification du token passé en paramètre
+     * @param string $token
+     * @throws Exception
+     */
+    public function checkToken($token) {
+        if (empty($this->token) || empty($token) || $this->token != $token) {
+            throw new Exception('Erreur d\'authentification');
+        }
+    }
+
+    /**
+     * Obtenir le token de vérification
+     * @return string
+     */
+    public function getToken() {
+        return $this->token;
     }
 }

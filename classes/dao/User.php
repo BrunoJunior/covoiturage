@@ -54,6 +54,14 @@ class User extends ClasseTable {
      * @var boolean
      */
     public $admin;
+    /**
+     * @var string
+     */
+    protected $token;
+    /**
+     * @var string
+     */
+    protected $lastforgot;
 
     /**
      * Table user
@@ -66,6 +74,8 @@ class User extends ClasseTable {
         $champs[] = ChampTable::getPersiste('email', 'varchar', false, false, 128);
         $champs[] = ChampTable::getPersiste('password', 'varchar', true, true, 128);
         $champs[] = ChampTable::getPersiste('admin', 'tinyint', false, false, 1);
+        $champs[] = ChampTable::getPersiste('token', 'varchar', false, false, 128);
+        $champs[] = ChampTable::getPersiste('lastforgot', 'datetime');
         return new Table('user', $champs);
     }
 

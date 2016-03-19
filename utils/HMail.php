@@ -44,4 +44,12 @@ class HMail {
 
         return mail($to, $subject, $htmlMessage, $headers);
     }
+
+    /**
+     * Obtenir un token de vérification d'email
+     * @return string
+     */
+    public static function getToken() {
+        return bin2hex(openssl_random_pseudo_bytes(16));
+    }
 }

@@ -12,6 +12,8 @@ namespace covoiturage\services\user;
 use covoiturage\classes\abstraites\Service;
 // BO
 use covoiturage\classes\metier\User as BO;
+// Service vue
+use covoiturage\pages\user\NewPassword;
 // Helper
 use covoiturage\utils\HRequete;
 use Exception;
@@ -32,5 +34,21 @@ class ForgotPwd extends Service {
         if (!$user->existe()) {
             throw new Exception('Adresse e-mail inconnue !');
         }
+        $isOk = $user->contacter('Oublie de mot de passe',
+            '<p>Vous avez oublié votre mot de passe !</p>
+            <p>Pas de panique, cliquez sur le lien ci-dessous pour en renseigner un nouveau !</p>
+            <p><a href="'.NewPassword::getUrl($user->id, ['token'=>$user->getNewToken()]).'">Obtenir un nouveau mot de passe</a></p>');
+        if (!$isOk) {
+            throw new Exception('Erreur lors de l\'envoi du message !');
+        }
+        $this->setMessage('Un email pour réinitialiser votre mot de passe vous a été envoyé !');
+    }
+
+    /**
+     * Le service n'est pas sécurisé
+     * @return boolean
+     */
+    public function isSecurised() {
+        return FALSE;
     }
 }
