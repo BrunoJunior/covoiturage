@@ -14,6 +14,7 @@ use covoiturage\classes\dao\User as DAO;
 use covoiturage\utils\HMail;
 use covoiturage\utils\HSession;
 use DateTime;
+use Exception;
 
 /**
  * Description of User
