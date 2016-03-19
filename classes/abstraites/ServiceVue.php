@@ -131,14 +131,18 @@ abstract class ServiceVue extends Service {
             <script type="text/javascript" src="'.$root.'lib/jquery/jquery-2.1.4.min.js"></script>
             <script type="text/javascript" src="'.$root.'lib/jquery-ui/jquery-ui.min.js"></script>
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
-                <div class="container">
-                    <a href="/"><img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" /></a>';
+                <div class="container"><a href="/" class="hidden-xs">
+                        <img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
+                    </a>';
+        echo '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>';
+        echo '<a href="/" class="btn btn-primary visible-xs home" role="button" data-toggle="tooltip" title="Accueil">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </a>';
         if (!empty($user) && $user->existe()) {
             echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-log-out"></span></button>';
             echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos"><span class="glyphicon glyphicon-user"></span></a>';
         }
-        echo  '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>
-                    <hr />
+        echo '      <hr />
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
                 </div>
             </header>

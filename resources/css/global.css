@@ -36,6 +36,12 @@ html, body {
     float: right;
 }
 
+.btn.home {
+    float: left;
+    display: inline-block;
+    margin-top: 20px;
+}
+
 .center {
     text-align: center;
 }
