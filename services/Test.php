@@ -22,8 +22,6 @@ class Test extends Service {
     public function executerService() {
         $this->addResponseItem('array', ['array']);
         $obj = new \stdClass();
-
-        //Test
         $obj->objet = 'objet';
         $this->addResponseItem('object', $obj);
         $this->addResponseItem('String', 'My value');
