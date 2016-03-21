@@ -137,6 +137,7 @@ abstract class ServiceVue extends Service {
         <body>
             <script type="text/javascript" src="' . $root . 'lib/jquery/jquery-2.1.4.min.js"></script>
             <script type="text/javascript" src="' . $root . 'lib/jquery-ui/jquery-ui.min.js"></script>
+            <div id="loading" style="display: none;"><p>'.Html::getIcon('cog', 'fa-spin').'</p><p>Chargement en cours ...</p></div>
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container"><a href="/" class="hidden-xs">
                         <img src="' . $root . 'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />

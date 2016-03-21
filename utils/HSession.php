@@ -16,8 +16,11 @@ use covoiturage\classes\metier\User as UserBO;
  * @author bruno
  */
 class HSession {
+    const USER_KEY = 'user_id';
+    
     public static function getUser() {
-        return new UserBO($_SESSION['user_id']);
+        $id = HArray::getVal($_SESSION, static::USER_KEY, 0);
+        return new UserBO($id);
     }
 
     public static function setUser(UserBO $user) {

@@ -22,8 +22,17 @@ function afficherOK(message) {
     div_alert_suc.fadeIn();
 }
 
-$.fn.hasAttr = function(name) {
-   return this.attr(name) !== undefined && this.attr(name) !== false;
+function afficherLoading() {
+    var div_loading = $('#loading');
+    div_loading.fadeIn();
+}
+
+function cacherLoading() {
+    $('#loading').fadeOut();
+}
+
+$.fn.hasAttr = function (name) {
+    return this.attr(name) !== undefined && this.attr(name) !== false;
 };
 
 
@@ -37,6 +46,7 @@ $(function () {
 
     // Gestion retour AJAX
     $('body').on('click', "[url$='serv'],[href$='serv']", function () {
+        afficherLoading();
         var button = $(this);
         var url;
         if (button.hasAttr('url')) {
@@ -77,6 +87,9 @@ $(function () {
                 .fail(function (jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
                     afficherErr(err);
+                })
+                .always(function () {
+                    cacherLoading();
                 });
     });
 
@@ -84,6 +97,7 @@ $(function () {
      * Envoi d'un formulaire par AJAX
      */
     $('form button[type=submit]').on('click', function (e) {
+        afficherLoading();
         var button = $(this);
         e.preventDefault();
         e.stopPropagation();
@@ -109,7 +123,10 @@ $(function () {
         }).fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
             afficherErr(err);
+        }).always(function () {
+            cacherLoading();
         });
+        ;
         return false;
     });
 });
