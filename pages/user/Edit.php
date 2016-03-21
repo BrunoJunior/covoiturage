@@ -46,4 +46,12 @@ class Edit extends ServiceVue {
         return 'Gestion des utilisateurs';
     }
 
+    /**
+     * Validation du formulaire
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return TRUE;
+    }
+
 }

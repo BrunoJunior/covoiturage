@@ -82,3 +82,8 @@ html, body {
     transform: rotate(360deg);
   }
 }
+
+.required::after {
+    content: "*";
+    color: red;
+}

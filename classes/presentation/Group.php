@@ -241,15 +241,15 @@ class Group {
                     <div class="panel-heading"><h3 class="panel-title">Votre message</h3></div>
                     <div class="panel-body">';
         $html .= '<div class="form-group">
-                    <label for="group_cont_titre" class="col-sm-2 control-label">Sujet</label>
+                    <label for="group_cont_titre" class="col-sm-2 control-label required">Sujet</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="group_cont_titre" name="group_cont_titre" placeholder="Donnez un titre à votre message" />
+                      <input type="text" class="form-control" id="group_cont_titre" name="group_cont_titre" placeholder="Donnez un titre à votre message" required="required" />
                     </div>
                   </div>';
         $html .= '<div class="form-group">
-                    <label for="group_cont_message" class="col-sm-2 control-label">Votre message</label>
+                    <label for="group_cont_message" class="col-sm-2 control-label required">Votre message</label>
                     <div class="col-sm-10">
-                      <textarea id="group_cont_message" name="group_cont_message" class="form-control" rows="10"></textarea>
+                      <textarea id="group_cont_message" name="group_cont_message" class="form-control" rows="10" required="required"></textarea>
                     </div>
                   </div>';
         $html .= '<div class="form-group">

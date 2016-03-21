@@ -52,4 +52,12 @@ class Contact extends ServiceVue {
     public function getTitre() {
         return $this->group->nom . ' - Envoyer un message';
     }
+
+    /**
+     * Validation des champs obligatoires
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return TRUE;
+    }
 }

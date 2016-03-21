@@ -50,4 +50,12 @@ class Trajet extends ServiceVue {
         return $group->nom . ' - Trajets';
     }
 
+    /**
+     * Validation du formulaire
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return TRUE;
+    }
+
 }

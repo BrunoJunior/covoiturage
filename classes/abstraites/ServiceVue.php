@@ -34,16 +34,19 @@ abstract class ServiceVue extends Service {
      * @var array
      */
     private $jsFiles = [];
+
     /**
      * Liste des fichiers css liés
      * @var type
      */
     private $cssFiles = [];
+
     /**
      * Titre du service de vue
      * @var string
      */
     private $titre;
+
     /**
      * Ce service doit-il être chargé complètement
      * (page complète)
@@ -132,17 +135,17 @@ abstract class ServiceVue extends Service {
             <link rel="stylesheet" href="' . $root . 'lib/jquery-ui/jquery-ui.min.css">
         </head>
         <body>
-            <script type="text/javascript" src="'.$root.'lib/jquery/jquery-2.1.4.min.js"></script>
-            <script type="text/javascript" src="'.$root.'lib/jquery-ui/jquery-ui.min.js"></script>
+            <script type="text/javascript" src="' . $root . 'lib/jquery/jquery-2.1.4.min.js"></script>
+            <script type="text/javascript" src="' . $root . 'lib/jquery-ui/jquery-ui.min.js"></script>
             <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
                 <div class="container"><a href="/" class="hidden-xs">
-                        <img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
+                        <img src="' . $root . 'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
                     </a>';
         echo '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>';
-        echo '<a href="/" class="btn btn-primary visible-xs home" role="button" data-toggle="tooltip" title="Accueil">'. Html::getIcon('home') .'</a>';
+        echo '<a href="/" class="btn btn-primary visible-xs home" role="button" data-toggle="tooltip" title="Accueil">' . Html::getIcon('home') . '</a>';
         if (!empty($user) && $user->existe()) {
-            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?">'. Html::getIcon('sign-out') .'</button>';
-            echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos">'. Html::getIcon('user') .'</a>';
+            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('sign-out') . '</button>';
+            echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos">' . Html::getIcon('user') . '</a>';
         }
         echo '      <hr />
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
@@ -156,9 +159,10 @@ abstract class ServiceVue extends Service {
                 <span class="message"></span>
             </div>';
         $this->executerService();
-            echo '</div>
+        echo '</div>
                 <script src="' . $root . 'lib/bootstrap/js/bootstrap.min.js"></script>
                 <script src="' . $root . 'resources/js/global.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
         </body>
     </html>';
     }
@@ -205,13 +209,16 @@ abstract class ServiceVue extends Service {
      * Ajout des fichiers javascript à la vue
      */
     protected function insertJs() {
-        foreach ($this->jsFiles as $file) {
-            echo "\n<script type=\"text/javascript\" >\n";
-            echo "$(document).ready(function(){\n";
-            include $file;
-            echo "\n});";
-            echo "\n</script>\n";
+        echo "\n<script type=\"text/javascript\" >\n";
+        echo "$(document).ready(function(){\n";
+        if ($this->isFormValidation()) {
+            echo "$.validate({modules : 'html5', lang : 'fr'});";
         }
+        foreach ($this->jsFiles as $file) {
+            include $file;
+        }
+        echo "\n});";
+        echo "\n</script>\n";
     }
 
     /**
@@ -232,4 +239,13 @@ abstract class ServiceVue extends Service {
     protected static function getExtension() {
         return 'html';
     }
+
+    /**
+     * Le service requiert-il la validation d'un formulaire
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return FALSE;
+    }
+
 }

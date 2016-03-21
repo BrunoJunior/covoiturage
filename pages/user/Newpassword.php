@@ -47,4 +47,12 @@ class Newpassword extends ServiceVue {
     public function isSecurised() {
         return FALSE;
     }
+
+    /**
+     * Validation du formulaire
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return TRUE;
+    }
 }

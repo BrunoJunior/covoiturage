@@ -52,4 +52,12 @@ class Contact extends ServiceVue {
     public function getTitre() {
         return 'Envoyer un message à ' . $this->destinataire->toHtml();
     }
+
+    /**
+     * Validation du formulaire
+     * @return boolean
+     */
+    protected function isFormValidation() {
+        return TRUE;
+    }
 }

@@ -177,13 +177,13 @@ class Covoiturage {
                   </div>';
         }
         $html .= '<div class="form-group">
-                    <label for="cov_date" class="col-sm-2 control-label">Date</label>
+                    <label for="cov_date" class="col-sm-2 control-label required">Date</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cov_date" name="cov_date">
+                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required">
                     </div>
                   </div>';
         $html .= '<div class="form-group">
-                    <label for="cov_pass" class="col-sm-2 control-label">Passagers</label>
+                    <label for="cov_pass" class="col-sm-2 control-label required">Passagers</label>
                     <div class="col-sm-10">';
         foreach ($userGList as $userGroup) {
             $user = $userGroup->getUser();

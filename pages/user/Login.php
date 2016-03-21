@@ -32,5 +32,9 @@ class Login extends \covoiturage\classes\abstraites\ServiceVue {
     public function isSecurised() {
         return FALSE;
     }
+    
+    protected function isFormValidation() {
+        return TRUE;
+    }
 
 }
