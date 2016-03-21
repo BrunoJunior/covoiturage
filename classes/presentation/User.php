@@ -45,7 +45,7 @@ class User {
                         <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe">
                       </div>
                       <div class="col-xs-2">
-                        <button type="button" id="user_forgot" class="btn btn-success cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe">' . Html::getIcon('key') . ' J\'ai oublié</button>
+                        <button type="button" id="user_forgot" class="btn btn-default cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe">' . Html::getIcon('key') . ' J\'ai oublié</button>
                       </div>
                     </div>
                     <div class="form-group">
@@ -59,7 +59,7 @@ class User {
                     </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default" value="submit" name="submit" id="submit">Se connecter</button>
+                        <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Se connecter</button>
                       </div>
                     </div>
                   </form>';
