@@ -23,7 +23,7 @@ function refreshList(div_refresh, page) {
         page = actual - 1;
     }
     url += 'num_page=' + page + '&';
-    div_refresh.find('.panel-title .badge').html('<span class="glyphicon glyphicon-refresh spin"></span>');
+    div_refresh.find('.panel-title .badge').html('<i class="fa fa-refresh fa-spin"></i>');
     div_refresh.load(url, function () {
         $('#cov_list_trajets').find('.cov-trajet-del').data('callback', function (button, reponse) {
             // On cache le trajet

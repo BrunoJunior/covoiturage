@@ -69,7 +69,7 @@ class Covoiturage {
                 }
             }
         }
-        $type = '<span class="cov-type glyphicon glyphicon-arrow-' . ($covoiturage->type == BO::TYPE_ALLER ? 'right' : 'left') . '"></span>';
+        $type = Html::getIcon('arrow-' . ($covoiturage->type == BO::TYPE_ALLER ? 'right' : 'left'), 'cov-type');
         $html = '<tr><td class="hidden">' . $covoiturage->id . '</td><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td>';
         if ($withConducteur) {
             $html .= '<td><div class="cov_passager_tuile bg-info"><span class="cov_passager_lib">' . $conducteur->toHtml() . '</span></div></td>';
@@ -79,8 +79,8 @@ class Covoiturage {
         }
         if (HSession::getUser()->admin) {
             $html .= '<td>
-                        <button class="btn btn-danger cov-trajet-del" href="'.Delete::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-trash"></span></button>
-                        <a class="btn btn-primary" href="'.Edit::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-danger cov-trajet-del" href="'.Delete::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">'. Html::getIcon('trash') .'</button>
+                        <a class="btn btn-primary" href="'.Edit::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Modifier">'. Html::getIcon('pencil') .'</button>
                       </td>';
         }
         $html .= '</tr>';
@@ -195,13 +195,13 @@ class Covoiturage {
         $html .= '</div>
                   <div class="form-group">
                     <div class="col-xs-4">
-                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller <span class="glyphicon glyphicon-arrow-right"></span></button>
+                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller '.Html::getIcon('arrow-right').'</button>
                     </div>
                     <div class="col-xs-4 text-center">
-                      <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller <span class="glyphicon glyphicon-transfer"></span> Retour</button>
+                      <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller '.Html::getIcon('exchange').' Retour</button>
                     </div>
                     <div class="col-xs-4">
-                      <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '"><span class="glyphicon glyphicon-arrow-left"></span> Retour</button>
+                      <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '">'.Html::getIcon('arrow-left').' Retour</button>
                     </div>
                   </div>
                 </form>';

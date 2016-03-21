@@ -27,6 +27,7 @@ use covoiturage\services\group\Contact;
 // Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\HArray;
+use covoiturage\utils\Html;
 
 /**
  * Description of Group
@@ -52,27 +53,27 @@ class Group {
             $user = $usergroup->getUser();
             $credit = $user->getScore($group);
             if ($conUser->admin) {
-                $html .= '<a href="' . EditUserVue::getUrl($user->id) . '"><span class="glyphicon glyphicon-pencil"></span></a> ';
+                $html .= '<a href="' . EditUserVue::getUrl($user->id) . '">'.Html::getIcon('pencil').'</a> ';
             } 
             if ($conUser->id != $user->id) {
-                $html .= '<a href="' . ContactUserVue::getUrl($user->id) . '"><span class="glyphicon glyphicon-envelope" data-toggle="tooltip" title="Contacter"></span></a> ';
+                $html .= '<a href="' . ContactUserVue::getUrl($user->id) . '" data-toggle="tooltip" title="Contacter">'.Html::getIcon('envelope').'</a> ';
             }
             $html .= $user->toHtml() . '<span class="badge ' . ($credit < 0 ? 'bg-danger' : 'bg-success') . '">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($group) . '</span>';
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
-                $html .= '<span class="glyphicon glyphicon-road"></span> ';
+                $html .= Html::getIcon('road').' ';
             } else if (!empty($conducteurRecurrent) && $user->id == $conducteurRecurrent->id) {
-                $html .= '<span class="glyphicon glyphicon-star"></span> ';
+                $html .= Html::getIcon('trophy').' ';
             }
             $html .= '<br />';
         }
         $html .= '</div>';
         $html .= '<div class="cov-group-actions"><hr />';
-        $html .= '<a class="btn btn-success" href="' . RecapVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif"><span class="glyphicon glyphicon-list"></span></a>';
-        $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets"><span class="glyphicon glyphicon-road"></span></a>';
-        $html .= '<a class="btn btn-primary" href="' . ContactVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Contacter le groupe"><span class="glyphicon glyphicon-envelope"></span></a>';
+        $html .= '<a class="btn btn-success" href="' . RecapVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif">'.Html::getIcon('balance-scale').'</a>';
+        $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets">'.Html::getIcon('road').'</a>';
+        $html .= '<a class="btn btn-primary" href="' . ContactVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Contacter le groupe">'.Html::getIcon('envelope').'</span></a>';
         if ($conUser->admin || $group->isUserAdminGroup($conUser)) {
-            $html .= '<a class="btn btn-warning" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($group->id) . '" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-trash"></span></button>';
+            $html .= '<a class="btn btn-warning" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer">'.Html::getIcon('pencil').'</a>';
+            $html .= '<button type="button" class="btn btn-danger group-remove" url="' . Remove::getUrl($group->id) . '" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">'.Html::getIcon('trash').'</button>';
         }
         $html .= '</div></div></div>';
         return $html;
@@ -90,7 +91,7 @@ class Group {
         $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group add-group">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
-        $html .= '<a href="' . EditVue::getUrl() . '"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+        $html .= '<a href="' . EditVue::getUrl() . '">'.Html::getIcon('plus-circle').'</a>';
         $html .= '</div></div>';
         return $html;
     }
@@ -151,7 +152,7 @@ class Group {
         $panelAjoutCov .= '</select>
                               </div>
                               <div class="col-sm-2">
-                                <button type="button" class="btn btn-success cov-ug-remove" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Enlever du groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" class="btn btn-success cov-ug-add" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Ajouter au groupe">'.Html::getIcon('user-plus').'</button>
                               </div>
                             </div>
                             <div class="form-group">
@@ -163,7 +164,7 @@ class Group {
                                 <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
                               </div>
                               <div class="col-sm-2">
-                                <button type="button" class="btn btn-success cov-ug-add" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Ajouter au groupe"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" class="btn btn-success cov-ug-add" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Ajouter au groupe">'.Html::getIcon('user-plus').'</button>
                               </div>
                             </div>
                         </div>

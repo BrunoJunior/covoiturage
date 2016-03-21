@@ -14,6 +14,14 @@ namespace covoiturage\utils;
  * @author bruno
  */
 class Html {
+
+    /**
+     * Obtenir un bloc de pagination
+     * @param int $nbMilieu
+     * @param int $nbPage
+     * @param int $page
+     * @return string
+     */
     public static function getBlocPagination($nbMilieu = 3, $nbPage = 0, $page = 1) {
         $htmlPagination = '';
         if ($nbPage > 1) {
@@ -47,5 +55,17 @@ class Html {
             $htmlPagination .= '</ul></nav></div>';
         }
         return $htmlPagination;
+    }
+
+    /**
+     * Get a font awesome icon
+     * @param string $name
+     * @return string
+     */
+    public static function getIcon($name, $class = '') {
+        if (mb_substr($name, 0, 3) !== 'fa-') {
+            $name = 'fa-' . $name;
+        }
+        return '<i class="fa '.$name.' ' . $class . '"></i>';
     }
 }

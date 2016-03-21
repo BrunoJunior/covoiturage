@@ -13,7 +13,7 @@
     text-align: center;
 }
 
-#cov-group-list .cov-group-users .glyphicon {
+#cov-group-list .cov-group-users .fa {
     margin-left: 5px;
 }
 
@@ -46,7 +46,7 @@
     text-align: center;
     color: whitesmoke;
 }
-#cov-group-list .add-group span.glyphicon{
+#cov-group-list .add-group i.fa{
     padding-top: 45px;
     font-size:  42px;
 }

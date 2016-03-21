@@ -18,6 +18,7 @@ use covoiturage\services\user\Newpassword;
 use covoiturage\services\user\Forgotpwd;
 // Helpers
 use covoiturage\utils\HSession;
+use covoiturage\utils\Html;
 
 /**
  * Description of User
@@ -44,7 +45,7 @@ class User {
                         <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe">
                       </div>
                       <div class="col-xs-2">
-                        <button type="button" id="user_forgot" class="btn btn-success cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe"><span class="glyphicon glyphicon-random"></span> J\'ai oublié</button>
+                        <button type="button" id="user_forgot" class="btn btn-success cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe">' . Html::getIcon('key') . ' J\'ai oublié</button>
                       </div>
                     </div>
                     <div class="form-group">

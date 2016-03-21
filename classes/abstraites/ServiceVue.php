@@ -14,6 +14,7 @@ namespace covoiturage\classes\abstraites;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\HLog;
 use covoiturage\utils\Cache;
+use covoiturage\utils\Html;
 use Exception;
 /**
  * Services
@@ -125,6 +126,7 @@ abstract class ServiceVue extends Service {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
             <title>Co-voiturage</title>
+            <link rel="stylesheet" href="' . $root . 'lib/font-awesome/css/font-awesome.min.css">
             <link rel="stylesheet" href="' . $root . 'lib/bootstrap/css/bootstrap.min.css">
             <link rel="stylesheet" href="' . $root . 'resources/css/global.css">
             <link rel="stylesheet" href="' . $root . 'lib/jquery-ui/jquery-ui.min.css">
@@ -137,12 +139,10 @@ abstract class ServiceVue extends Service {
                         <img src="'.$root.'resources/img/visu.jpg" class="img-responsive img-thumbnail pull-left" alt="Logo" />
                     </a>';
         echo '<h1 class="text-center"><span class="label label-default">Gestion de co-voiturage</span></h1>';
-        echo '<a href="/" class="btn btn-primary visible-xs home" role="button" data-toggle="tooltip" title="Accueil">
-                        <span class="glyphicon glyphicon-home"></span>
-                    </a>';
+        echo '<a href="/" class="btn btn-primary visible-xs home" role="button" data-toggle="tooltip" title="Accueil">'. Html::getIcon('home') .'</a>';
         if (!empty($user) && $user->existe()) {
-            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?"><span class="glyphicon glyphicon-log-out"></span></button>';
-            echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos"><span class="glyphicon glyphicon-user"></span></a>';
+            echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?">'. Html::getIcon('sign-out') .'</button>';
+            echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos">'. Html::getIcon('user') .'</a>';
         }
         echo '      <hr />
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
