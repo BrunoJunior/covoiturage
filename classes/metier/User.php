@@ -189,4 +189,15 @@ class User extends DAO {
     public function getToken() {
         return $this->token;
     }
+
+    /**
+     * Supprimer les associations Groupe - Utilisateur
+     * avant la suppression de l'utilisateur
+     */
+    protected function avantSuppression() {
+        $userGroups = $this->getListeUserGroup();
+        foreach ($userGroups as $userGroup) {
+            $userGroup->supprimer();
+        }
+    }
 }

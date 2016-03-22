@@ -34,4 +34,14 @@ class Covoiturage extends DAO {
             throw new Exception('Vous ne pouvez renseigner de trajet à venir !');
         }
     }
+
+    /**
+     * Supprimer les passager avant la suppression du trajet
+     */
+    protected function avantSuppression() {
+        $passagers = $this->getListePassagers();
+        foreach ($passagers as $passager) {
+            $passager->supprimer();
+        }
+    }
 }

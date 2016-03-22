@@ -179,7 +179,7 @@ class Covoiturage {
         $html .= '<div class="form-group">
                     <label for="cov_date" class="col-sm-2 control-label required">Date</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required">
+                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required" value="'.date('d/m/Y').'">
                     </div>
                   </div>';
         $html .= '<div class="form-group">

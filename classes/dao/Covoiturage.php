@@ -90,4 +90,5 @@ class Covoiturage extends ClasseTable {
         $result = HDatabase::rechercher($sql, [$this->group_id, $this->date, $this->type]);
         return !empty($result);
     }
+
 }
