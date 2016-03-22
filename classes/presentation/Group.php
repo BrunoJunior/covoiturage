@@ -114,8 +114,8 @@ class Group {
                               </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-10 col-sm-2">
-                                  <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">' . ($group->existe() ? 'Modifier' : 'Créer') . '</button>
+                                <div class="col-sm-12">
+                                  <button type="submit" class="btn btn-success pull-right" value="submit" name="submit" id="submit">' . ($group->existe() ? 'Modifier' : 'Créer') . '</button>
                                 </div>
                               </div>
                         </div>
