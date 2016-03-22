@@ -45,7 +45,7 @@ class Group {
         $prochainConducteur = $group->getProchainConducteurPropose();
         $conducteurRecurrent = $group->getConducteurRecurrent();
         $usergroups = $group->getListeUserGroup();
-        $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group">';
+        $html = '<div class="col-md-4 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $group->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
         $conUser = HSession::getUser();
         $html .= '<hr /><div class="cov-group-users">';
@@ -88,7 +88,7 @@ class Group {
         if (!$user->admin) {
             return '';
         }
-        $html = '<div class="col-md-3 col-sm-6 col-xs-12"><div class="cov-group add-group">';
+        $html = '<div class="col-md-4 col-sm-6 col-xs-12"><div class="cov-group add-group">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
         $html .= '<a href="' . EditVue::getUrl() . '">'.Html::getIcon('plus-circle').'</a>';
