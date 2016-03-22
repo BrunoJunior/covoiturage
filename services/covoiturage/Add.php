@@ -11,12 +11,11 @@ namespace covoiturage\services\covoiturage;
 // Service traitement
 use covoiturage\classes\abstraites\Service;
 // BO
-use covoiturage\classes\metier\User as BO;
-use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
+use covoiturage\classes\metier\User as UserBO;
+use covoiturage\classes\metier\Covoiturage as BO;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
 // Helpers
-use DateTime;
 use covoiturage\utils\HRequete;
 use Exception;
 
@@ -37,7 +36,6 @@ class Add extends Service {
         if (!$user->admin && $idConducteur != $user->id) {
             throw new Exception("Vous n'êtes pas autorisé à créer un trajet avec un autre conducteur que vous-même !");
         }
-        $date = DateTime::createFromFormat('d/m/Y', HRequete::getPOSTObligatoire('cov_date'));
         $clesCbPassager = HRequete::getListeClePostCommencant('cov_pass_cb_');
         if (empty($clesCbPassager)) {
             throw new Exception("Sélectionnez au moins un passager !");
@@ -51,16 +49,16 @@ class Add extends Service {
             if ($type != 0 && $type !=1) {
                 throw new Exception("Type de trajet inconnu !");
             }
-            $covoiturage = new CovoiturageBO();
+            $covoiturage = new BO();
             $covoiturage->conducteur_id = $idConducteur;
             $covoiturage->group_id = $group->id;
-            $covoiturage->date = $date->format('Y-m-d');
+            $covoiturage->date = HRequete::getPOSTObligatoire('cov_date');
             $covoiturage->type = $type;
             $covoiturage->merger();
 
             foreach ($clesCbPassager as $cle) {
                 $idPassager = HRequete::getPOST($cle);
-                $userPassager = new BO($idPassager);
+                $userPassager = new UserBO($idPassager);
                 if (!$userPassager->isDansGroupe($group)) {
                     throw new Exception("Un des passager ne fait pas partie du groupe !");
                 }

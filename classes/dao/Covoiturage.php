@@ -20,6 +20,7 @@ use covoiturage\classes\metier\Passager as PassagerBO;
 
 // Helpers
 use covoiturage\utils\HDatabase;
+use DateTime;
 
 /**
  * Description of Covoiturage
@@ -87,8 +88,39 @@ class Covoiturage extends ClasseTable {
      */
     public function isDejaPresent() {
         $sql = 'SELECT * FROM covoiturage WHERE group_id = ? AND date = ? AND type = ?';
-        $result = HDatabase::rechercher($sql, [$this->group_id, $this->date, $this->type]);
+        $params = [$this->group_id, $this->transformerValeurPourBdd('date'), $this->type];
+        if ($this->existe()) {
+            $sql .= ' AND id != ?';
+            $params[] = $this->id;
+        }
+        $result = HDatabase::rechercher($sql, $params);
         return !empty($result);
+    }
+
+    /**
+     * Transformation des dates au format fr
+     * @param string $attribut
+     * @param mixed $value
+     * @return mixed
+     */
+    protected function transformerValeurFromBdd($attribut, $value) {
+        if ($attribut == 'date') {
+            return date('d/m/Y', strtotime($value));
+        }
+        return parent::transformerValeurFromBdd($attribut, $value);
+    }
+
+    /**
+     * Transformation des dates avant envoi en BDD
+     * @param string $attribut
+     * @return mixed
+     */
+    protected function transformerValeurPourBdd($attribut) {
+        if ($attribut == 'date') {
+            $date = DateTime::createFromFormat('d/m/Y', $this->$attribut);
+            return $date->format('Y-m-d');
+        }
+        return parent::transformerValeurPourBdd($attribut);
     }
 
 }

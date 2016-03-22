@@ -14,12 +14,14 @@ use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\User as UserBO;
 // Services
 use covoiturage\services\covoiturage\Add;
+use covoiturage\services\covoiturage\Update;
 use covoiturage\pages\covoiturage\Liste;
 use covoiturage\services\covoiturage\Delete;
 use covoiturage\pages\covoiturage\Edit;
 // Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\Html;
+use Exception;
 
 /**
  * Description of Covoiturage
@@ -70,7 +72,7 @@ class Covoiturage {
             }
         }
         $type = Html::getIcon('arrow-' . ($covoiturage->type == BO::TYPE_ALLER ? 'right' : 'left'), 'cov-type');
-        $html = '<tr><td class="hidden">' . $covoiturage->id . '</td><td>' . date('d/m/Y', strtotime($covoiturage->date)) . '</td><td class="center">' . $type . '</td>';
+        $html = '<tr><td class="hidden">' . $covoiturage->id . '</td><td>' . $covoiturage->date . '</td><td class="center">' . $type . '</td>';
         if ($withConducteur) {
             $html .= '<td><div class="cov_passager_tuile bg-info"><span class="cov_passager_lib">' . $conducteur->toHtml() . '</span></div></td>';
         }
@@ -79,8 +81,8 @@ class Covoiturage {
         }
         if (HSession::getUser()->admin) {
             $html .= '<td>
-                        <button class="btn btn-danger cov-trajet-del" href="'.Delete::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">'. Html::getIcon('trash') .'</button>
-                        <a class="btn btn-primary" href="'.Edit::getUrl($covoiturage->id).'" role="button" data-toggle="tooltip" title="Modifier">'. Html::getIcon('pencil') .'</button>
+                        <button class="btn btn-danger cov-trajet-del" href="' . Delete::getUrl($covoiturage->id) . '" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button>
+                        <a class="btn btn-primary" href="' . Edit::getUrl($covoiturage->id) . '" role="button" data-toggle="tooltip" title="Modifier">' . Html::getIcon('pencil') . '</button>
                       </td>';
         }
         $html .= '</tr>';
@@ -170,7 +172,7 @@ class Covoiturage {
             foreach ($userGList as $userGroup) {
                 $user = $userGroup->getUser();
                 $selected = ($user->id == $connectUser->id) ? 'selected' : '';
-                $html .= '<option value="' . $user->id . ' ' . $selected . '">' . $user->toHtml() . '</option>';
+                $html .= '<option value="' . $user->id . '" ' . $selected . '>' . $user->toHtml() . '</option>';
             }
             $html .= '      </select>
                     </div>
@@ -179,7 +181,7 @@ class Covoiturage {
         $html .= '<div class="form-group">
                     <label for="cov_date" class="col-sm-2 control-label required">Date</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required" value="'.date('d/m/Y').'">
+                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required" value="' . date('d/m/Y') . '">
                     </div>
                   </div>';
         $html .= '<div class="form-group">
@@ -195,15 +197,82 @@ class Covoiturage {
         $html .= '</div>
                   <div class="form-group">
                     <div class="col-xs-4">
-                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller '.Html::getIcon('arrow-right').'</button>
+                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller ' . Html::getIcon('arrow-right') . '</button>
                     </div>
                     <div class="col-xs-4 text-center">
-                      <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller '.Html::getIcon('exchange').' Retour</button>
+                      <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller ' . Html::getIcon('exchange') . ' Retour</button>
                     </div>
                     <div class="col-xs-4">
-                      <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '">'.Html::getIcon('arrow-left').' Retour</button>
+                      <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '">' . Html::getIcon('arrow-left') . ' Retour</button>
                     </div>
                   </div>
+                </form>';
+        return $html;
+    }
+
+    /**
+     * Obtenir un formulaire de modification d'un trajet
+     * @param BO $covoiturage
+     * @return string
+     */
+    public static function getEditForm(BO $covoiturage) {
+        $connectUser = HSession::getUser();
+        if (!$connectUser->admin || !$covoiturage->existe()) {
+            throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
+        }
+        $group = $covoiturage->getGroup();
+        $conducteur = $covoiturage->getConducteur();
+        $passagers = $covoiturage->getListePassagers();
+        $userGList = $group->getListeUserGroup();
+        $html = '<form action="' . Update::getUrl() . '" class="form-horizontal" method="POST">
+                  <input type="hidden" id="covoiturage_id" name="covoiturage_id" value="' . $covoiturage->id . '" />
+                    <div class="form-group">
+                    <label for="cov_conducteur" class="col-sm-2 control-label required">Conducteur</label>
+                    <div class="col-sm-10">
+                      <select id="cov_conducteur" name="cov_conducteur" class="form-control">';
+        foreach ($userGList as $userGroup) {
+            $user = $userGroup->getUser();
+            $selected = ($user->id == $conducteur->id) ? 'selected' : '';
+            $html .= '<option value="' . $user->id . '" ' . $selected . '>' . $user->toHtml() . '</option>';
+        }
+        $html .= '      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cov_date" class="col-sm-2 control-label required">Date</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="cov_date" name="cov_date" required="required" value="' . $covoiturage->date . '">
+                    </div>
+                  </div>';
+        $html .= '<div class="form-group">
+                    <label for="cov_pass" class="col-sm-2 control-label required">Passagers</label>
+                    <div class="col-sm-10">';
+        foreach ($userGList as $userGroup) {
+            $user = $userGroup->getUser();
+            $checked = '';
+            foreach ($passagers as $passager) {
+                if ($passager->user_id == $user->id) {
+                    $checked = ' checked="checked"';
+                    break;
+                }
+            }
+            $html .= '<label class="checkbox-inline"> <input type="checkbox" id="cov_pass_cb_' . $user->id . '" name="cov_pass_cb_' . $user->id . '" value="' . $user->id . '" ' . $checked . '> ' . $user->toHtml() . ' </label>';
+        }
+        $allerSel = ($covoiturage->type == BO::TYPE_ALLER) ? 'selected' : '';
+        $retourSel = ($covoiturage->type == BO::TYPE_RETOUR) ? 'selected' : '';
+        $html .= '</div></div>
+                  <div class="form-group">
+                    <label for="cov_type" class="col-sm-2 control-label required">Type</label>
+                    <div class="col-sm-10">
+                        <select id="cov_type" name="cov_type" class="form-control">
+                            <option value="' . BO::TYPE_ALLER . '" ' . $allerSel . '>Aller</option>
+                            <option value="' . BO::TYPE_RETOUR . '" ' . $retourSel . '>Retour</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group"><div class="col-xs-12">
+                      <button type="submit" class="btn btn-warning pull-right" value="submit" name="submit" id="submit">Modifier</button>
+                  </div></div>
                 </form>';
         return $html;
     }

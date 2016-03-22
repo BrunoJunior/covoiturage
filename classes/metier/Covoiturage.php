@@ -30,7 +30,20 @@ class Covoiturage extends DAO {
         if ($this->isDejaPresent()) {
             throw new Exception('Covoiturage déjà présent à cette date !');
         }
-        if ($this->date > date('Y-m-d')) {
+        if ($this->transformerValeurPourBdd('date') > date('Y-m-d')) {
+            throw new Exception('Vous ne pouvez renseigner de trajet à venir !');
+        }
+    }
+
+    /**
+     * Ne pas modifier si un trajet existe déjà pour un groupe un type et une date donnés
+     * @throws Exception
+     */
+    protected function avantModification() {
+        if ($this->isDejaPresent()) {
+            throw new Exception('Covoiturage déjà présent à cette date !');
+        }
+        if ($this->transformerValeurPourBdd('date') > date('Y-m-d')) {
             throw new Exception('Vous ne pouvez renseigner de trajet à venir !');
         }
     }

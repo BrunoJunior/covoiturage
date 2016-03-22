@@ -12,6 +12,8 @@ namespace covoiturage\pages\covoiturage;
 use covoiturage\classes\abstraites\ServiceVue;
 // BP
 use covoiturage\classes\presentation\Covoiturage as BP;
+// BO
+use covoiturage\classes\metier\Covoiturage as BO;
 // Helpers
 use covoiturage\utils\HRequete;
 use Exception;
@@ -27,7 +29,13 @@ class Edit extends ServiceVue {
      * Affiche le contenu de la vue
      */
     public function executerService() {
-
+        if (!$this->getUser()->admin) {
+            throw new Exception('Vous n\'êtes pas autorisé à visualiser cette page !');
+        }
+        $covoiturage = new BO(HRequete::getPOSTObligatoire('id'));
+        echo '<div id="cov-trajet"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Edition d\'un trajet</h3></div><div class="panel-body">';
+        echo BP::getEditForm($covoiturage);
+        echo '</div></div>';
     }
 
     /**
