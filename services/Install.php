@@ -14,6 +14,8 @@ use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
+use covoiturage\classes\metier\TrajetPrevisionnel as TrajetPrevisionnelBO;
+use covoiturage\classes\metier\PassagerPrevisionnel as PassagerPrevisionnelBO;
 
 /**
  * Description of Install
@@ -31,6 +33,8 @@ class Install extends Service {
         UserGroupBO::install();
         CovoiturageBO::install();
         PassagerBO::install();
+        TrajetPrevisionnelBO::install();
+        PassagerPrevisionnelBO::install();
     }
 
 }
