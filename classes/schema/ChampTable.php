@@ -80,6 +80,16 @@ class ChampTable {
     public $dans_parametres;
 
     /**
+     * @var Table
+     */
+    public $table;
+
+    /**
+     * @var Table
+     */
+    public $tableFk;
+
+    /**
      * Constructeur
      * @param string $nom
      * @param string $type
@@ -90,8 +100,9 @@ class ChampTable {
      * @param boolean $persiste
      * @param string $nom_colonne
      * @param boolean $primaire
+     * @param Table $tableFk
      */
-    public function __construct($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $persiste = true, $nom_colonne = null, $primaire = false) {
+    public function __construct($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $persiste = true, $nom_colonne = null, $primaire = false, $tableFk = NULL) {
         $this->nom_attribut = $nom;
         $this->type = $type;
         $this->obligatoire = $obligatoire;
@@ -100,10 +111,14 @@ class ChampTable {
         $this->primaire = $primaire;
         $this->persiste = $persiste;
         $this->dans_parametres = $dans_parametres;
-        if ($persiste && isset($nom_colonne))
+        if ($persiste && isset($nom_colonne)) {
             $this->nom_colonne = $nom_colonne;
-        elseif ($persiste)
+        } elseif ($persiste) {
             $this->nom_colonne = $nom;
+        }
+        if ($tableFk instanceof Table) {
+            $this->tableFk = $tableFk;
+        }
     }
 
     /**
@@ -112,7 +127,7 @@ class ChampTable {
      * @return ChampTable
      */
     public static function getPrimaire($nom) {
-        return new ChampTable('id', 'int', true, true, 10, false, true, $nom, true);
+        return new ChampTable('id', 'int', true, true, 11, false, true, $nom, true);
     }
 
     /**
@@ -126,8 +141,22 @@ class ChampTable {
      * @param string $nom_colonne
      * @return ChampTable
      */
-    public static function getPersiste($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $nom_colonne = null) {
-        return new ChampTable($nom, $type, $obligatoire, $non_vide, $taille, $dans_parametres, true, $nom_colonne, false);
+    public static function getPersiste($nom, $type, $obligatoire = false, $non_vide = false, $taille = null, $dans_parametres = true, $nom_colonne = null, $tableFk = null) {
+        return new ChampTable($nom, $type, $obligatoire, $non_vide, $taille, $dans_parametres, true, $nom_colonne, false, $tableFk);
+    }
+
+    /**
+     * Obtenir un champ persisté de type FK
+     * @param string $nom
+     * @param Table $tableFk
+     * @param boolean $obligatoire
+     * @param boolean $non_vide
+     * @param boolean $dans_parametres
+     * @param string $nom_colonne
+     * @return ChampTable
+     */
+    public static function getFk($nom, Table $tableFk, $obligatoire = false, $non_vide = false, $dans_parametres = true, $nom_colonne = null) {
+        return static::getPersiste($nom, 'int', $obligatoire, $non_vide, 11, $dans_parametres, $nom_colonne, $tableFk);
     }
 
     /**
@@ -153,6 +182,17 @@ class ChampTable {
         if (is_object($valeur))
             $valeur = (array) $valeur;
         return is_null($valeur) || $valeur === '' || (is_array($valeur) && empty($valeur));
+    }
+
+    /**
+     * Le nom de la fk s'il y en a une
+     * @return string
+     */
+    public function getNomFk() {
+        if ($this->tableFk == NULL) {
+            return '';
+        }
+        return 'fk_' . $this->table->nom . '_' . $this->nom_colonne;
     }
 
 }

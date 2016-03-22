@@ -71,6 +71,7 @@ class Table {
         else
             $this->champs[] = $champ;
         $this->champs_nom_colonne[$champ->nom_colonne] = $champ;
+        $champ->table = $this;
     }
 
 }

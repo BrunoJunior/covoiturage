@@ -49,8 +49,8 @@ class Covoiturage extends ClasseTable {
      */
     public static function defineTable() {
         $champs[] = ChampTable::getPrimaire('id');
-        $champs[] = ChampTable::getPersiste('group_id', 'int', true, true, 10);
-        $champs[] = ChampTable::getPersiste('conducteur_id', 'int', true, true, 10);
+        $champs[] = ChampTable::getFk('group_id', Group::getTable());
+        $champs[] = ChampTable::getFk('conducteur_id', User::getTable());
         $champs[] = ChampTable::getPersiste('date', 'datetime', true, true);
         $champs[] = ChampTable::getPersiste('type', 'tinyint', true, true, 1);
         return new Table('covoiturage', $champs);

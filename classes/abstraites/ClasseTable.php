@@ -32,7 +32,6 @@ use covoiturage\utils\Cache;
 use covoiturage\utils\HDatabase;
 use covoiturage\utils\HLog;
 use covoiturage\utils\HString;
-
 // Table
 use covoiturage\classes\schema\ChampTable;
 use covoiturage\classes\schema\Table;
@@ -435,6 +434,7 @@ abstract class ClasseTable extends ClasseSimple {
      */
     protected function creerTable() {
         $query = 'CREATE TABLE `' . static::getTable()->nom . '` (' . static::getTable()->champ_primaire->nom_colonne . ' INT NOT NULL AUTO_INCREMENT PRIMARY KEY,';
+        $fks = [];
         foreach (static::getTable()->champs as $champ) {
             if ($champ->persiste) {
                 $query .= '`' . $champ->nom_colonne . '` ' . $champ->type;
@@ -444,39 +444,70 @@ abstract class ClasseTable extends ClasseSimple {
                     $query .= ' NOT NULL';
                 $query .= ',';
             }
+            if ($champ->tableFk !== NULL) {
+                $fks[] = $champ;
+            }
         }
+        // Création des FK
+        foreach ($fks as $champFk) {
+            $reference = $champFk->tableFk;
+            $query .= 'CONSTRAINT `' . $champFk->getNomFk() . '` FOREIGN KEY (`' . $champFk->nom_colonne . '`) REFERENCES `' . $reference->nom . '`(`' . $reference->champ_primaire->nom_colonne . '`),';
+        }
+
         $query = rtrim($query, ',') . ')';
 
-        $is_ok = HDatabase::executer($query);
-        if (!$is_ok)
-            HLog::log('Création table ' . static::getTable()->nom . ' KO', '', true, HLog::ERROR);
-
-        return $is_ok;
+        if (!HDatabase::executer($query)) {
+            throw new Exception('Création table ' . static::getTable()->nom . ' KO');
+        }
+        return TRUE;
     }
 
     /**
      * Mise à jour de la table (ajout de colonnes)
      */
     protected function majTable() {
-        $is_ok = true;
         $requete_verif_exist_col = 'SHOW COLUMNS FROM `' . static::getTable()->nom . '` LIKE ?';
+        $fks = [];
         foreach (static::getTable()->champs as $champ) {
             if ($champ->persiste) {
                 $tbl_resultat_col = HDatabase::rechercher($requete_verif_exist_col, [$champ->nom_colonne]);
                 $type = empty($tbl_resultat_col) ? 'ADD' : 'MODIFY';
                 $requete_ajout_col = 'ALTER TABLE `' . static::getTable()->nom . '` ' . $type . ' `' . $champ->nom_colonne . '` ' . $champ->type;
-                if (isset($champ->taille))
+                if (isset($champ->taille)) {
                     $requete_ajout_col .= '(' . $champ->taille . ')';
-                if ($champ->non_vide)
+                }
+                if ($champ->non_vide) {
                     $requete_ajout_col .= ' NOT NULL';
-                $is_ok = HDatabase::executer($requete_ajout_col);
+                }
+                if (!HDatabase::executer($requete_ajout_col)) {
+                    throw new Exception('MAJ table ' . static::getTable()->nom . ' KO');
+                }
+            }
+            if ($champ->tableFk !== NULL) {
+                $fks[] = $champ;
             }
         }
 
-        if (!$is_ok)
-            HLog::log('MAJ table ' . static::getTable()->nom . ' KO', '', true, HLog::ERROR);
-
-        return $is_ok;
+        // Update des FK
+        foreach ($fks as $champFk) {
+            $sqlFindFk = "SELECT NULL FROM information_schema.TABLE_CONSTRAINTS WHERE
+                   CONSTRAINT_SCHEMA = DATABASE() AND CONSTRAINT_NAME = ? AND CONSTRAINT_TYPE = 'FOREIGN KEY'";
+            $resultFindFk = HDatabase::rechercher($sqlFindFk, [$champFk->getNomFk()]);
+            if (!empty($resultFindFk)) {
+                // Suppression FK
+                if (!HDatabase::executer('ALTER TABLE `' . static::getTable()->nom . '` DROP FOREIGN KEY `' . $champFk->getNomFk() . '`')) {
+                    throw new Exception('DROP FK ' . $champFk->getNomFk() . ' - table ' . static::getTable()->nom . ' KO');
+                }
+            }
+            // Création FK
+            if (!HDatabase::executer('ALTER TABLE `' . static::getTable()->nom .
+                    '` ADD CONSTRAINT `' . $champFk->getNomFk() .
+                    '` FOREIGN KEY (`' . $champFk->nom_colonne . '`) ' .
+                    'REFERENCES `'.$champFk->tableFk->nom.'`(`'.$champFk->tableFk->champ_primaire->nom_colonne.'`)')) {
+                throw new Exception('ADD FK ' . $champFk->getNomFk() . ' - table ' . static::getTable()->nom . ' KO');
+            }
+        }
+        return TRUE;
     }
 
     /**

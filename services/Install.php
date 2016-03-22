@@ -27,10 +27,10 @@ class Install extends Service {
      */
     public function executerService() {
         UserBO::install();
-        CovoiturageBO::install();
         GroupBO::install();
-        PassagerBO::install();
         UserGroupBO::install();
+        CovoiturageBO::install();
+        PassagerBO::install();
     }
 
 }

@@ -42,8 +42,8 @@ class UserGroup extends ClasseTable {
      */
     public static function defineTable() {
         $champs[] = ChampTable::getPrimaire('id');
-        $champs[] = ChampTable::getPersiste('user_id', 'int', true, true, 10);
-        $champs[] = ChampTable::getPersiste('group_id', 'int', true, true, 10);
+        $champs[] = ChampTable::getFk('user_id', User::getTable());
+        $champs[] = ChampTable::getFk('group_id', Group::getTable());
         $champs[] = ChampTable::getPersiste('group_admin', 'tinyint', false, false, 1);
         return new Table('user_group', $champs);
     }

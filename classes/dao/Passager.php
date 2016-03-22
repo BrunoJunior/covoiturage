@@ -37,8 +37,8 @@ class Passager extends ClasseTable {
      */
     public static function defineTable() {
         $champs[] = ChampTable::getPrimaire('id');
-        $champs[] = ChampTable::getPersiste('user_id', 'int', true, true, 10);
-        $champs[] = ChampTable::getPersiste('covoiturage_id', 'int', true, true, 10);
+        $champs[] = ChampTable::getFk('user_id', User::getTable());
+        $champs[] = ChampTable::getFk('covoiturage_id', Covoiturage::getTable());
         return new Table('passager', $champs);
     }
 
