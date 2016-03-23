@@ -11,6 +11,7 @@ namespace covoiturage\classes\presentation;
 // BO
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Group as BO;
+use covoiturage\classes\presentation\TrajetPrevisionnel as TrajetPrevisionnelBP;
 // Services
 // Vues
 use covoiturage\pages\user\Edit as EditUserVue;
@@ -45,7 +46,8 @@ class Group {
         $prochainConducteur = $group->getProchainConducteurPropose();
         $conducteurRecurrent = $group->getConducteurRecurrent();
         $usergroups = $group->getListeUserGroup();
-        $html = '<div class="col-md-4 col-sm-6 col-xs-12"><div class="cov-group">';
+        $html = TrajetPrevisionnelBP::getModal($group);
+        $html .= '<div class="col-md-4 col-sm-6 col-xs-12"><div class="cov-group">';
         $html .= '<h3>' . $group->nom . ' <span class="badge">' . count($usergroups) . '</span></h3> ';
         $conUser = HSession::getUser();
         $html .= '<hr /><div class="cov-group-users">';
@@ -70,6 +72,7 @@ class Group {
         $html .= '<div class="cov-group-actions"><hr />';
         $html .= '<a class="btn btn-success" href="' . RecapVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif">'.Html::getIcon('balance-scale').'</a>';
         $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets">'.Html::getIcon('road').'</a>';
+//        $html .= '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cov-prev-'.$group->id.'"><span data-toggle="tooltip" title="Proposer un trajet">'.Html::getIcon('share-alt').'</span></button>';
         $html .= '<a class="btn btn-primary" href="' . ContactVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Contacter le groupe">'.Html::getIcon('envelope').'</span></a>';
         if ($conUser->admin || $group->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-warning" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer">'.Html::getIcon('pencil').'</a>';

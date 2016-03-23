@@ -68,6 +68,7 @@
     height: 45px;
 }
 
-#cov-group-list .cov-group .cov-group-actions a {
+#cov-group-list .cov-group .cov-group-actions a,
+#cov-group-list .cov-group .cov-group-actions button {
     margin: 5px;
 }
