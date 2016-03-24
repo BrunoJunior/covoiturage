@@ -27,7 +27,7 @@ class Proposer extends Service {
      */
     public function executerService() {
         $group = new GroupBO(HRequete::getPOSTObligatoire('group_id'));
-        if (!$group->existe() || !$this->getUser()->existe() || $group->isUserPresent($this->getUser())) {
+        if (!$group->existe() || !$this->getUser()->existe() || !$group->isUserPresent($this->getUser())) {
             throw new Exception("Vous n'êtes pas autorisé à accéder à ce service !");
         }
         $date = HRequete::getPOSTObligatoire('prev_date');
