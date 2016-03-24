@@ -254,7 +254,7 @@ abstract class ClasseTable extends ClasseSimple {
         foreach (static::getTable()->champs as $champ) {
             if ($champ->persiste) {
                 $attribut = $champ->nom_attribut;
-                if ($champ->obligatoire && (!isset($this->$attribut) || $this->$attribut == '')) {
+                if ($champ->obligatoire && (!isset($this->$attribut) || $this->$attribut === '')) {
                     throw new Exception('L\'attribut ' . $attribut . ' ne peut être vide !');
                 }
                 if (isset($champ->taille) && mb_strlen(strval($this->$attribut)) > $champ->taille) {
