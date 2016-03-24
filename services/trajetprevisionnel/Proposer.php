@@ -57,6 +57,9 @@ class Proposer extends Service {
         // Envoi de l'email aux membres du groupe
         $userGroups = $group->getListeUserGroup();
         foreach ($userGroups as $userGroup) {
+            if ($this->getUser()->id == $userGroup->user_id) {
+                continue;
+            }
             $user = $userGroup->getUser();
             $params = ['user_id' => $user->id];
             $message = "<p>$group->nom</p>
