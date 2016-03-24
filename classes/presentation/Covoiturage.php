@@ -196,13 +196,9 @@ class Covoiturage {
         $html .= '</div>';
         $html .= '</div>
                   <div class="form-group">
-                    <div class="col-xs-4">
-                      <button type="submit" class="btn btn-success" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller ' . Html::getIcon('arrow-right') . '</button>
-                    </div>
-                    <div class="col-xs-4 text-center">
+                    <div class="col-xs-12 text-center">
+                      <button type="submit" class="btn btn-success pull-left" value="' . BO::TYPE_ALLER . '" name="submit" id="submit_' . BO::TYPE_ALLER . '">Aller ' . Html::getIcon('arrow-right') . '</button>
                       <button type="submit" class="btn btn-primary" value="' . BO::TYPE_ALLER . ',' . BO::TYPE_RETOUR . '" name="submit" id="submit">Aller ' . Html::getIcon('exchange') . ' Retour</button>
-                    </div>
-                    <div class="col-xs-4">
                       <button type="submit" class="btn btn-danger pull-right" value="' . BO::TYPE_RETOUR . '" name="submit" id="submit_' . BO::TYPE_RETOUR . '">' . Html::getIcon('arrow-left') . ' Retour</button>
                     </div>
                   </div>
