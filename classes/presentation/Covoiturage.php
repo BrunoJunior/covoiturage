@@ -82,7 +82,7 @@ class Covoiturage {
         if (HSession::getUser()->admin) {
             $html .= '<td>
                         <button class="btn btn-danger cov-trajet-del" href="' . Delete::getUrl($covoiturage->id) . '" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button>
-                        <a class="btn btn-primary" href="' . Edit::getUrl($covoiturage->id) . '" role="button" data-toggle="tooltip" title="Modifier">' . Html::getIcon('pencil') . '</button>
+                        <a class="btn btn-primary" href="' . Edit::getUrl($covoiturage->id) . '" role="button" data-toggle="tooltip" title="Modifier">' . Html::getIcon('pencil') . '</a>
                       </td>';
         }
         $html .= '</tr>';

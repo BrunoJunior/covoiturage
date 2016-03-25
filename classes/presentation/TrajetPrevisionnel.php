@@ -10,6 +10,9 @@ namespace covoiturage\classes\presentation;
 
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\services\trajetprevisionnel\Proposer;
+use covoiturage\classes\metier\TrajetPrevisionnel as BO;
+use covoiturage\classes\metier\User as UserBO;
+use covoiturage\utils\Html;
 
 /**
  * Description of TrajetPrevisionnel
@@ -48,6 +51,73 @@ class TrajetPrevisionnel {
                         </div>
                     </form>
                 </div>';
+        return $html;
+    }
+
+    /**
+     * Obtenir le html pour l'affichage des trajets prévisionnels
+     * @param UserBO $user
+     */
+    public static function getHtmlTable(UserBO $user) {
+        $trajets = $user->getListeTrajetsPrevisionnels();
+        $html = '<div id="trajp-liste">
+                    <div class="panel panel-info">
+                    <div class="panel-heading"><h3 class="panel-title">Mes trajets prévisionnels <span class="badge">' . $user->getListeTrajetsPrevisionnels(BO::MODE_COUNT) . '</span></h3></div>
+                    <div class="panel-body"><table class="table">';
+        $html .= static::getTh() . '<tbody>';
+        foreach ($trajets as $trajet) {
+            $html .= static::getTr($trajet);
+        }
+        $html .= '</tbody></table></div></div></div>';
+        return $html;
+    }
+
+    /**
+     * Obtenir l'entête du tableau de trajets prévisionnels
+     * @return string
+     */
+    private static function getTh() {
+        $html = '<thead><tr><th class="hidden">id</th><th class="trajp-date">Date</th><th class="center trajp-type">Type</th><th>Passagers</th><th>Actions</th></tr></thead>';
+        return $html;
+    }
+
+    /**
+     * Obtenir l'icône suivant le type de trajet
+     * @param BO $trajet
+     * @return string
+     */
+    private static function getIcone(BO $trajet) {
+        switch ($trajet->type) {
+            case BO::TYPE_ALLER:
+                return Html::getIcon("arrow-right", "trajp-type");
+            case BO::TYPE_RETOUR:
+                return Html::getIcon("arrow-left", "trajp-type");
+            case BO::TYPE_ALLER_RETOUR:
+                return Html::getIcon("exchange", "trajp-type");
+        }
+    }
+
+    /**
+     * Obtenir une ligne dans le tableau des trajets prévisionnels
+     * @param BO $trajet
+     * @return string
+     */
+    private static function getTr(BO $trajet) {
+        $passagers = $trajet->getListePassagers();
+        $htmlPassagers = '';
+        if (!empty($passagers)) {
+            foreach ($passagers as $passager) {
+                $user = $passager->getUser();
+                $htmlPassagers .= '<div class="trajp-passager-tuile bg-info" data-param-id="' . $passager->id . '"><span class="trajp-passager-lib">' . $user->toHtml() . '</span>';
+                $htmlPassagers .= '</div>';
+            }
+        }
+        $html = '<tr><td class="hidden">' . $trajet->id . '</td><td>' . $trajet->date . '</td><td class="center">' . static::getIcone($trajet) . '</td>';
+        $html .= '<td>' . $htmlPassagers . '</td>';
+        $html .= '<td>
+                    <!-- <button class="btn btn-danger cov-trajet-del" href="' . Delete::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button> !>
+                  </td>';
+        $html .= '</tr>';
         return $html;
     }
 

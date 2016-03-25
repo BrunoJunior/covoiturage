@@ -14,6 +14,7 @@ use covoiturage\classes\abstraites\ServiceVue;
 use covoiturage\classes\metier\Group as BO;
 // BP
 use covoiturage\classes\presentation\Covoiturage as CovoiturageBP;
+use covoiturage\classes\presentation\TrajetPrevisionnel as TrajetPrevisionnelBP;
 // Helpers
 use covoiturage\utils\HRequete;
 use Exception;
@@ -38,6 +39,7 @@ class Trajet extends ServiceVue {
         echo '<div id="cov-group-trajet"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div><div class="panel-body">';
         echo CovoiturageBP::getForm($group);
         echo '</div></div>';
+        echo TrajetPrevisionnelBP::getHtmlTable($user);
         echo CovoiturageBP::getHtmlTableCond($group, $user, 10);
         if (!$user->admin) {
             echo CovoiturageBP::getHtmlTablePass($group, $user, 10);

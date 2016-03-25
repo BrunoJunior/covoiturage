@@ -1,17 +1,22 @@
-#cov-group-trajet .cov-type.fa-arrow-right{
+#cov-group-trajet .cov-type.fa-arrow-right,
+#trajp-liste .trajp-type.fa-arrow-right{
     color: green;
 }
-#cov-group-trajet .cov-type.fa-arrow-left{
+#cov-group-trajet .cov-type.fa-arrow-left,
+#trajp-liste .trajp-type.fa-arrow-left{
     color: red;
 }
 #cov-group-trajet .cov-date,
-#cov-group-trajet .cov-type{
+#cov-group-trajet .cov-type,
+#trajp-liste .trajp-date,
+#trajp-liste .trajp-type{
     width: 75px;
 }
 #cov-group-trajet .cov-conducteur{
     width: 200px;
 }
-#cov-group-trajet .cov_passager_tuile{
+#cov-group-trajet .cov_passager_tuile,
+#trajp-liste .trajp-passager-tuile{
     display: inline-block;
     -webkit-border-radius: 0.5em;
     -moz-border-radius: 0.5em;
@@ -21,13 +26,15 @@
     margin-bottom: 5px;
     float: left;
 }
-#cov-group-trajet .cov_passager_tuile .cov_remove_pass{
+#cov-group-trajet .cov_passager_tuile .cov_remove_pass,
+#trajp-liste .trajp-passager-tuile .cov_remove_pass{
     margin-left: 5px;
     padding: 3px 6px;
 }
 #cov-group-trajet .cov_pag{
     text-align: center;
 }
-#cov-group-trajet tr .btn {
+#cov-group-trajet tr .btn,
+#trajp-liste tr .btn{
     margin-bottom: 5px;
 }

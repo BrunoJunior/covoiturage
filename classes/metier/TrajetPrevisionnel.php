@@ -33,4 +33,14 @@ class TrajetPrevisionnel extends DAO {
             $passager->supprimer();
         }
     }
+
+    /**
+     * Eviter les doublons
+     * @throws Exception
+     */
+    protected function avantAjout() {
+        if ($this->isDejaPresent()) {
+            throw new Exception("Un trajet prévisionnel est déjà prévu à cette date !");
+        }
+    }
 }

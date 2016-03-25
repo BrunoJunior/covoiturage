@@ -73,7 +73,7 @@ class TrajetPrevisionnel extends ClasseTable {
 
     /**
      * Liste des passagers d'un covoiturage
-     * @return PassagerBO[]
+     * @return PassagerPrevisionnelBO[]
      */
     public function getListePassagers() {
         $sql = PassagerPrevisionnel::getSqlSelect();

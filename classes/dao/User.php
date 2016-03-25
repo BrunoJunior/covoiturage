@@ -23,6 +23,7 @@ use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Group as GroupBO;
+use covoiturage\classes\metier\TrajetPrevisionnel as TrajetPrevisionnelBO;
 
 /**
  * Description of User
@@ -262,5 +263,19 @@ class User extends ClasseTable {
                 WHERE p.user_id = ? AND c.group_id = ?';
         $result = HDatabase::rechercher($sql, [$this->id, $idGroup]);
         return $result[0]['nb'];
+    }
+
+    /**
+     * Liste des trajets prévisionnels dont le conducteur est l'utilisateur
+     * @return int|TrajetPrevisionnelBO[]
+     */
+    public function getListeTrajetsPrevisionnels($mode = self::MODE_NORMAL) {
+        $select = TrajetPrevisionnel::getSqlSelect();
+        $from = '';
+        $where = ' WHERE conducteur_id = ?';
+        $params = [$this->id];
+        $order = ' ORDER BY date DESC, type DESC';
+        $sql = $select . $from . $where . $order;
+        return TrajetPrevisionnelBO::getListe($sql, $params, 0, 1, $mode);
     }
 }
