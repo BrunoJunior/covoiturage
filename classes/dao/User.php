@@ -269,13 +269,13 @@ class User extends ClasseTable {
      * Liste des trajets prévisionnels dont le conducteur est l'utilisateur
      * @return int|TrajetPrevisionnelBO[]
      */
-    public function getListeTrajetsPrevisionnels($mode = self::MODE_NORMAL) {
+    public function getListeTrajetsPrevisionnels($idGroup, $mode = self::MODE_NORMAL) {
         // On commence par supprimer les trajets prévisionnels passés
 //        TrajetPrevisionnelBO::supprimerObsoletes();
         $select = TrajetPrevisionnel::getSqlSelect();
         $from = '';
-        $where = ' WHERE conducteur_id = ?';
-        $params = [$this->id];
+        $where = ' WHERE conducteur_id = ? AND group_id = ?';
+        $params = [$this->id, $idGroup];
         $order = ' ORDER BY date DESC, type DESC';
         $sql = $select . $from . $where . $order;
         return TrajetPrevisionnelBO::getListe($sql, $params, 0, 1, $mode);

@@ -110,7 +110,7 @@ class Covoiturage extends ClasseTable {
         }
         $covoiturage = new BO();
         $covoiturage->group_id = $idGroup;
-        $covoiturage->date = $dateBdd;
+        $covoiturage->date = $date;
         $covoiturage->type = $type;
         return $covoiturage;
     }
@@ -121,7 +121,7 @@ class Covoiturage extends ClasseTable {
      * @return boolean
      */
     public function isDejaPresent() {
-        $trouve = static::chercherDejaPresent($this->group_id, $this->transformerValeurPourBdd('date'), $this->type, $this->id);
+        $trouve = static::chercherDejaPresent($this->group_id, $this->date, $this->type, $this->id);
         return $trouve->existe();
     }
 

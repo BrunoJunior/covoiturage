@@ -16,6 +16,10 @@ use covoiturage\utils\Html;
 
 use covoiturage\services\trajetprevisionnel\Valider as ValiderTrajet;
 use covoiturage\services\passagerprevisionnel\Valider as ValiderPassager;
+use covoiturage\services\trajetprevisionnel\Delete as DeleteTrajet;
+use covoiturage\services\passagerprevisionnel\Delete as DeletePassager;
+use covoiturage\pages\trajetprevisionnel\Liste;
+use covoiturage\services\trajetprevisionnel\Clear;
 
 /**
  * Description of TrajetPrevisionnel
@@ -61,18 +65,18 @@ class TrajetPrevisionnel {
      * Obtenir le html pour l'affichage des trajets prévisionnels
      * @param UserBO $user
      */
-    public static function getHtmlTable(UserBO $user) {
-        $trajets = $user->getListeTrajetsPrevisionnels();
-        $html = '<div id="trajp-liste">
+    public static function getHtmlTable(GroupBO $group, UserBO $user) {
+        $trajets = $user->getListeTrajetsPrevisionnels($group->id);
+        $html = '<div id="trajp-liste" data-refresh="' . Liste::getUrl(NULL, ['group_id' => $group->id]) . '">
                     <div class="panel panel-info">
-                        <div class="panel-heading"><h3 class="panel-title">Mes trajets prévisionnels <span class="badge">' . $user->getListeTrajetsPrevisionnels(BO::MODE_COUNT) . '</span></h3></div>
+                        <div class="panel-heading"><h3 class="panel-title">Mes trajets prévisionnels <span class="badge">' . $user->getListeTrajetsPrevisionnels($group->id, BO::MODE_COUNT) . '</span></h3></div>
                         <div class="panel-body">
                             <table class="table">';
         $html .= static::getTh() . '<tbody>';
         foreach ($trajets as $trajet) {
             $html .= static::getTr($trajet);
         }
-        $html .= '</tbody></table></div></div></div>';
+        $html .= '</tbody></table></div><div class="panel-footer text-right"><button class="btn btn-danger trajp-clear" href="' . Clear::getUrl(NULL,['group_id' => $group->id]) . '" role="button" data-toggle="tooltip" title="Supprimer les trajets passés" data-confirm="Êtes-vous sûr ?">'.Html::getIcon('eraser').' Nettoyer les trajets passés</button></div></div></div>';
         return $html;
     }
 
@@ -113,13 +117,15 @@ class TrajetPrevisionnel {
             foreach ($passagers as $passager) {
                 $user = $passager->getUser();
                 $htmlPassagers .= '<div class="trajp-passager-tuile bg-info" data-param-id="' . $passager->id . '"><span class="trajp-passager-lib">' . $user->toHtml() . '</span>';
-                $htmlPassagers .= '<button class="btn btn-success" href="' . ValiderPassager::getUrl($passager->id) . '" role="button" data-toggle="tooltip" title="Valider le passager">'.Html::getIcon('check').'</button></div>';
+                $htmlPassagers .= '<button class="btn btn-success trajp-pass-valid" href="' . ValiderPassager::getUrl($passager->id) . '" role="button" data-toggle="tooltip" title="Valider le passager">'.Html::getIcon('check').'</button>';
+                $htmlPassagers .= '<button class="btn btn-danger trajp-pass-delete" href="' . DeletePassager::getUrl($passager->id) . '" role="button" data-toggle="tooltip" title="Supprimer le passager" data-confirm="Êtes-vous sûr ?">'.Html::getIcon('trash').'</button></div>';
             }
         }
         $html = '<tr><td class="hidden">' . $trajet->id . '</td><td>' . $trajet->date . '</td><td class="center">' . static::getIcone($trajet) . '</td>';
         $html .= '<td>' . $htmlPassagers . '</td>';
         $html .= '<td class="center">
-                    <button class="btn btn-success" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
+                    <button class="btn btn-success trajp-valid" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
+                    <button class="btn btn-danger trajp-delete" href="' . DeleteTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Supprimer le trajet" data-confirm="Êtes-vous sûr ?">'.Html::getIcon('trash').'</button>
                   </td>';
         $html .= '</tr>';
         return $html;

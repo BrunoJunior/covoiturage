@@ -49,6 +49,34 @@ $('#cov_list_trajets').find('.cov-trajet-del').data('callback', function (button
 });
 
 /**
+ * Validation ou suppression passager prévisionnel, on efface la tuile
+ */
+$('#trajp-liste .trajp-pass-valid, #trajp-liste .trajp-pass-delete').data('callback', function (button, reponse) {
+    // On cache le passager
+    button.closest('.trajp-passager-tuile').fadeOut();
+    // On rafraichi la liste des trajets
+    refreshList($('#cov_list_trajets'));
+});
+
+/**
+ * Validation ou suppression trajet prévisionnel, on efface la ligne
+ */
+$('#trajp-liste .trajp-valid, #trajp-liste .trajp-delete').data('callback', function (button, reponse) {
+    // On cache le trajet
+    button.closest('tr').fadeOut();
+    // On rafraichi la liste des trajets
+    refreshList($('#cov_list_trajets'));
+});
+
+/**
+ * Quand on a nettoyé les trajets prévisionnels passés
+ */
+$('#trajp-liste .trajp-clear').data('callback', function (button, reponse) {
+    // On rafraichi la liste des trajets
+    refreshList($('#trajp-liste'));
+});
+
+/**
  * Gestion de la pagination
  */
 $('#cov-group-trajet').on('click', '.cov_pag a', function (e) {

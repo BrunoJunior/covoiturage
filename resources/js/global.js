@@ -46,7 +46,7 @@ $(function () {
     });
 
     // Gestion retour AJAX
-    $('body').on('click', "[url$='serv'],[href$='serv']", function () {
+    $('body').on('click', "[url*='.serv'],[href*='.serv']", function () {
         afficherLoading();
         var button = $(this);
         var url;
