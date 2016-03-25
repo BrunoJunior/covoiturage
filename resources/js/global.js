@@ -24,6 +24,7 @@ function afficherOK(message) {
 
 function afficherLoading() {
     var div_loading = $('#loading');
+    window.scrollTo(0, 0);
     div_loading.fadeIn();
 }
 
