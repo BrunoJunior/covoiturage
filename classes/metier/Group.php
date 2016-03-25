@@ -22,6 +22,24 @@ use covoiturage\utils\HMail;
 class Group extends DAO {
 
     /**
+     * On supprime les asso liées
+     */
+    protected function avantSuppression() {
+        $userGroups = $this->getListeUserGroup();
+        foreach ($userGroups as $userGroup) {
+            $userGroup->supprimer();
+        }
+        $covoiturages = $this->getListeCovoiturage();
+        foreach ($covoiturages as $covoiturage) {
+            $covoiturage->supprimer();
+        }
+        $trajetsPrevisionnels = $this->getListeTrajetPrevisionnels();
+        foreach ($trajetsPrevisionnels as $trajetPrevisionnel) {
+            $trajetPrevisionnel->supprimer();
+        }
+    }
+
+    /**
      * L'utilisateur est-il présent dans le groupe
      * @param User $user
      * @return boolean

@@ -17,6 +17,7 @@ use covoiturage\classes\abstraites\ClasseTable;
 use covoiturage\classes\metier\UserGroup as UserGroupBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Covoiturage as CovoiturageBO;
+use covoiturage\classes\metier\TrajetPrevisionnel as TrajetPrevisionnelBO;
 
 // Helpers
 use covoiturage\utils\HDatabase;
@@ -91,4 +92,15 @@ class Group extends ClasseTable {
                 GROUP BY p.user_id, c.conducteur_id';
         return HDatabase::rechercher($sql, [$this->id]);
     }
+
+    /**
+     * Liste des user d'un groupe
+     * @return TrajetPrevisionnelBO[]
+     */
+    public function getListeTrajetPrevisionnels() {
+        $sql = TrajetPrevisionnel::getSqlSelect();
+        $sql .= ' WHERE group_id = ? ORDER BY date DESC, type';
+        return TrajetPrevisionnelBO::getListe($sql, [$this->id]);
+    }
+
 }

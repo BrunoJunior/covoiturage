@@ -12,6 +12,7 @@ use Exception;
 
 // DAO
 use covoiturage\classes\dao\TrajetPrevisionnel as DAO;
+use covoiturage\utils\HDatabase;
 
 /**
  * Description of TrajetPrevisionnel
@@ -39,6 +40,9 @@ class TrajetPrevisionnel extends DAO {
      * @throws Exception
      */
     protected function avantAjout() {
+        if (HDatabase::convertDateForBDD($this->date) < date(HDatabase::FORMAT_DATE_BDD)) {
+            throw new Exception("Vous ne pouvez proposer un trajet prévisionnel dans le passé !");
+        }
         if ($this->isDejaPresent()) {
             throw new Exception("Un trajet prévisionnel est déjà prévu à cette date !");
         }
