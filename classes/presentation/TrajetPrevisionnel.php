@@ -119,7 +119,7 @@ class TrajetPrevisionnel {
         $html .= '<td>' . $htmlPassagers . '</td>';
         $html .= '<td>
                     <button class="btn btn-success" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
-                    <!-- <button class="btn btn-danger cov-trajet-del" href="' . Delete::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button> !>
+                    <!-- <button class="btn btn-danger cov-trajet-del" href="" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button> !>
                   </td>';
         $html .= '</tr>';
         return $html;
