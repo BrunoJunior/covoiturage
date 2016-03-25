@@ -32,4 +32,12 @@ class Login extends \covoiturage\classes\abstraites\Service {
             throw new Exception('Identification incorrecte !');
         }
     }
+
+    /**
+     * O, se connecte, démarrage de session, mais utilisateur pas encore connecté
+     * @return boolean
+     */
+    public function isConnexionObligatoire() {
+        return FALSE;
+    }
 }

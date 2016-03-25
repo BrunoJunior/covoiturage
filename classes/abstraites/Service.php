@@ -88,6 +88,12 @@ abstract class Service {
     public function executer() {
         ob_start();
         $retour = new \stdClass();
+        if ($this->isSecurised() && !$this->getUser()->existe() && $this->isConnexionObligatoire()) {
+            $retour->isErr = TRUE;
+            $retour->message = "Veuillez vous connecter !";
+            echo json_encode($retour);
+            return;
+        }
         $retour->isErr = FALSE;
         $retour->message = 'OK';
         $this->avantExecuterService();
@@ -165,6 +171,14 @@ abstract class Service {
      * @return boolean
      */
     public function isSecurised() {
+        return TRUE;
+    }
+
+    /**
+     * L'accès au service est-il sécurisé
+     * @return boolean
+     */
+    public function isConnexionObligatoire() {
         return TRUE;
     }
 

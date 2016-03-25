@@ -1,4 +1,5 @@
 <?php
+
 require __DIR__ . '/autoload.php';
 require __DIR__ . '/lib/password.php';
 $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
@@ -33,7 +34,8 @@ $serviceInstance = new $serviceName();
 // Accès sécurisé ?
 if ($serviceInstance->isSecurised()) {
     session_start();
-    if (!\covoiturage\utils\HSession::getUser()->existe() && !($serviceInstance instanceof \covoiturage\services\user\Login)) {
+    if ($serviceInstance instanceof \covoiturage\classes\abstraites\ServiceVue &&
+            !\covoiturage\utils\HSession::getUser()->existe()) {
         $serviceInstance = new covoiturage\pages\user\Login();
     }
 }

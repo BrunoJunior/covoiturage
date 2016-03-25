@@ -16,6 +16,8 @@ use covoiturage\services\user\Edit;
 use covoiturage\services\user\Contact;
 use covoiturage\services\user\Newpassword;
 use covoiturage\services\user\Forgotpwd;
+use covoiturage\pages\user\Inscription as InscriptionVue;
+use covoiturage\services\user\Inscription;
 // Helpers
 use covoiturage\utils\HSession;
 use covoiturage\utils\Html;
@@ -41,7 +43,7 @@ class User {
                     </div>
                     <div class="form-group">
                       <label for="user_password" class="col-sm-2 control-label required">Mot de passe</label>
-                      <div class="col-sm-8 col-xs-10">
+                      <div class="col-xs-10 col-sm-8">
                         <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe" required="required">
                       </div>
                       <div class="col-xs-2">
@@ -58,8 +60,9 @@ class User {
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Se connecter</button>
+                      <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success pull-right" value="submit" name="submit" id="submit">Connexion</button>
+                        <a role="button" class="btn btn-primary pull-right" href="' . InscriptionVue::getUrl() . '">Inscription</a>
                       </div>
                     </div>
                   </form>';
@@ -213,6 +216,56 @@ class User {
                   </div>';
         $html .= '</div></div></form>';
         return $html;
+    }
+
+    /**
+     * Obtenir le formulaire d'inscription
+     * @return string
+     */
+    public static function getInscriptionForm() {
+        return '<form action="' . Inscription::getUrl() . '" class="form-horizontal" method="POST">
+                    <div class="form-group">
+                      <label for="user_email" class="col-sm-2 control-label required">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Email" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_nom" class="col-sm-2 control-label required">Nom</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="user_nom" name="user_nom" placeholder="Nom" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_prenom" class="col-sm-2 control-label required">Prénom</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="user_prenom" name="user_prenom" placeholder="Prénom" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_tel" class="col-sm-2 control-label">N° de téléphone</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="user_tel" name="user_tel" placeholder="00 00 00 00 00 00">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_password" class="col-sm-2 control-label required">Mot de passe</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="user_password2" class="col-sm-2 control-label required">Saisir de nouveau</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" id="user_password2" name="user_password2" placeholder="Mot de passe" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-xs-12">
+                        <button type="submit" class="btn btn-success pull-right" value="submit" name="submit" id="submit">Envoyer</button>
+                      </div>
+                    </div>
+                  </form>';
     }
 
 }

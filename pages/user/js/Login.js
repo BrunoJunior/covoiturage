@@ -1,5 +1,5 @@
 // Login OK --> Redirection
-$('form').data('callback', function (json) {
+$('form').data('callback', function () {
     window.location.replace("/");
 });
 

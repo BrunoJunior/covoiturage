@@ -139,12 +139,14 @@ $(function () {
         div_alert_err.fadeOut();
         div_alert_suc.fadeOut();
         var data = form.serialize() + '&submit=' + button.attr('value');
+        debugger;
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
             data: data,
             dataType: 'json', // JSON
             success: function (json) {
+                debugger;
                 if (json.isErr) {
                     afficherErr(json.message, button);
                 } else if (callback !== undefined) {
@@ -155,9 +157,11 @@ $(function () {
                 }
             }
         }).fail(function (jqxhr, textStatus, error) {
+            debugger;
             var err = textStatus + ", " + error;
             afficherErr(err, button);
         }).always(function () {
+            debugger;
             cacherLoading();
             if (callback_always !== undefined) {
                 callback_always(form);
