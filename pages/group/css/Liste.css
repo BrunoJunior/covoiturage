@@ -69,7 +69,13 @@
     height: 45px;
 }
 
+#cov-group-list .cov-group .cov-group-actions hr {
+    margin-bottom: 5px;
+}
+
 #cov-group-list .cov-group .btn {
     margin: 5px;
+    margin-top: 0;
+    margin-right: 0;
     text-align: center;
 }
