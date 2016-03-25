@@ -38,30 +38,11 @@ class Adduser extends Service {
             throw new Exception("Vous n'êtes pas autorisé à effectuer cette action !");
         }
         $idNewUser = HRequete::getPOST('user_id');
-        if (empty($idNewUser)) {
-            $nomNewUser = HRequete::getPOSTObligatoire('user_nom1');
-            $prenomNewUser = HRequete::getPOSTObligatoire('user_prenom1');
-            $newUser = UserBO::chargerParNomEtPrenom($nomNewUser, $prenomNewUser);
-            if ($newUser->existe()) {
-                throw new Exception("Ce covoitureur existe déjà ! Veuillez utiliser la liste de sélection !");
-            }
-            $newUser->setPassword($newUser->nom . '.' . $newUser->prenom);
-            $newUser->merger();
-        } else {
-            $newUser = new UserBO($idNewUser);
-            if (!empty($idNewUser) && !$newUser->existe()) {
-                throw new Exception("Utilisateur inconnu !");
-            }
+        $newUser = new UserBO($idNewUser);
+        if (!empty($idNewUser) && !$newUser->existe()) {
+            throw new Exception("Utilisateur inconnu !");
         }
-        if ($newUser->isDansGroupe($group)) {
-            throw new Exception("Ce covoitureur est déjà présent dans le groupe !");
-        }
-        $userGroup = new UserGroupBO();
-        $userGroup->group_admin = FALSE;
-        $userGroup->group_id = $group->id;
-        $userGroup->user_id = $newUser->id;
-        $userGroup->merger();
-        $this->addResponseItem('form-group', UserGroupBP::getLigneForm($userGroup));
+        $this->addResponseItem('form-group', UserGroupBP::getLigneForm($group->ajouterUser($newUser)));
     }
 
 }

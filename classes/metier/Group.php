@@ -143,4 +143,19 @@ class Group extends DAO {
         return HMail::envoyer($connectedUser, $destinataires, $sujet, $message);
     }
 
+    /**
+     * Ajouter un utilisateur au groupe
+     * @param \covoiturage\classes\metier\User $user
+     * @return UserGroup Description
+     */
+    public function ajouterUser(User $user, $isGroupAdmin = FALSE) {
+        $userGroup = new UserGroup();
+        $userGroup->group_admin = FALSE;
+        $userGroup->group_id = $this->id;
+        $userGroup->user_id = $user->id;
+        $userGroup->group_admin = $isGroupAdmin;
+        $userGroup->merger();
+        return $userGroup;
+    }
+
 }

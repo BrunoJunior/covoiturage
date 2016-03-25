@@ -87,10 +87,6 @@ class Group {
      * @return string
      */
     public static function getTuileAdd() {
-        $user = HSession::getUser();
-        if (!$user->admin) {
-            return '';
-        }
         $html = '<div class="col-md-4 col-sm-6 col-xs-12"><div class="cov-group add-group">';
         $html .= '<h3>Ajouter un groupe</h3>';
         $html .= '<hr />';
@@ -144,27 +140,15 @@ class Group {
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                          <label for="select_user1" class="col-sm-2 control-label">Co-voitureur existant</label>
+                          <label for="user_id" class="col-sm-2 control-label">Co-voitureur existant</label>
                           <div class="col-sm-8">
-                            <select id="select_user1" name="select_user1" class="form-control">
+                            <select id="user_id" name="user_id" class="form-control">
                                 <option value="" selected>Choisir un covoitureur</option>';
         $userList = UserBO::getListe();
         foreach ($userList as $user) {
             $panelAjoutCov .= '<option value="' . $user->id . '">' . $user->toHtml() . '</option>';
         }
         $panelAjoutCov .= '</select>
-                              </div>
-                              <div class="col-sm-2">
-                                <button type="button" class="btn btn-success cov-ug-add" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Ajouter au groupe">'.Html::getIcon('user-plus').'</button>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="user_nom1" class="col-sm-2 control-label">Nouveau co-voitureur</label>
-                              <div class="col-sm-4">
-                                <input name="user_nom1" id="user_nom1" class="form-control" placeholder="Nom" />
-                              </div>
-                              <div class="col-sm-4">
-                                <input name="user_prenom1" id="user_prenom1" class="form-control" placeholder="Prénom" />
                               </div>
                               <div class="col-sm-2">
                                 <button type="button" class="btn btn-success cov-ug-add" url="' . Adduser::getUrl($group->id) . '" data-toggle="tooltip" title="Ajouter au groupe">'.Html::getIcon('user-plus').'</button>

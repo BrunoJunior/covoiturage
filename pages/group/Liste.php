@@ -34,9 +34,7 @@ class Liste extends ServiceVue {
                 echo BP::getTuile($group);
             }
         }
-        if ($user->admin) {
-            echo BP::getTuileAdd();
-        }
+        echo BP::getTuileAdd();
         echo "</div></div>";
     }
 

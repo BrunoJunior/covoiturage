@@ -30,7 +30,7 @@ class Edit extends ServiceVue {
     public function executerService() {
         $group = new BO(HRequete::getPOST('id'));
         $user = $this->getUser();
-        if (!$group->isUserAdminGroup($user) && !$user->admin) {
+        if ($group->existe() && !$group->isUserAdminGroup($user) && !$user->admin) {
             throw new Exception('Vous n\'êtes pas autorisé à modifier ce groupe !');
         }
         echo BP::getForm($group);
