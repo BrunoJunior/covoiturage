@@ -9,6 +9,13 @@ div_princ.find('.group-remove').data('callback', function (button, reponse) {
 });
 
 /**
+ * On cache la modal
+ */
+div_princ.find('button.trajp-submit').data('callback', function (button, reponse) {
+    button.closest('.modal').modal('hide');
+});
+
+/**
  * Datepiker pour choisir la date du trajet
  */
 $("input[name='prev_date']").datepicker({

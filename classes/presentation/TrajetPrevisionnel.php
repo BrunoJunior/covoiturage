@@ -52,7 +52,7 @@ class TrajetPrevisionnel {
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                              <button type="submit" class="btn btn-success" value="submit" name="submit" id="submit">Proposer</button>
+                              <button type="submit" class="btn btn-success trajp-submit" value="submit" name="submit" id="submit-'.$group->id.'">Proposer</button>
                             </div>
                           </div>
                         </div>
