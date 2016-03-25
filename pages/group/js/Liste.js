@@ -9,10 +9,11 @@ div_princ.find('.group-remove').data('callback', function (button, reponse) {
 });
 
 /**
- * On cache la modal
+ * On cache la modal quand on à envoyé la proposition
  */
-div_princ.find('button.trajp-submit').data('callback', function (button, reponse) {
-    button.closest('.modal').modal('hide');
+div_princ.find('form.trajp-form').data('callback', function (reponse, form) {
+    cacherErr(form.find('button.trajp-submit'));
+    form.closest('.modal').modal('hide');
 });
 
 /**

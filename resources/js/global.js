@@ -1,22 +1,48 @@
 /**
  * Afficher un message d'erreur
  * @param {String} message
+ * @param {JQuery Object} source
  * @returns {void}
  */
-function afficherErr(message) {
+function afficherErr(message, source) {
     var div_alert_err = $('#cov-alert-error');
+    if (source != undefined) {
+        div_alert_err = source.closest('.container-alert').find('.cov-alert-error');
+        if (div_alert_err.length < 1) {
+            div_alert_err = $('#cov-alert-error');
+        }
+    }
     div_alert_err.find('.message').text(message);
     div_alert_err.removeClass('hidden');
     div_alert_err.fadeIn();
 }
 
+function cacherErr(source) {
+    var div_alert_err = $('#cov-alert-error');
+    if (source != undefined) {
+        div_alert_err = source.closest('.container-alert').find('.cov-alert-error');
+        if (div_alert_err.length < 1) {
+            div_alert_err = $('#cov-alert-error');
+        }
+    }
+    div_alert_err.fadeOut();
+}
+
 /**
  * Affichage message OK
  * @param {String} message
+ * @param {JQuery Object} source
  * @returns {void}
  */
-function afficherOK(message) {
+function afficherOK(message, source) {
+    debugger;
     var div_alert_suc = $('#cov-alert-success');
+    if (source != undefined) {
+        div_alert_suc = source.closest('.container-alert').find('.cov-alert-success');
+        if (div_alert_suc.length < 1) {
+            div_alert_suc = $('#cov-alert-success');
+        }
+    }
     div_alert_suc.find('.message').text(message);
     div_alert_suc.removeClass('hidden');
     div_alert_suc.fadeIn();
@@ -68,6 +94,7 @@ $(function () {
             }
         }
         var callback = button.data('callback');
+        var callback_always = button.data('callback-always');
         var define_params = button.data('define-params');
         var params = {};
         if (define_params !== undefined) {
@@ -78,19 +105,23 @@ $(function () {
         $.getJSON(url, params)
                 .done(function (json) {
                     if (json.isErr) {
-                        afficherErr(json.message);
+                        afficherErr(json.message, button);
                     } else if (callback !== undefined) {
                         callback(button, json.reponse);
-                    } else {
-                        afficherOK(json.message);
+                    }
+                    if (!json.isErr) {
+                        afficherOK(json.message, button);
                     }
                 })
                 .fail(function (jqxhr, textStatus, error) {
                     var err = textStatus + ", " + error;
-                    afficherErr(err);
+                    afficherErr(err, button);
                 })
                 .always(function () {
                     cacherLoading();
+                    if (callback_always !== undefined) {
+                        callback_always(button);
+                    }
                 });
     });
 
@@ -104,6 +135,7 @@ $(function () {
         e.stopPropagation();
         var form = button.closest('form');
         var callback = form.data('callback');
+        var callback_always = form.data('callback-always');
         div_alert_err.fadeOut();
         div_alert_suc.fadeOut();
         var data = form.serialize() + '&submit=' + button.attr('value');
@@ -114,18 +146,22 @@ $(function () {
             dataType: 'json', // JSON
             success: function (json) {
                 if (json.isErr) {
-                    afficherErr(json.message);
+                    afficherErr(json.message, button);
                 } else if (callback !== undefined) {
-                    callback(json.reponse);
-                } else {
-                    afficherOK(json.message);
+                    callback(json.reponse, form);
+                }
+                if (!json.isErr) {
+                    afficherOK(json.message, button);
                 }
             }
         }).fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
-            afficherErr(err);
+            afficherErr(err, button);
         }).always(function () {
             cacherLoading();
+            if (callback_always !== undefined) {
+                callback_always(form);
+            }
         });
         ;
         return false;

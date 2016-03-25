@@ -55,12 +55,12 @@ class Group {
             $user = $usergroup->getUser();
             $credit = $user->getScore($group);
             if ($conUser->admin) {
-                $html .= '<a href="' . EditUserVue::getUrl($user->id) . '">'.Html::getIcon('pencil').'</a> ';
+                $html .= '<a class="btn btn-warning" role="button" href="' . EditUserVue::getUrl($user->id) . '">'.Html::getIcon('pencil').'</a> ';
             } 
             if ($conUser->id != $user->id) {
-                $html .= '<a href="' . ContactUserVue::getUrl($user->id) . '" data-toggle="tooltip" title="Contacter">'.Html::getIcon('envelope').'</a> ';
+                $html .= '<a class="btn btn-primary" role="button" href="' . ContactUserVue::getUrl($user->id) . '" data-toggle="tooltip" title="Contacter">'.Html::getIcon('envelope').'</a> ';
             }
-            $html .= $user->toHtml() . '<span class="badge ' . ($credit < 0 ? 'bg-danger' : 'bg-success') . '">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($group) . '</span>';
+            $html .= '<span class="user">' . $user->toHtml() . '</span><span class="badge ' . ($credit < 0 ? 'bg-danger' : 'bg-success') . '">' . $credit . '</span><span class="badge conducteur">' . $user->getNbVoyageConducteur($group) . '</span>';
             if (!empty($prochainConducteur) && $user->id == $prochainConducteur->id) {
                 $html .= Html::getIcon('road').' ';
             } else if (!empty($conducteurRecurrent) && $user->id == $conducteurRecurrent->id) {

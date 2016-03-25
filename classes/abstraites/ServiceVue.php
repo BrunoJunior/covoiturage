@@ -152,11 +152,11 @@ abstract class ServiceVue extends Service {
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
                 </div>
             </header>
-            <div id="main-page" class="container">
-            <div id="cov-alert-error" class="alert alert-danger hidden" role="alert">
+            <div id="main-page" class="container container-alert">
+            <div id="cov-alert-error" class="alert alert-danger hidden cov-alert-error" role="alert">
                 <span class="message"></span>
             </div>
-            <div id="cov-alert-success" class="alert alert-success hidden" role="alert">
+            <div id="cov-alert-success" class="alert alert-success hidden cov-alert-success" role="alert">
                 <span class="message"></span>
             </div>';
         $this->executerService();

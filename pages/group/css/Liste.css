@@ -13,13 +13,14 @@
     text-align: center;
 }
 
-#cov-group-list .cov-group-users .fa {
-    margin-left: 5px;
+#cov-group-list .cov-group-users .user {
+    margin-right: 5px;
 }
 
 #cov-group-list .cov-group-users .badge {
     margin-right: 5px;
     float: right;
+    margin-top: 10px;
 }
 
 #cov-group-list .cov-group-users .badge.bg-danger {
@@ -68,7 +69,7 @@
     height: 45px;
 }
 
-#cov-group-list .cov-group .cov-group-actions a,
-#cov-group-list .cov-group .cov-group-actions button {
+#cov-group-list .cov-group .btn {
     margin: 5px;
+    text-align: center;
 }
