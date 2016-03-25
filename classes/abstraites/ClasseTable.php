@@ -454,7 +454,7 @@ abstract class ClasseTable extends ClasseSimple {
             $query .= 'CONSTRAINT `' . $champFk->getNomFk() . '` FOREIGN KEY (`' . $champFk->nom_colonne . '`) REFERENCES `' . $reference->nom . '`(`' . $reference->champ_primaire->nom_colonne . '`),';
         }
 
-        $query = rtrim($query, ',') . ')';
+        $query = rtrim($query, ',') . ') ENGINE=InnoDB';
 
         if (!HDatabase::executer($query)) {
             throw new Exception('Création table ' . static::getTable()->nom . ' KO');
