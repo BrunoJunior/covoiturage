@@ -100,3 +100,10 @@ html, body {
     z-index: 99999;
     padding-top: 25%;
 }
+
+.pagination li a {
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 28px;
+    text-align: center;
+}

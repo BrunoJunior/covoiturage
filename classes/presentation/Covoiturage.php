@@ -141,7 +141,7 @@ class Covoiturage {
      * @return string
      */
     private static function getHtmlTable($covoiturages, $label, $nbTotal, $nbPage = 0, $page = 1, $withConducteur = TRUE, $withPassagers = TRUE) {
-        $htmlPagination = Html::getBlocPagination(3, $nbPage, $page);
+        $htmlPagination = Html::getBlocPagination(5, $nbPage, $page);
         $html = '<div class="panel panel-info">
                 <div class="panel-heading"><h3 class="panel-title">' . $label . ' <span class="badge">' . $nbTotal . '</span></h3></div>
                 <div class="panel-body">' . $htmlPagination . '<table class="table">';

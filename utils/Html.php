@@ -40,7 +40,7 @@ class Html {
             $htmlPagination .= '<li class="' . ($page <= 1 ? 'disabled' : '') . '"><a href="-1" aria-label="Précédents"><span aria-hidden="true">&laquo;</span></a></li>';
             for ($index = 1; $index <= $nbPage; $index++) {
                 if ($hasSepGauche && $index === 2) {
-                    $htmlPagination .= '<li class="disabled"><a>...</a></li>';
+                    $htmlPagination .= '<li class="disabled no-button"><a>...</a></li>';
                 }
                 if ($index == 1 || $index == 2 && !$hasSepGauche ||
                         $index == $nbPage || $index == $nbPage-1 && !$hasSepDroit ||
@@ -48,7 +48,7 @@ class Html {
                     $htmlPagination .= '<li class="' . ($index == $page ? 'active' : '') . '"><a href="' . $index . '">' . $index . '</a></li>';
                 }
                 if ($hasSepDroit && $index === ($nbPage-1)) {
-                    $htmlPagination .= '<li class="disabled"><a>...</a></li>';
+                    $htmlPagination .= '<li class="disabled no-button"><a>...</a></li>';
                 }
             }
             $htmlPagination .= '<li class="' . ($page >= $nbPage ? 'disabled' : '') . '"><a href="+1" aria-label="Suivants"><span aria-hidden="true">&raquo;</span></a></li>';
