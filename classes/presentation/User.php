@@ -42,11 +42,11 @@ class User {
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="user_password" class="col-sm-2 control-label required">Mot de passe</label>
-                      <div class="col-xs-10 col-sm-8">
+                      <label for="user_password" class="col-xs-12 col-sm-2 control-label required">Mot de passe</label>
+                      <div class="col-xs-8 col-sm-7 col-lg-8">
                         <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Mot de passe" required="required">
                       </div>
-                      <div class="col-xs-2">
+                      <div class="col-xs-4 col-sm-3 col-lg-2">
                         <button type="button" id="user_forgot" class="btn btn-default cov-ug-add" url="' . Forgotpwd::getUrl() . '" data-toggle="tooltip" title="Définir un nouveau mot de passe">' . Html::getIcon('key') . ' J\'ai oublié</button>
                       </div>
                     </div>
