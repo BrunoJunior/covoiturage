@@ -57,4 +57,19 @@ class Covoiturage extends DAO {
             $passager->supprimer();
         }
     }
+
+    /**
+     * Ajoute un passager au trajet
+     * @param User $user
+     * @return void
+     */
+    public function ajouterPassager(User $user) {
+        if ($this->isPassagerDejaPresent($user)) {
+            return;
+        }
+        $passager = new Passager();
+        $passager->covoiturage_id = $this->id;
+        $passager->user_id = $user->id;
+        $passager->merger();
+    }
 }

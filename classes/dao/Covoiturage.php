@@ -17,10 +17,9 @@ use covoiturage\classes\abstraites\ClasseTable;
 use covoiturage\classes\metier\Group as GroupBO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\classes\metier\Passager as PassagerBO;
+use covoiturage\classes\metier\Covoiturage as BO;
 
-// Helpers
 use covoiturage\utils\HDatabase;
-use DateTime;
 
 /**
  * Description of Covoiturage
@@ -82,19 +81,48 @@ class Covoiturage extends ClasseTable {
     }
 
     /**
+     * Un utilisateur est-il déjà passager d'un trajet
+     * @param UserBO $passager
+     * @return boolean
+     */
+    public function isPassagerDejaPresent(UserBO $passager) {
+        $sql = "SELECT c.id FROM covoiturage c INNER JOIN passager p ON (p.covoiturage_id = c.id AND p.user_id = ?) WHERE c.id = ?";
+        $params = [$passager->id, $this->id];
+        $result = HDatabase::rechercher($sql, $params);
+        return !empty($result);
+    }
+
+    /**
+     * Obtenir un covoiturage déjà présent pour le groupe, la date et le type donné
+     * @return BO
+     */
+    public static function chercherDejaPresent($idGroup, $date, $type, $id = NULL) {
+        $dateBdd = HDatabase::convertDateForBDD($date);
+        $sql = 'SELECT * FROM covoiturage WHERE group_id = ? AND date = ? AND type = ?';
+        $params = [$idGroup, $dateBdd, $type];
+        if (!empty($id)) {
+            $sql .= ' AND id != ?';
+            $params[] = $id;
+        }
+        $resultat = static::getListe($sql, $params);
+        if (!empty($resultat)) {
+            return $resultat[0];
+        }
+        $covoiturage = new BO();
+        $covoiturage->group_id = $idGroup;
+        $covoiturage->date = $dateBdd;
+        $covoiturage->type = $type;
+        return $covoiturage;
+    }
+
+    /**
      * Un covoiturage a-t-il déjà été effectué
      * Recherche par date, type et groupe
      * @return boolean
      */
     public function isDejaPresent() {
-        $sql = 'SELECT * FROM covoiturage WHERE group_id = ? AND date = ? AND type = ?';
-        $params = [$this->group_id, $this->transformerValeurPourBdd('date'), $this->type];
-        if ($this->existe()) {
-            $sql .= ' AND id != ?';
-            $params[] = $this->id;
-        }
-        $result = HDatabase::rechercher($sql, $params);
-        return !empty($result);
+        $trouve = static::chercherDejaPresent($this->group_id, $this->transformerValeurPourBdd('date'), $this->type, $this->id);
+        return $trouve->existe();
     }
 
     /**
@@ -105,7 +133,7 @@ class Covoiturage extends ClasseTable {
      */
     protected function transformerValeurFromBdd($attribut, $value) {
         if ($attribut == 'date') {
-            return date('d/m/Y', strtotime($value));
+            return HDatabase::convertDateFromBDD($value);
         }
         return parent::transformerValeurFromBdd($attribut, $value);
     }
@@ -117,8 +145,7 @@ class Covoiturage extends ClasseTable {
      */
     protected function transformerValeurPourBdd($attribut) {
         if ($attribut == 'date') {
-            $date = DateTime::createFromFormat('d/m/Y', $this->$attribut);
-            return $date->format('Y-m-d');
+            return HDatabase::convertDateForBDD($this->$attribut);
         }
         return parent::transformerValeurPourBdd($attribut);
     }

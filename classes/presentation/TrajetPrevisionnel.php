@@ -14,6 +14,9 @@ use covoiturage\classes\metier\TrajetPrevisionnel as BO;
 use covoiturage\classes\metier\User as UserBO;
 use covoiturage\utils\Html;
 
+use covoiturage\services\trajetprevisionnel\Valider as ValiderTrajet;
+use covoiturage\services\passagerprevisionnel\Valider as ValiderPassager;
+
 /**
  * Description of TrajetPrevisionnel
  *
@@ -109,12 +112,13 @@ class TrajetPrevisionnel {
             foreach ($passagers as $passager) {
                 $user = $passager->getUser();
                 $htmlPassagers .= '<div class="trajp-passager-tuile bg-info" data-param-id="' . $passager->id . '"><span class="trajp-passager-lib">' . $user->toHtml() . '</span>';
-                $htmlPassagers .= '</div>';
+                $htmlPassagers .= '<button class="btn btn-success" href="' . ValiderPassager::getUrl($passager->id) . '" role="button" data-toggle="tooltip" title="Valider le passager">'.Html::getIcon('check').'</button></div>';
             }
         }
         $html = '<tr><td class="hidden">' . $trajet->id . '</td><td>' . $trajet->date . '</td><td class="center">' . static::getIcone($trajet) . '</td>';
         $html .= '<td>' . $htmlPassagers . '</td>';
         $html .= '<td>
+                    <button class="btn btn-success" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
                     <!-- <button class="btn btn-danger cov-trajet-del" href="' . Delete::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button> !>
                   </td>';
         $html .= '</tr>';

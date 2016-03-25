@@ -28,6 +28,7 @@
 namespace covoiturage\utils;
 
 use covoiturage\utils\HLog;
+use DateTime;
 
 /**
  * Description of HDatabase
@@ -35,6 +36,9 @@ use covoiturage\utils\HLog;
  * @author bruno
  */
 class HDatabase {
+
+    const FORMAT_DATE_BDD = 'Y-m-d';
+    const FORMAT_DATE_AFFICHAGE = 'd/m/Y';
 
     /**
      * Connexion PDO
@@ -140,6 +144,25 @@ class HDatabase {
      */
     public static function getDernierIdCree() {
         return HDatabase::getInstance()->lastInsertId();
+    }
+
+    /**
+     * Convertir une date pour la BDD
+     * @param string $date
+     * @return string
+     */
+    public static function convertDateForBDD($date) {
+        $dateBdd = DateTime::createFromFormat(static::FORMAT_DATE_AFFICHAGE, $date);
+        return $dateBdd->format(static::FORMAT_DATE_BDD);
+    }
+
+    /**
+     * Convertir une date depuis la BDD
+     * @param string $date
+     * @return string
+     */
+    public static function convertDateFromBDD($date) {
+        return date(static::FORMAT_DATE_AFFICHAGE, strtotime($date));
     }
 
 }

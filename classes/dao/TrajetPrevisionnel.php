@@ -52,7 +52,7 @@ class TrajetPrevisionnel extends ClasseTable {
         $champs[] = ChampTable::getPrimaire('id');
         $champs[] = ChampTable::getFk('group_id', Group::getTable());
         $champs[] = ChampTable::getFk('conducteur_id', User::getTable());
-        $champs[] = ChampTable::getPersiste('date', 'datetime', true, true);
+        $champs[] = ChampTable::getPersiste('date', 'date', true, true);
         $champs[] = ChampTable::getPersiste('type', 'tinyint', true, true, 1);
         return new Table('trajet_previsionnel', $champs);
     }
@@ -105,7 +105,7 @@ class TrajetPrevisionnel extends ClasseTable {
      */
     protected function transformerValeurFromBdd($attribut, $value) {
         if ($attribut == 'date') {
-            return date('d/m/Y', strtotime($value));
+            return HDatabase::convertDateFromBDD($value);
         }
         return parent::transformerValeurFromBdd($attribut, $value);
     }
@@ -117,10 +117,32 @@ class TrajetPrevisionnel extends ClasseTable {
      */
     protected function transformerValeurPourBdd($attribut) {
         if ($attribut == 'date') {
-            $date = DateTime::createFromFormat('d/m/Y', $this->$attribut);
-            return $date->format('Y-m-d');
+            return HDatabase::convertDateForBDD($this->$attribut);
         }
         return parent::transformerValeurPourBdd($attribut);
+    }
+
+    /**
+     * Liste des trajets prévisionnels obsolètes
+     * @return \covoiturage\classes\metier\TrajetPrevisionnel[]
+     */
+    protected static function getListeObsoletes() {
+        $requete = static::getSqlSelect();
+        $requete .= ' WHERE date < NOW()';
+        return static::getListe($requete);
+    }
+
+    /**
+     * Liste des trajets prévisionnels pour un groupe, un passager à une date
+     * @return \covoiturage\classes\metier\TrajetPrevisionnel[]
+     */
+    public static function getListePourGroupDateEtPassager($idGroup, $date, $idPassager) {
+        $dateBdd = HDatabase::convertDateForBDD($date);
+        $sql = "SELECT tp.* FROM trajet_previsionnel tp
+                INNER JOIN passager_previsionnel pp ON (pp.trajet_previsionnel_id = tp.id AND pp.user_id = ?)
+                WHERE tp.group_id = ? AND tp.`date` = ?";
+        $params = [$idPassager, $idGroup, $dateBdd];
+        return static::getListe($sql, $params);
     }
 
 }

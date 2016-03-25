@@ -20,6 +20,26 @@ use covoiturage\classes\metier\PassagerPrevisionnel as PassagerPrevisionnelBO;
  * @author bruno
  */
 class Repondre extends ServiceVue {
+
+    /**
+     * La chaine suivant le type
+     * @param BO $trajetPrevisionnel
+     * @return string
+     */
+    private static function getStrType(BO $trajetPrevisionnel) {
+        switch ($trajetPrevisionnel->type) {
+            case BO::TYPE_ALLER:
+                $type = "l'aller";
+                break;
+            case BO::TYPE_RETOUR:
+                $type = "le retour";
+                break;
+            case BO::TYPE_ALLER_RETOUR:
+                $type = "l'aller et le retour";
+                break;
+        }
+        return $type;
+    }
     /**
      * Réception d'une réponse pour un trajet prévisionnel
      */
@@ -33,19 +53,7 @@ class Repondre extends ServiceVue {
         $passager->trajet_previsionnel_id = $trajetPrevisionnel->id;
         $passager->user_id = $user->id;
         $passager->merger();
-
-        switch ($trajetPrevisionnel->type) {
-            case BO::TYPE_ALLER:
-                $type = "l'aller";
-                break;
-            case BO::TYPE_RETOUR:
-                $type = "le retour";
-                break;
-            case BO::TYPE_ALLER_RETOUR:
-                $type = "l'aller et le retour";
-                break;
-        }
-        
+        $type = static::getStrType($trajetPrevisionnel);
         $conducteur = $trajetPrevisionnel->getConducteur();
         $conducteur->contacter(
                 "Proposition de trajet du " . $trajetPrevisionnel->date, 

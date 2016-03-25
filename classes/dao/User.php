@@ -270,6 +270,8 @@ class User extends ClasseTable {
      * @return int|TrajetPrevisionnelBO[]
      */
     public function getListeTrajetsPrevisionnels($mode = self::MODE_NORMAL) {
+        // On commence par supprimer les trajets prévisionnels passés
+        TrajetPrevisionnelBO::supprimerObsoletes();
         $select = TrajetPrevisionnel::getSqlSelect();
         $from = '';
         $where = ' WHERE conducteur_id = ?';
