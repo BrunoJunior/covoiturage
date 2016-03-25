@@ -81,7 +81,7 @@ class TrajetPrevisionnel {
      * @return string
      */
     private static function getTh() {
-        $html = '<thead><tr><th class="hidden">id</th><th class="trajp-date">Date</th><th class="center trajp-type">Type</th><th>Passagers</th><th>Actions</th></tr></thead>';
+        $html = '<thead><tr><th class="hidden">id</th><th class="trajp-date">Date</th><th class="center trajp-type">Type</th><th>Passagers</th><th class="center trajp-action">Actions</th></tr></thead>';
         return $html;
     }
 
@@ -118,7 +118,7 @@ class TrajetPrevisionnel {
         }
         $html = '<tr><td class="hidden">' . $trajet->id . '</td><td>' . $trajet->date . '</td><td class="center">' . static::getIcone($trajet) . '</td>';
         $html .= '<td>' . $htmlPassagers . '</td>';
-        $html .= '<td>
+        $html .= '<td class="center">
                     <button class="btn btn-success" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
                   </td>';
         $html .= '</tr>';
