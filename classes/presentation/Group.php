@@ -72,7 +72,7 @@ class Group {
         $html .= '<div class="cov-group-actions"><hr />';
         $html .= '<a class="btn btn-success" href="' . RecapVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Récapitulatif">'.Html::getIcon('balance-scale').'</a>';
         $html .= '<a class="btn btn-primary" href="' . TrajetVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Gérer les trajets">'.Html::getIcon('road').'</a>';
-        $html .= '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cov-prev-'.$group->id.'"><span data-toggle="tooltip" title="Proposer un trajet">'.Html::getIcon('share-alt').'</span></button>';
+        $html .= '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cov-prev-'.$group->id.'"><span data-toggle="tooltip" title="Proposer un trajet">'.Html::getIcon('car').'</span></button>';
         $html .= '<a class="btn btn-primary" href="' . ContactVue::getUrl($group->id) . '" role="button" data-toggle="tooltip" title="Contacter le groupe">'.Html::getIcon('envelope').'</span></a>';
         if ($conUser->admin || $group->isUserAdminGroup($conUser)) {
             $html .= '<a class="btn btn-warning" href="' . EditVue::getUrl($group->id) . '" data-toggle="tooltip" title="Editer">'.Html::getIcon('pencil').'</a>';
