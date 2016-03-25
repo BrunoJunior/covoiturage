@@ -28,6 +28,11 @@ class Valider extends Service {
         if ($this->getUser()->id != $idConducteur) {
             throw new Exception("Vous n'êtes pas autorisé à exécuter ce service !");
         }
+        $passagers = $trajet->getListePassagers();
+        if (empty($passagers)) {
+            throw new Exception("Vous ne pouvez valider un trajet sans passager !");
+        }
+
         $trajet->valider();
         $this->setMessage("Trajet validé");
     }
