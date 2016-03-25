@@ -65,8 +65,9 @@ class TrajetPrevisionnel {
         $trajets = $user->getListeTrajetsPrevisionnels();
         $html = '<div id="trajp-liste">
                     <div class="panel panel-info">
-                    <div class="panel-heading"><h3 class="panel-title">Mes trajets prévisionnels <span class="badge">' . $user->getListeTrajetsPrevisionnels(BO::MODE_COUNT) . '</span></h3></div>
-                    <div class="panel-body"><table class="table">';
+                        <div class="panel-heading"><h3 class="panel-title">Mes trajets prévisionnels <span class="badge">' . $user->getListeTrajetsPrevisionnels(BO::MODE_COUNT) . '</span></h3></div>
+                        <div class="panel-body">
+                            <table class="table">';
         $html .= static::getTh() . '<tbody>';
         foreach ($trajets as $trajet) {
             $html .= static::getTr($trajet);
@@ -119,7 +120,6 @@ class TrajetPrevisionnel {
         $html .= '<td>' . $htmlPassagers . '</td>';
         $html .= '<td>
                     <button class="btn btn-success" href="' . ValiderTrajet::getUrl($trajet->id) . '" role="button" data-toggle="tooltip" title="Valider le trajet">'.Html::getIcon('check').'</button>
-                    <!-- <button class="btn btn-danger cov-trajet-del" href="" role="button" data-toggle="tooltip" title="Supprimer" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('trash') . '</button> !>
                   </td>';
         $html .= '</tr>';
         return $html;

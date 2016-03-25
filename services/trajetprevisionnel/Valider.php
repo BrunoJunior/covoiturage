@@ -10,6 +10,7 @@ namespace covoiturage\services\trajetprevisionnel;
 
 use covoiturage\classes\abstraites\Service;
 use covoiturage\classes\metier\TrajetPrevisionnel as BO;
+use covoiturage\utils\HRequete;
 use Exception;
 
 /**
