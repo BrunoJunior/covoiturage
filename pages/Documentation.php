@@ -24,8 +24,10 @@ class Documentation extends ServiceVue {
      */
     public function executerService() {
         echo '<div id="doc">';
-        echo '<h4>Connexion</h4>';
-        echo static::getImage('connexion', 'connexion');
+        echo '<h4>Connexion / Oubli de mot de passe</h4>';
+        echo static::getImage('connexion', 'connexion', "En cas d'oubli du mot de passe, renseignez votre adresse email et cliquez sur le bouton \"J'ai oublié\"");
+        echo '<h4>Inscription</h4>';
+        echo static::getImage('inscription', 'inscription', "");
         echo '</div>';
     }
 
@@ -51,9 +53,14 @@ class Documentation extends ServiceVue {
      * @param string $alt
      * @return string
      */
-    private static function getImage($nom, $alt) {
+    private static function getImage($nom, $alt, $legend = '') {
         $root = Cache::get('', 'root');
-        return '<img src="' . $root . 'resources/img/doc/' . $nom . '.jpg" class="img-responsive" alt="' . $alt . '" />';
+        $html = '<p><img src="' . $root . 'resources/img/doc/' . $nom . '.jpg" class="img-responsive" alt="' . $alt . '" />';
+        if (!empty($legend)) {
+            $html .= '<span class="legend">'.$legend.'</span>';
+        }
+        $html .= '</p>';
+        return $html;
     }
 
 }
