@@ -41,7 +41,7 @@ class Documentation extends ServiceVue {
         echo static::getImage('tuile', 'tuile d\'un groupe', "Cette tuile représente un groupe et liste les informations les plus utiles.<br />"
                 . "Une série d'actions sont disponibles sur un groupe.");
         echo '<h4>Récapitulatif des encours</h4>';
-        echo static::getImage('tuile', 'tuile d\'un groupe', "Cet écran présente, pour chaque membre du groupe, le nombre de trajet dus.<br />"
+        echo static::getImage('recap', 'Encours', "Cet écran présente, pour chaque membre du groupe, le nombre de trajet dus.<br />"
                 . "Une valeur négative représente un membre débiteur.<br />"
                 . "Une valeur positive représente un membre créditeur.");
         echo '<h4>Gestion des trajets</h4>';
