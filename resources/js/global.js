@@ -35,7 +35,6 @@ function cacherErr(source) {
  * @returns {void}
  */
 function afficherOK(message, source) {
-    debugger;
     var div_alert_suc = $('#cov-alert-success');
     if (source != undefined) {
         div_alert_suc = source.closest('.container-alert').find('.cov-alert-success');
@@ -50,7 +49,6 @@ function afficherOK(message, source) {
 
 function afficherLoading() {
     var div_loading = $('#loading');
-    window.scrollTo(0, 0);
     div_loading.fadeIn();
 }
 
@@ -139,14 +137,12 @@ $(function () {
         div_alert_err.fadeOut();
         div_alert_suc.fadeOut();
         var data = form.serialize() + '&submit=' + button.attr('value');
-        debugger;
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
             data: data,
             dataType: 'json', // JSON
             success: function (json) {
-                debugger;
                 if (json.isErr) {
                     afficherErr(json.message, button);
                 } else if (callback !== undefined) {
@@ -157,11 +153,9 @@ $(function () {
                 }
             }
         }).fail(function (jqxhr, textStatus, error) {
-            debugger;
             var err = textStatus + ", " + error;
             afficherErr(err, button);
         }).always(function () {
-            debugger;
             cacherLoading();
             if (callback_always !== undefined) {
                 callback_always(form);

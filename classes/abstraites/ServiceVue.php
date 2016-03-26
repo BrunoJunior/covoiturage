@@ -148,6 +148,7 @@ abstract class ServiceVue extends Service {
             echo '<button id="cov-deco" class="btn btn-danger deconnexion" url="' . Logout::getUrl() . '" role="button" data-toggle="tooltip" title="Déconnexion" data-confirm="Êtes-vous sûr ?">' . Html::getIcon('sign-out') . '</button>';
             echo '<a class="btn btn-primary account" href="' . Edit::getUrl($user->id) . '" role="button" data-toggle="tooltip" title="Mes infos">' . Html::getIcon('user') . '</a>';
         }
+        echo '<a class="btn btn-primary doc" href="/documentation.html" role="button" data-toggle="tooltip" title="Documentation">' . Html::getIcon('book') . '</a>';
         echo '      <hr />
                     <h3 class="text-center"><span class="label label-info">' . $this->titre . '</span></h3>
                 </div>
