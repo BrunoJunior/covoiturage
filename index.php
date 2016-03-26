@@ -10,7 +10,7 @@ $page = '';
 if (empty($service)) {
     $page = covoiturage\utils\HRequete::getGET('page', 'liste');
     $service = $page;
-    $group = covoiturage\utils\HRequete::getGET('pagegroup', 'group');
+    $group = covoiturage\utils\HRequete::getGET('pagegroup', ($page == 'liste' ? 'group' : ''));
     $serviceName .= "pages\\";
 } else {
     $group = covoiturage\utils\HRequete::getGET('pagegroup');
