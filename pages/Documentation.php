@@ -50,7 +50,7 @@ class Documentation extends ServiceVue {
         echo static::getImage('trajets_prev', 'Liste des trajets proposés', "Les trajets proposés apparaissent dans la gestion de trajets.<br />"
                 . "Chaque ligne représente un aller, un retour ou un aller/retour.<br />"
                 . "Sur chaque ligne, les membres ayant répondu favorablement sont ajoutés en tant que passager.<br />"
-                . "Si le covoiturage à lieu avec les personnes prévues, le conducteur peut valider ses trajets.<br />"
+                . "Si le covoiturage a lieu avec les personnes prévues, le conducteur peut valider ses trajets.<br />"
                 . "Si des membres prévus n'étaient pas présent, il est possible de les enlever du trajet prévisionnel avant de le valider.");
         echo static::getImage('nouv_trajet', 'Ajouter un trajet', "Vous avez été conducteur pour le groupe sélectionné.<br />"
                 . "Vous pouvez donc créer un trajet en spécifiant la date et les passagers.<br />"
