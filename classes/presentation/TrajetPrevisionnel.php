@@ -20,6 +20,7 @@ use covoiturage\services\trajetprevisionnel\Delete as DeleteTrajet;
 use covoiturage\services\passagerprevisionnel\Delete as DeletePassager;
 use covoiturage\pages\trajetprevisionnel\Liste;
 use covoiturage\services\trajetprevisionnel\Clear;
+use covoiturage\pages\trajetprevisionnel\Repondre;
 
 /**
  * Description of TrajetPrevisionnel
@@ -84,6 +85,35 @@ class TrajetPrevisionnel {
     }
 
     /**
+     *
+     * @param GroupBO $group
+     * @param UserBO $user
+     */
+    public static function getHtmlTableEnAttente(GroupBO $group, UserBO $user) {
+        $trajets = $user->getListeTrajetsPrevisionnelsEnAttente($group->id);
+        $html = '<div id="trajp-attente-liste">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h3 class="panel-title">Trajets prévisionnels en attente de réponse</h3></div>
+                        <div class="panel-body">
+                            <table class="table">
+                            <thead><tr><th class="trajp-date">Date</th><th class="center trajp-action">Réponse</th></tr></thead><tbody>';
+        $date = NULL;
+        $params = ['user_id' => $user->id];
+        foreach ($trajets as $trajet) {
+            if ($date !== NULL && $trajet->date != $date) {
+                $html .= '</td></tr>';
+            }
+            if ($date === NULL || $trajet->date != $date) {
+                $date = $trajet->date;
+                $html .= '<tr><td>' . $date . '</td><td class="center">';
+            }
+            $html .= static::getButtonReponse($trajet, $user);
+        }
+        $html .= '</tbody></table></div></div></div>';
+        return $html;
+    }
+
+    /**
      * Obtenir l'entête du tableau de trajets prévisionnels
      * @return string
      */
@@ -105,6 +135,43 @@ class TrajetPrevisionnel {
                 return Html::getIcon("arrow-left", "trajp-type");
             case BO::TYPE_ALLER_RETOUR:
                 return Html::getIcon("exchange", "trajp-type");
+        }
+    }
+
+    /**
+     * Bouton de réponse
+     * @param BO $trajet
+     * @param UserBO $user
+     * @return string
+     */
+    private static function getButtonReponse(BO $trajet, UserBO $user) {
+        switch ($trajet->type) {
+            case BO::TYPE_RETOUR:
+                $buttonType = 'btn-success';
+                break;
+            case BO::TYPE_ALLER_RETOUR:
+                $buttonType = 'btn-primary';
+                break;
+            default :
+                $buttonType = 'btn-danger';
+                break;
+        }
+        return '<a class="btn '.$buttonType.'" href="' . Repondre::getUrl($trajet->id, ['user_id' => $user->id]) . '" role="button">'.static::getTypeLabel($trajet).'</a>';
+    }
+
+    /**
+     * Obtenir le libellé suivant le type de trajet
+     * @param BO $trajet
+     * @return string
+     */
+    private static function getTypeLabel(BO $trajet) {
+        switch ($trajet->type) {
+            case BO::TYPE_ALLER:
+                return 'Aller ' . static::getIcone($trajet);
+            case BO::TYPE_RETOUR:
+                return static::getIcone($trajet) . ' Retour';
+            case BO::TYPE_ALLER_RETOUR:
+                return 'Aller ' . static::getIcone($trajet) . ' Retour';
         }
     }
 
@@ -133,5 +200,4 @@ class TrajetPrevisionnel {
         $html .= '</tr>';
         return $html;
     }
-
 }

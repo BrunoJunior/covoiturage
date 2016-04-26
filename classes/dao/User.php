@@ -280,4 +280,23 @@ class User extends ClasseTable {
         $sql = $select . $from . $where . $order;
         return TrajetPrevisionnelBO::getListe($sql, $params, 0, 1, $mode);
     }
+
+    /**
+     * Liste des trajets prévisionnels dont l'utilisateur peut encore accepter un trajet proposé
+     * @return int|TrajetPrevisionnelBO[]
+     */
+    public function getListeTrajetsPrevisionnelsEnAttente($idGroup) {
+        $sql = TrajetPrevisionnel::getSqlSelect();
+        $sql .= " WHERE trajet_previsionnel.date >= CURRENT_DATE AND trajet_previsionnel.date NOT IN (
+                    SELECT DISTINCT(tp.date) FROM trajet_previsionnel tp
+                    INNER JOIN passager_previsionnel ON (passager_previsionnel.trajet_previsionnel_id = tp.id)
+                    WHERE tp.group_id = trajet_previsionnel.group_id
+                    AND passager_previsionnel.user_id = ?
+                ) AND trajet_previsionnel.group_id = ?
+                AND trajet_previsionnel.conducteur_id != ?
+                ORDER BY trajet_previsionnel.date DESC, trajet_previsionnel.type ASC";
+        $params = [$this->id, $idGroup, $this->id];
+        $liste = TrajetPrevisionnelBO::getListe($sql, $params);
+        return $liste;
+    }
 }

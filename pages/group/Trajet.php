@@ -39,6 +39,7 @@ class Trajet extends ServiceVue {
         echo '<div id="cov-group-trajet"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Nouveau trajet</h3></div><div class="panel-body">';
         echo CovoiturageBP::getForm($group);
         echo '</div></div>';
+        echo TrajetPrevisionnelBP::getHtmlTableEnAttente($group, $user);
         echo TrajetPrevisionnelBP::getHtmlTable($group, $user);
         echo CovoiturageBP::getHtmlTableCond($group, $user, 10);
         if (!$user->admin) {
