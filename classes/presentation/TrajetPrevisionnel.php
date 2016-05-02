@@ -96,7 +96,7 @@ class TrajetPrevisionnel {
                         <div class="panel-heading"><h3 class="panel-title">Trajets prévisionnels en attente de réponse</h3></div>
                         <div class="panel-body">
                             <table class="table">
-                            <thead><tr><th class="trajp-date">Date</th><th class="center trajp-action">Réponse</th></tr></thead><tbody>';
+                            <thead><tr><th class="trajp-date">Date</th><th class="trajp-conducteur">Conducteur</th><th class="center trajp-action">Réponse</th></tr></thead><tbody>';
         $date = NULL;
         $params = ['user_id' => $user->id];
         foreach ($trajets as $trajet) {
@@ -105,7 +105,7 @@ class TrajetPrevisionnel {
             }
             if ($date === NULL || $trajet->date != $date) {
                 $date = $trajet->date;
-                $html .= '<tr><td>' . $date . '</td><td class="center">';
+                $html .= '<tr><td>' . $date . '</td><td>'.$trajet->getConducteur()->toHtml().'</td><td class="center">';
             }
             $html .= static::getButtonReponse($trajet, $user);
         }
